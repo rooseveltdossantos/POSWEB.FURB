@@ -1,0 +1,60 @@
+﻿@using MvcBiblioteca
+@using System
+@using Biblioteca.Dominio
+@model IEnumerable<MvcBiblioteca.Models.UsuarioViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Lista de Usuarios</h2>
+<table>
+    <thead>
+       
+            <tr>
+                <th></th>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cpf)                    
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>                    
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoUsuario)
+                </th>
+            </tr>   
+       
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("alterar", 
+                                     "alterar", 
+                                     new { usuarioId = @usuario.UsuarioId }, 
+                                     new {@class = "linkAlteracao" })
+                </td>
+                <td>
+                    @Html.ActionLink("excluir", 
+                                     "excluir", 
+                                     new { usuarioId = @usuario.UsuarioId }, 
+                                     new {@class = "linkExclusao" })
+                </td>
+                <td>@usuario.Cpf
+                </td>
+                <td>@usuario.Nome
+                </td>
+                <td>@(usuario.Status ? "Ativo" : "Inativo")
+                </td>
+                <td>@usuario.TipoUsuario
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Criar um novo", "novo")

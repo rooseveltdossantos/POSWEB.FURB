@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Biblioteca.Dominio.Livro>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
+}
+
+<h2>Lista de Livros</h2>
+
+@using (Html.BeginForm("Localizar", "Livros", FormMethod.Post))
+{
+    @Html.TextBox("q", null, new { PlaceHolder = "localizar...", id = "localizar"})
+    <button type="submit" value="Localizar">Localizar</button>
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ano</th>
+            <th>Preço</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var livro in Model)
+        {
+           <tr>
+            <td>@Html.ActionLink(
+                        @livro.Titulo, 
+                        "descricaoLivro", 
+                        new { livroId = @livro.LivroId }, 
+                        new { @class = "descricaoLink"}) 
+                </td>
+            <td>@livro.Autor</td>
+            <td>@livro.Ano</td>
+            <td>@livro.Preco</td>
+            <td>@Html.ActionLink(
+                 "comentários",
+                 "Index",
+                 "Comentarios",
+                 new { livroId = @livro.LivroId },
+                 new { @class = "linkComentarios" })
+            </td>
+           </tr>
+        }
+    </tbody>
+</table>
+
+<div id="descricaoLivro"></div>
+
+@Html.ActionLink("Criar Livro", "novo")

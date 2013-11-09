@@ -1,0 +1,32 @@
+﻿@model Biblioteca.Dominio.Livro
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
+}
+
+<h4>Comentários de @Model.Titulo</h4>
+
+<ul id="comentarios">
+    @foreach (var comentario in Model.Comentarios)
+    {
+        <li>@comentario.Comentario</li>
+    }
+</ul>
+
+@using (Html.BeginForm(
+            "AdicionarComentario",
+            "Comentarios",
+            FormMethod.Post, new { id = "formComentarios" }))
+{
+ 
+    @Html.HiddenFor(x => x.LivroId)
+       
+    @Html.TextArea("comentario", new { rows = 5, cols = 50 })
+    <br />
+    <input type="submit" value="Adicionar Comentário" />
+}

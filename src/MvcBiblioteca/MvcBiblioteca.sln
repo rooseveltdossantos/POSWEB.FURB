@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBiblioteca", "MvcBiblioteca\MvcBiblioteca.csproj", "{0B845F71-529F-45C1-B2DC-86EEA5A6EFEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Dominio", "Biblioteca.Dominio\Biblioteca.Dominio.csproj", "{27902AF0-4AD3-4661-A174-194A632905A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.DataAccess", "Biblioteca.DataAccess\Biblioteca.DataAccess.csproj", "{154A062D-E4E5-4471-AFB3-23A6DA463EBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B845F71-529F-45C1-B2DC-86EEA5A6EFEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B845F71-529F-45C1-B2DC-86EEA5A6EFEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B845F71-529F-45C1-B2DC-86EEA5A6EFEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B845F71-529F-45C1-B2DC-86EEA5A6EFEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27902AF0-4AD3-4661-A174-194A632905A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27902AF0-4AD3-4661-A174-194A632905A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27902AF0-4AD3-4661-A174-194A632905A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27902AF0-4AD3-4661-A174-194A632905A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

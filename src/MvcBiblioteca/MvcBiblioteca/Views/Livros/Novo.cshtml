@@ -1,0 +1,32 @@
+﻿@model Biblioteca.Dominio.Livro
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Novo Livro</h2>
+
+<div>
+    @using (Html.BeginForm("novo", "livros"))
+    {
+        <div>
+            @Html.LabelFor(x => x.Titulo)
+            @Html.TextBoxFor(x => x.Titulo)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Ano)
+            @Html.TextBoxFor(x => x.Ano)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Autor)
+            @Html.TextBoxFor(x => x.Autor)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Preco)
+            @Html.TextBoxFor(x => x.Preco)
+        </div>
+        
+        <button type="submit">Inserir</button>
+    }
+</div>
