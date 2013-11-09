@@ -1,7 +1,0 @@
-﻿@{
-    for (var i = 0; i < Request.Cookies.Count; i++)
-    {
-        HttpCookie cookie = Request.Cookies.Get(i);
-        Response.Write(string.Format("{0} = {1} </br>", cookie.Name, cookie.Value));
-    }
-}
