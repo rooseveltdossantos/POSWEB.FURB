@@ -39,12 +39,16 @@
             <td>@livro.Autor</td>
             <td>@livro.Ano</td>
             <td>@livro.Preco</td>
-            <td>@Html.ActionLink(
-                 "comentários",
-                 "Index",
-                 "Comentarios",
-                 new { livroId = @livro.LivroId },
-                 new { @class = "linkComentarios" })
+            <td>
+                @if (WebSecurity.IsAuthenticated)
+                {
+                    @Html.ActionLink(
+                     "comentários",
+                     "Index",
+                     "Comentarios",
+                     new { livroId = @livro.LivroId },
+                     new { @class = "linkComentarios" })
+                }
             </td>
            </tr>
         }
