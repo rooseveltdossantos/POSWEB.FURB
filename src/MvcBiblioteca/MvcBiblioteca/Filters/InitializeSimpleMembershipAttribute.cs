@@ -71,7 +71,7 @@ namespace MvcBiblioteca.Filters
                     Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
                 }
 
-                if (!Roles.IsUserInRole("Admin", "PodeAdicionarLivro")
+                if (!Roles.IsUserInRole("Admin", "PodeAdicionarLivro"))
                     Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
 
                 if (!Roles.IsUserInRole("Admin", "PodeGerenciarUsuarios"))
