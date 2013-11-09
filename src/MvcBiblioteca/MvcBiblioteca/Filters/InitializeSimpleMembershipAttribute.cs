@@ -41,6 +41,7 @@ namespace MvcBiblioteca.Filters
                     }
 
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    
                     InicilizaComRolesPadraoEUsuarioAdmin();
 
 
@@ -69,6 +70,9 @@ namespace MvcBiblioteca.Filters
                     WebSecurity.CreateUserAndAccount("Admin", "admin");
                     Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
                 }
+
+                if (!Roles.IsUserInRole("Admin", "PodeAdicionarLivro")
+                    Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
 
                 if (!Roles.IsUserInRole("Admin", "PodeGerenciarUsuarios"))
                     Roles.AddUserToRole("Admin", "PodeGerenciarUsuarios");
