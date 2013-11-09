@@ -56,7 +56,7 @@ namespace MvcBiblioteca.Filters
                 var roles = Roles.GetAllRoles();
 
                 if (!roles.Any(r => r == "PodeAdicionarLivro"))
-                    Roles.CreateRole("PodeAdcionarLivro");
+                    Roles.CreateRole("PodeAdicionarLivro");
 
                 if (!roles.Any(r => r == "PodeComentar"))
                     Roles.CreateRole("PodeComentar");
