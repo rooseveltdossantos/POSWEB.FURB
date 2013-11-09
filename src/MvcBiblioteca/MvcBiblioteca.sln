@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Dominio", "Bibli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.DataAccess", "Biblioteca.DataAccess\Biblioteca.DataAccess.csproj", "{154A062D-E4E5-4471-AFB3-23A6DA463EBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExemploXSS", "ExemploXSS\ExemploXSS.csproj", "{3234B38D-7960-4C24-B24A-3F415146025A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3234B38D-7960-4C24-B24A-3F415146025A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3234B38D-7960-4C24-B24A-3F415146025A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3234B38D-7960-4C24-B24A-3F415146025A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3234B38D-7960-4C24-B24A-3F415146025A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
