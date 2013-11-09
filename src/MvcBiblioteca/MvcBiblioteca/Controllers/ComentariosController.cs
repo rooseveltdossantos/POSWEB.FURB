@@ -6,11 +6,13 @@ using System.Data.Entity;
 
 namespace MvcBiblioteca.Controllers
 {
+    [Authorize(Roles = PapeisDaBiblioteca.PodeComentarEAdicionar)]
     public class ComentariosController : Controller
     {
         //
         // GET: /Comentarios/
 
+        [AllowAnonymous]
         public ActionResult Index(long livroId)
         {
             using (var bd = new BibliotecaDatabase())

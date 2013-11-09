@@ -56,29 +56,26 @@ namespace MvcBiblioteca.Filters
             {
                 var roles = Roles.GetAllRoles();
 
-                if (!roles.Any(r => r == "PodeAdicionarLivro"))
-                    Roles.CreateRole("PodeAdicionarLivro");
+                if (!roles.Any(r => r == PapeisDaBiblioteca.PodeAdicionarLivro))
+                    Roles.CreateRole(PapeisDaBiblioteca.PodeAdicionarLivro);
 
-                if (!roles.Any(r => r == "PodeComentar"))
-                    Roles.CreateRole("PodeComentar");
+                if (!roles.Any(r => r == PapeisDaBiblioteca.PodeComentar))
+                    Roles.CreateRole(PapeisDaBiblioteca.PodeComentar);
 
-                if (!roles.Any(r => r == "PodeGerenciarUsuarios"))
-                    Roles.CreateRole("PodeGerenciarUsuarios");
+                if (!roles.Any(r => r == PapeisDaBiblioteca.PodeGerenciarUsuarios))
+                    Roles.CreateRole(PapeisDaBiblioteca.PodeGerenciarUsuarios);
 
                 if (!WebSecurity.UserExists("Admin"))
                 {
                     WebSecurity.CreateUserAndAccount("Admin", "admin");
-                    Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
+                    Roles.AddUserToRole("Admin", PapeisDaBiblioteca.PodeAdicionarLivro);
                 }
 
-                if (!Roles.IsUserInRole("Admin", "PodeAdicionarLivro"))
-                    Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
+                if (!Roles.IsUserInRole("Admin", PapeisDaBiblioteca.PodeAdicionarLivro))
+                    Roles.AddUserToRole("Admin", PapeisDaBiblioteca.PodeAdicionarLivro);
 
-                if (!Roles.IsUserInRole("Admin", "PodeGerenciarUsuarios"))
-                    Roles.AddUserToRole("Admin", "PodeGerenciarUsuarios");
-
-
-
+                if (!Roles.IsUserInRole("Admin", PapeisDaBiblioteca.PodeGerenciarUsuarios))
+                    Roles.AddUserToRole("Admin", PapeisDaBiblioteca.PodeGerenciarUsuarios);
             }
         }
     }
