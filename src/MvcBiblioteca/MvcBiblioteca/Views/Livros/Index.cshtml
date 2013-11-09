@@ -57,4 +57,7 @@
 
 <div id="descricaoLivro"></div>
 
-@Html.ActionLink("Criar Livro", "novo")
+@if (Roles.IsUserInRole("PodeAdicionarLivro"))
+{
+    @Html.ActionLink("Criar Livro", "novo")
+}
