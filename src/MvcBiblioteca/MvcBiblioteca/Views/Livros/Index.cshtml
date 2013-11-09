@@ -40,7 +40,7 @@
             <td>@livro.Ano</td>
             <td>@livro.Preco</td>
             <td>
-                @if (WebSecurity.IsAuthenticated)
+                @if (Roles.IsUserInRole("PodeComentar")  || Roles.IsUserInRole("PodeAdicionarLivro" ))
                 {
                     @Html.ActionLink(
                      "comentários",
