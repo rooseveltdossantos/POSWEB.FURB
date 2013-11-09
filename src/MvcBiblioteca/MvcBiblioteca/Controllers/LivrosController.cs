@@ -24,6 +24,7 @@ namespace MvcBiblioteca.Controllers
         }
 
         
+        [Authorize(Roles="PodeAdcionarLivro")]
         public ActionResult Novo()
         {            
             return View();
