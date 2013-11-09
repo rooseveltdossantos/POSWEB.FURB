@@ -5,6 +5,8 @@ using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using MvcBiblioteca.Models;
+using System.Web.Security;
+using System.Linq;
 
 namespace MvcBiblioteca.Filters
 {
@@ -39,11 +41,40 @@ namespace MvcBiblioteca.Filters
                     }
 
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    InicilizaComRolesPadraoEUsuarioAdmin();
+
+
                 }
                 catch (Exception ex)
                 {
                     throw new InvalidOperationException("The ASP.NET Simple Membership database could not be initialized. For more information, please see http://go.microsoft.com/fwlink/?LinkId=256588", ex);
                 }
+            }
+
+            private void InicilizaComRolesPadraoEUsuarioAdmin()
+            {
+                var roles = Roles.GetAllRoles();
+
+                if (!roles.Any(r => r == "PodeAdicionarLivro"))
+                    Roles.CreateRole("PodeAdcionarLivro");
+
+                if (!roles.Any(r => r == "PodeComentar"))
+                    Roles.CreateRole("PodeComentar");
+
+                if (!roles.Any(r => r == "PodeGerenciarUsuarios"))
+                    Roles.CreateRole("PodeGerenciarUsuarios");
+
+                if (!WebSecurity.UserExists("Admin"))
+                {
+                    WebSecurity.CreateUserAndAccount("Admin", "admin");
+                    Roles.AddUserToRole("Admin", "PodeAdicionarLivro");
+                }
+
+                if (!Roles.IsUserInRole("Admin", "PodeGerenciarUsuarios"))
+                    Roles.AddUserToRole("Admin", "PodeGerenciarUsuarios");
+
+
+
             }
         }
     }
