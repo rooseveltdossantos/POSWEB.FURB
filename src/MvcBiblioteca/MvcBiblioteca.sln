@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Dominio", "Bibli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.DataAccess", "Biblioteca.DataAccess\Biblioteca.DataAccess.csproj", "{154A062D-E4E5-4471-AFB3-23A6DA463EBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExemploEntity.Dominio", "ExemploEntity.Dominio\ExemploEntity.Dominio.csproj", "{CED69B9F-D757-449F-9E30-B653B0DFB6F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{154A062D-E4E5-4471-AFB3-23A6DA463EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CED69B9F-D757-449F-9E30-B653B0DFB6F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CED69B9F-D757-449F-9E30-B653B0DFB6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CED69B9F-D757-449F-9E30-B653B0DFB6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CED69B9F-D757-449F-9E30-B653B0DFB6F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
