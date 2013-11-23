@@ -6,6 +6,7 @@
  * michaelgeekbnu
  * joaoluizSK
  * rodrigomuller
+ * andreos-trainotti
  * felipechrist
  * saddambea
  * alebae
