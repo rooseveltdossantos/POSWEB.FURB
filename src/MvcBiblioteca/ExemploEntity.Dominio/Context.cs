@@ -12,6 +12,10 @@ namespace ExemploEntity.Dominio
         public Context()
             : base()
         {
+            Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
+            //Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
+            //Database.SetInitializer<Context>(new DropCreateDatabaseAlways<Context>());
+            //Database.SetInitializer<Context>(new InicializadorBaseEscolar());
 
         }
 
@@ -19,5 +23,14 @@ namespace ExemploEntity.Dominio
         public DbSet<GrauDeConhecimento> GrausDeConhecimento { get; set; }
 
     }
+
+    public class InicializadorBaseEscolar : DropCreateDatabaseAlways<Context>
+    {
+        protected override void Seed(Context context)
+        {
+            base.Seed(context);
+        }
+    }
+
 
 }
