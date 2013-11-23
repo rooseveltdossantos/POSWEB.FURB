@@ -28,6 +28,17 @@ namespace ExemploEntity.Dominio
     {
         protected override void Seed(Context context)
         {
+            var grausPadrao = new List<GrauDeConhecimento>
+            {
+                new GrauDeConhecimento{ Nome = "Grau 1", Descricao = "Primeiro Grau"},
+                new GrauDeConhecimento{ Nome = "Grau 2", Descricao = "Segundo Grau"},
+                new GrauDeConhecimento{ Nome = "Grau 3", Descricao = "Terceiro Grau"}
+            };
+
+            foreach (var grau in grausPadrao)
+            {
+                context.GrausDeConhecimento.Add(grau);
+            }
             base.Seed(context);
         }
     }
