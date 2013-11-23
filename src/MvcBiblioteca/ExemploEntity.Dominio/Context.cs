@@ -9,13 +9,12 @@ namespace ExemploEntity.Dominio
 {
     public class Context : DbContext
     {
-        public Context()
-            : base()
+        public Context() : base()
         {
-            Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
+            //Database.SetInitializer<Context>(new CreateDatabaseIfNotExists<Context>());
             //Database.SetInitializer<Context>(new DropCreateDatabaseIfModelChanges<Context>());
             //Database.SetInitializer<Context>(new DropCreateDatabaseAlways<Context>());
-            //Database.SetInitializer<Context>(new InicializadorBaseEscolar());
+            Database.SetInitializer<Context>(new InicializadorBaseEscolar());
 
         }
 
