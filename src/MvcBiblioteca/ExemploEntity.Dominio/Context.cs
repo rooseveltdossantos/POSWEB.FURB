@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 
-
+//Teste
 namespace ExemploEntity.Dominio
 {
     public class Context : DbContext
