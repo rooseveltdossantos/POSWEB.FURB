@@ -48,13 +48,9 @@ namespace MvcBiblioteca.Controllers
             return View(usuario);
         }
 
-        public ActionResult Alterar(long usuarioId)
+        public ActionResult Alterar(UsuarioViewModel usuarioId)
         {
-            using (var bd = new BibliotecaDatabase())
-            {
-                var usuario = bd.Usuarios.Find(usuarioId);
-                return View("Novo", new UsuarioViewModel(usuario));
-            }
+            return View("Novo", usuarioId);
         }
 
         public ActionResult Excluir(long usuarioId)
