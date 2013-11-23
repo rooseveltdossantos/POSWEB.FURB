@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
 using Biblioteca.DataAccess;
+using MvcBiblioteca.Infraestrutura;
 
 namespace MvcBiblioteca
 {
@@ -18,6 +19,8 @@ namespace MvcBiblioteca
     {
         protected void Application_Start()
         {
+            ModelBinderProviders.BinderProviders.Add(new UsuarioViewModelBinderProvider());
+            
             Database.SetInitializer(
                 new DropCreateDatabaseIfModelChanges<BibliotecaDatabase>()
             );
