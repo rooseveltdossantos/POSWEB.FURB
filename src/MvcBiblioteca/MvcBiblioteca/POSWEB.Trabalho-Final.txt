@@ -1,0 +1,63 @@
+Trabalho Final:
+
+	Aprimorar a aplicação construída em sala de aula de Biblioteca.
+	
+	Os aprimoramentos consistem em:
+	
+	#1:	
+		- Ao cadastrar um usuário, no atual cadastro de usuários, inserir também na tabela de usuários da aplicação
+		- Deve ser permitido a essa pessoa fazer login no sistema, com o privilégio (Role) definida pelo Tipo de Usuário
+		
+	#2:
+		- Desenvolver uma funcionalidade de empréstimo onde
+			-> Dado um usuário logado no sistema com privilégio "PodeEmprestar"
+			-> Apresentar uma tela de empréstimo que:	
+				* Seja possível informar a pessoa a qual será emprestado o livro
+				* Informar o livro
+				* Caso o livro já não esteja emprestado, realizar o empréstimo
+					+ Para professores o prazo do empréstimo é de 15 dias e a quantidade de livros emprestados é no máximo 10
+					+ Para alunos o prazo do empréstimo é de 7 dias e a quantidade de livros emprestados é no máximo 5
+					+ Para funcionários o prazo do empréstimo é de 7 dias e a quantidade de livros emprestados é no máximo 3
+					+ Para ex-alunos o prazo do empréstimo é de 7 dias e a quantidade de livros emprestados é no máximo 1
+				* Registrar o empréstimo do livro
+				
+	#3:	
+		- Desenvolver a funcionalidade de devolução onde
+			-> Dado um usuário
+			-> Dado um livro 
+			-> Executar a devolução
+				-> Caso a devolução ocorra com atraso, deve ser gerado um registro de débito para a pessoa
+				
+	#4: 
+		- Desenvolver a funcionalidade de manutenção financeira
+			-> Listar os registros de débito do mais atual para o mais velho, contendo o valor devido sendo que será cobrado R$ 2,00 por dia de atraso
+			-> Filtrar os registros somente que estão em aberto
+			-> Filtrar por pessoa
+			-> Realizar o pagamento de um débito
+			
+	#5: 
+		- Histórico
+			-> Listar os empréstimos realizados por uma pessoa, com as seguintes opções
+				- Opção 01: Livro, Data do Empréstimo, Data da Devolução, Usuário (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o livro
+				- Opção 02: Usuário, Data do Empréstimo, Data da Devolução, Livro (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o usuário
+				
+	#6:
+		- Reserva
+			-> Dado um usuário cadastrado no sistema
+			-> Dado que o usuário faça o login no sistema
+			-> Dado um livro cadastrado no sistema
+			-> Permitir verificar a disponibilidade do livro
+			-> Permitir fazer a reserva do livro
+			-> Dado que um livro foi reservado, o empréstimo desse livro só deve ser realizado ao usuário que fez a reserva
+			
+	
+				
+- Cada aprimoramento da aplicação deve ser realizado por uma equipe de no máximo 3 pessoas
+- Cada nova funcionalidade deve ter um commit e push no repositório do GitHub
+- Alguns aprimoramentos são inter-relacionados e por isso as equipes precisarão se comunicar. Utilizem e-mail, skype, gtalk ou o próprio GitHub, sinal de fumaça, telefone, etc.. para se comunicar
+- Todas os membros da disciplina e consequentemente de cada equipe, devem realizar pelo menos 3 commit's com alguma implementação do aprimoramento que a equipe está trabalhando(muito cuidado com os commit's insignificantes)
+- Cada equipe deve fazer um commit no mínimo por dia
+- Todos os dias as 21h30m, será realizado um Pull do repositório e uma compilação será feita. Caso um erro de compilação aconteça, o membro da disciplina que comitou o erro de compilação terá um desconto de 1 ponto na nota final. A equipe que não possuir commit neste dia também terá desconto de 1 ponto na nota final.
+- A prazo de entrega para estes aprimoramentos será para 30/11/2013 as 17:00. Qualquer commit após essa data, não será considerado.
+
+Dica: Cada pequena implementação (criação da classe, criação de um controller, action ou view) dê um commit! Isso permitirá acompanhar o andamento da aplicação e servirá de avaliação do trabalho realizado pela equipe e pelo indivíduo.
