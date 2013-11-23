@@ -1,4 +1,4 @@
-Trabalho Final:
+﻿Trabalho Final:
 
 	Aprimorar a aplicação construída em sala de aula de Biblioteca.
 	
@@ -21,7 +21,7 @@ Trabalho Final:
 					+ Para ex-alunos o prazo do empréstimo é de 7 dias e a quantidade de livros emprestados é no máximo 1
 				* Registrar o empréstimo do livro
 				
-	#3:	
+	#3:	laheinzen, michaelgeekbnu, sandrobugmann
 		- Desenvolver a funcionalidade de devolução onde
 			-> Dado um usuário
 			-> Dado um livro 
