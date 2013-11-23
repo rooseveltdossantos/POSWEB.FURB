@@ -13,21 +13,19 @@ namespace DominioEscolar
         {
 
         }
+
         public int EstudanteId { get; set; }
-
         
-        [Required]
         public string Nome { get; set; }
-
-        [Required]
+        
         public virtual EnderecoDoEstudante EnderecoDoEstudante { get; set; }
 
 
     }
 
-        public class EnderecoDoEstudante
+    public class EnderecoDoEstudante
     {
-        [Key, ForeignKey ("Estudante")]
+        
         public int EstudanteId { get; set; }
 
         public string Endereco01 { get; set; }
