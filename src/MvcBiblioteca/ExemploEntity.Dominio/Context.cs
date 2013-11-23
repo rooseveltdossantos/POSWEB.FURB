@@ -18,6 +18,14 @@ namespace ExemploEntity.Dominio
 
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // Configurar classes do domínio usando Fluent API 
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+
         public DbSet<Estudante> Estudantes { get; set; }
         public DbSet<GrauDeConhecimento> GrausDeConhecimento { get; set; }
 
