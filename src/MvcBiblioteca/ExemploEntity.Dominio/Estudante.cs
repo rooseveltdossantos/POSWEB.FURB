@@ -24,8 +24,7 @@ namespace DominioEscolar
     }
 
     public class EnderecoDoEstudante
-    {
-        
+    {        
         public int EstudanteId { get; set; }
 
         public string Endereco01 { get; set; }
