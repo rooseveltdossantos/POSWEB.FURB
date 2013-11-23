@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DominioEscolar
 {
@@ -12,7 +14,30 @@ namespace DominioEscolar
 
         }
         public int EstudanteId { get; set; }
+
+        
+        [Required]
         public string Nome { get; set; }
 
+        [Required]
+        public virtual EnderecoDoEstudante EnderecoDoEstudante { get; set; }
+
+
+    }
+
+        public class EnderecoDoEstudante
+    {
+        [Key, ForeignKey ("Estudante")]
+        public int EstudanteId { get; set; }
+
+        public string Endereco01 { get; set; }
+        public string Endereco02 { get; set; }
+        public string Cidade { get; set; }
+        public int CEP { get; set; }
+        public string UF { get; set; }
+        public string Pais { get; set; }
+
+        public virtual Estudante Estudante { get; set; }
     }
 }
+
