@@ -34,6 +34,12 @@ namespace ExemploEntity.Dominio
                         .HasRequired(e => e.Estudante)
                         .WithRequiredDependent(s => s.EnderecoDoEstudante);
 
+            modelBuilder.Entity<Estudante>()
+                                    .HasRequired<GrauDeConhecimento>(g => g.GrauDeConhecimento)
+                                    .WithMany(s => s.ListaDeEstudantes)
+                                    .HasForeignKey(s => s.GrauId);
+
+
 
             base.OnModelCreating(modelBuilder);
         }

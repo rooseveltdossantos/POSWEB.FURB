@@ -22,6 +22,7 @@ namespace DominioEscolar
 
         public virtual GrauDeConhecimento GrauDeConhecimento { get; set; }
 
+        public int GrauId { get; set; }
         
         public virtual EnderecoDoEstudante EnderecoDoEstudante { get; set; }
 
