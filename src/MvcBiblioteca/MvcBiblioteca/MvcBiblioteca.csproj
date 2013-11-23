@@ -245,6 +245,7 @@
     <Content Include="Images\comentarios.png" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
+    <Content Include="POSWEB.Trabalho-Final.txt" />
     <Content Include="Scripts\biblioteca.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
