@@ -1,27 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace DominioEscolar
 {
-    [Table("EstudantesInfo")]
     public class Estudante
     {
-        public Estudante() { }
+        public Estudante()
+        {
 
-        [Key]
-        public int SID { get; set; }
-
-        [Column("Nome", TypeName = "ntext")]
-        [MaxLength(20)]
+        }
+        public int EstudanteId { get; set; }
         public string Nome { get; set; }
-
-        [NotMapped]
-        public int? Age { get; set; }
-
-        public int GrauId { get; set; }
-
-        [ForeignKey("GrauId")]
-        public virtual GrauDeConhecimento GrauDeConhecimento { get; set; }
 
     }
 }
