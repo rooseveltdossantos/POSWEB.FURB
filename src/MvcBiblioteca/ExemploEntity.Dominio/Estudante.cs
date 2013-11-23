@@ -17,9 +17,15 @@ namespace DominioEscolar
         public int EstudanteId { get; set; }
         
         public string Nome { get; set; }
+
+        public int GrauDeConhecimentoId { get; set; }
+
+        public virtual GrauDeConhecimento GrauDeConhecimento { get; set; }
+
         
         public virtual EnderecoDoEstudante EnderecoDoEstudante { get; set; }
 
+        public virtual ICollection<Estudante> Estudantes { get; set; }
 
     }
 
