@@ -13,7 +13,14 @@ namespace PrimeiraAplicacaoEntity
         {
             using (var ctx = new Context())
             {
-                var std = new Estudante() { Nome = "Novo Estudante" };
+                var std = new Estudante() { 
+                        Nome = "Novo Estudante", 
+                        EnderecoDoEstudante = new EnderecoDoEstudante()
+                                {
+                                    Cidade = "Blumenau"
+                                }
+                };
+
                 ctx.Estudantes.Add(std);
                 ctx.SaveChanges();
             }
