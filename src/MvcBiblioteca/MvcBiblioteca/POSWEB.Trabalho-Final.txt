@@ -28,7 +28,7 @@
 			-> Executar a devolução
 				-> Caso a devolução ocorra com atraso, deve ser gerado um registro de débito para a pessoa
 				
-	#4: 
+	#4: ARJBnu, JCZingel
 		- Desenvolver a funcionalidade de manutenção financeira
 			-> Listar os registros de débito do mais atual para o mais velho, contendo o valor devido sendo que será cobrado R$ 2,00 por dia de atraso
 			-> Filtrar os registros somente que estão em aberto
