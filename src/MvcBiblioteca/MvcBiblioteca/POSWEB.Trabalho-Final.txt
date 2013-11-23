@@ -35,7 +35,7 @@
 			-> Filtrar por pessoa
 			-> Realizar o pagamento de um débito
 			
-	#5: 
+	#5: andreos-trainotti, apokalypsi, joaoluizSK
 		- Histórico
 			-> Listar os empréstimos realizados por uma pessoa, com as seguintes opções
 				- Opção 01: Livro, Data do Empréstimo, Data da Devolução, Usuário (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o livro
