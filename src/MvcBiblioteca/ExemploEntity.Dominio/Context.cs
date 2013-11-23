@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Entity;
+using DominioEscolar;
 
-//Teste 123
 namespace ExemploEntity.Dominio
 {
     public class Context : DbContext
