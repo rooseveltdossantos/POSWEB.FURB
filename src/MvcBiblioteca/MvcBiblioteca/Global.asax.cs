@@ -1,4 +1,6 @@
-﻿/* JCZIngel */
+﻿/* JCZIngel 
+ * vitorbq
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
