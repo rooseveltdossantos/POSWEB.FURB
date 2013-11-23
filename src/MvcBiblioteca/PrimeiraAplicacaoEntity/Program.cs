@@ -13,6 +13,8 @@ namespace PrimeiraAplicacaoEntity
         {
             using (var ctx = new Context())
             {
+                var grau01 = ctx.GrausDeConhecimento.Find(1);
+
                 var std = new Estudante() { 
                         Nome = "Novo Estudante", 
                         EnderecoDoEstudante = new EnderecoDoEstudante()
@@ -21,7 +23,24 @@ namespace PrimeiraAplicacaoEntity
                                 }
                 };
 
+                grau01.ListaDeEstudantes.Add(std);
+
+                var std02 = new Estudante()
+                {
+                    Nome = "Estudante de Indaial",
+                    EnderecoDoEstudante = new EnderecoDoEstudante()
+                    {
+                        Cidade = "Indaial"
+                    }
+                };
+
+                grau01.ListaDeEstudantes.Add(std02);
+
                 ctx.Estudantes.Add(std);
+                ctx.Estudantes.Add(std02);
+
+                ctx.GrausDeConhecimento.Add(grau01);
+
                 ctx.SaveChanges();
             }
 
