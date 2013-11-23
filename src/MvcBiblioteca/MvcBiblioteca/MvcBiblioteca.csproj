@@ -164,6 +164,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Infraestrutura\UsuarioViewModelBinder.cs" />
+    <Compile Include="Infraestrutura\UsuarioViewModelBinderProvider.cs" />
     <Compile Include="PapeisDaBiblioteca.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ComentariosController.cs" />
@@ -176,7 +178,7 @@
     </Compile>
     <Compile Include="HtmlHelperBibliotecaExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\UsuarioViewModel.cs" />    
+    <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
