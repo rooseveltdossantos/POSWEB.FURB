@@ -41,7 +41,7 @@
 				- Opção 01: Livro, Data do Empréstimo, Data da Devolução, Usuário (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o livro
 				- Opção 02: Usuário, Data do Empréstimo, Data da Devolução, Livro (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o usuário
 				
-	#6:
+	#6: vitorbq, locokoch, thiagomariann
 		- Reserva
 			-> Dado um usuário cadastrado no sistema
 			-> Dado que o usuário faça o login no sistema
