@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using DominioEscolar;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExemploEntity.Dominio
 {
@@ -21,6 +22,18 @@ namespace ExemploEntity.Dominio
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Configurar classes do domínio usando Fluent API 
+
+            modelBuilder.Entity<EnderecoDoEstudante>()
+            .HasKey(e => e.EstudanteId);
+
+            modelBuilder.Entity<EnderecoDoEstudante>()
+                        .Property(e => e.EstudanteId)
+                        .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder.Entity<EnderecoDoEstudante>()
+                        .HasRequired(e => e.Estudante)
+                        .WithRequiredDependent(s => s.EnderecoDoEstudante);
+
 
             base.OnModelCreating(modelBuilder);
         }
