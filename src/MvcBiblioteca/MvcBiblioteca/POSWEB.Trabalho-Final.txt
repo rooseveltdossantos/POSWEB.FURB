@@ -55,9 +55,9 @@
 - Cada aprimoramento da aplicação deve ser realizado por uma equipe de no máximo 3 pessoas
 - Cada nova funcionalidade deve ter um commit e push no repositório do GitHub
 - Alguns aprimoramentos são inter-relacionados e por isso as equipes precisarão se comunicar. Utilizem e-mail, skype, gtalk ou o próprio GitHub, sinal de fumaça, telefone, etc.. para se comunicar
-- Todas os membros da disciplina e consequentemente de cada equipe, devem realizar pelo menos 3 commit's com alguma implementação do aprimoramento que a equipe está trabalhando(muito cuidado com os commit's insignificantes)
+- Todos os membros da disciplina e consequentemente de cada equipe, devem realizar pelo menos 3 commit's com alguma implementação do aprimoramento que a equipe está trabalhando(muito cuidado com os commit's insignificantes)
 - Cada equipe deve fazer um commit no mínimo por dia
-- Todos os dias as 21h30m, será realizado um Pull do repositório e uma compilação será feita. Caso um erro de compilação aconteça, o membro da disciplina que comitou o erro de compilação terá um desconto de 1 ponto na nota final. A equipe que não possuir commit neste dia também terá desconto de 1 ponto na nota final.
-- A prazo de entrega para estes aprimoramentos será para 30/11/2013 as 17:00. Qualquer commit após essa data, não será considerado.
+- Todos as noites as 22h00m, será realizado um Pull do repositório e uma compilação será feita. Caso um erro de compilação aconteça, o membro da disciplina que comitou o erro de compilação terá um desconto de 1 ponto na nota final. A equipe que não possuir commit neste dia também terá desconto de 1 ponto na nota final.
+- O prazo de entrega para estes aprimoramentos será para 01/12/2013 as 17:00. Qualquer commit após essa data, não será considerado.
 
 Dica: Cada pequena implementação (criação da classe, criação de um controller, action ou view) dê um commit! Isso permitirá acompanhar o andamento da aplicação e servirá de avaliação do trabalho realizado pela equipe e pelo indivíduo.
