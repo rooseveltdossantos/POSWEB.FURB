@@ -5,6 +5,7 @@
  * laheinzen
  * joaoluizSK
  * rodrigomuller
+ * felipechrist
  */
 using System;
 using System.Collections.Generic;
