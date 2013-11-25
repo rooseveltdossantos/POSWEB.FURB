@@ -16,5 +16,11 @@ namespace Biblioteca.Dominio
         [DisplayName("Usuário")]
         public Usuario UsuarioDeb { get; set; }
 
+        [DisplayName("Situação")]
+        public Usuario Situacao { get; set; }
+
+        [DisplayName("Data da Reserva")]
+        public Usuario DtReserva { get; set; }
+
     }
 }
