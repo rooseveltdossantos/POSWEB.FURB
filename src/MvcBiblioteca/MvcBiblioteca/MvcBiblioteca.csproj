@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DevolucaoController.cs" />
+    <Compile Include="Controllers\EmprestimosController.cs" />
     <Compile Include="Infraestrutura\UsuarioViewModelBinder.cs" />
     <Compile Include="Infraestrutura\UsuarioViewModelBinderProvider.cs" />
     <Compile Include="PapeisDaBiblioteca.cs" />
@@ -337,6 +338,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Comentarios\AdicionarComentario.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Emprestimos\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
