@@ -43,7 +43,7 @@ namespace MvcBiblioteca.Controllers
                     else
                         bd.Entry(usuario.ParaEntidade()).State = EntityState.Modified;
                     bd.SaveChanges();
-                    WebSecurity.CreateUserAndAccount(usuario.Nome, usuario.Nome);
+                    WebSecurity.CreateUserAndAccount(usuario.Login, usuario.Senha);
                     return RedirectToAction("index");
                 } 
             }
