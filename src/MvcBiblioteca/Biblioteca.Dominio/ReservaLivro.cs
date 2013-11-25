@@ -17,10 +17,10 @@ namespace Biblioteca.Dominio
         public Usuario UsuarioDeb { get; set; }
 
         [DisplayName("Situação")]
-        public Usuario Situacao { get; set; }
+        public Boolean Situacao { get; set; }
 
         [DisplayName("Data da Reserva")]
-        public Usuario DtReserva { get; set; }
+        public  DateTime DtReserva { get; set; }
 
     }
 }
