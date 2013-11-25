@@ -170,6 +170,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DevolucaoController.cs" />
     <Compile Include="Controllers\EmprestimosController.cs" />
+    <Compile Include="Controllers\HistoricoController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Infraestrutura\UsuarioViewModelBinder.cs" />
     <Compile Include="Infraestrutura\UsuarioViewModelBinderProvider.cs" />
