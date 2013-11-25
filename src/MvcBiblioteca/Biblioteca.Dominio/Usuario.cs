@@ -10,7 +10,9 @@ namespace Biblioteca.Dominio
     {
         public long UsuarioId { get; set; }
         public long Cpf { get; set; }
-        public string Nome { get; set; }       
+        public string Nome { get; set; }
+        public string Login { get;set; }
+        public string Senha { get; set; }
         public StatusAtivacao StatusAtivacao { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
 
