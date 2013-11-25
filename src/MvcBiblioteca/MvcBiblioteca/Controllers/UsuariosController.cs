@@ -7,6 +7,7 @@ using Biblioteca.DataAccess;
 using Biblioteca.Dominio;
 using MvcBiblioteca.Models;
 using System.Data.Entity;
+using WebMatrix.WebData;
 
 namespace MvcBiblioteca.Controllers
 {
@@ -42,6 +43,7 @@ namespace MvcBiblioteca.Controllers
                     else
                         bd.Entry(usuario.ParaEntidade()).State = EntityState.Modified;
                     bd.SaveChanges();
+                    WebSecurity.CreateUserAndAccount(usuario.Nome, usuario.Nome);
                     return RedirectToAction("index");
                 } 
             }
