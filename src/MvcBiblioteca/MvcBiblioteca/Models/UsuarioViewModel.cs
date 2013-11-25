@@ -23,6 +23,7 @@ namespace MvcBiblioteca.Models
             this.usuario = usuario;
         }
         
+
         public long UsuarioId
         {
             get { return this.usuario.UsuarioId; }
@@ -42,6 +43,19 @@ namespace MvcBiblioteca.Models
         {
             get { return this.usuario.Nome; }
             set { this.usuario.Nome = value; }
+        }
+
+
+        public string Login
+        {
+            get { return this.usuario.Login; }
+            set { this.usuario.Login = value; }
+        }
+
+        public string Senha
+        {
+            get { return this.usuario.Senha; }
+            set { this.usuario.Senha = value; }
         }
 
         //[Visualizacao(ApresentacaoParaFormulario = "Situação da Ativação", ApresentacaoParaTabela = "Sit. Ativação")]

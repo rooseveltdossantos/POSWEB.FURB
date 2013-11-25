@@ -27,12 +27,21 @@
             @Html.TextBoxFor(x => x.Nome)
         </div>
         <div>
+            @Html.LabelFor(x => x.Login)
+            @Html.TextBoxFor(x => x.Login)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Senha)
+            @Html.PasswordFor(x => x.Senha)
+        </div>
+        
+        <div>
             @Html.LabelFor(x => x.Status)
             @Html.CheckBoxFor(x => x.Status)
         </div>
         <div>
             @Html.LabelFor(x => x.TipoUsuario)
-            @Html.DropDownListFor(usu => usu.TipoUsuario, 
+            @Html.DropDownListFor(usu => usu.TipoUsuario,
                     mostrar => mostrar.ApresentacaoParaFormulario)
 
         </div>

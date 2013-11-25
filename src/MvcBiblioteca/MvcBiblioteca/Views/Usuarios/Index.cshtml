@@ -21,6 +21,10 @@
                     @Html.DisplayNameFor(model => model.Nome)
                 </th>
                 <th>                    
+                    @Html.DisplayNameFor(model => model.Login)
+                </th>
+
+                <th>                    
                     @Html.DisplayNameFor(model => model.Status)
                 </th>
                 <th>
@@ -48,6 +52,8 @@
                 <td>@usuario.Cpf
                 </td>
                 <td>@usuario.Nome
+                </td>
+                <td>@usuario.Login
                 </td>
                 <td>@(usuario.Status ? "Ativo" : "Inativo")
                 </td>
