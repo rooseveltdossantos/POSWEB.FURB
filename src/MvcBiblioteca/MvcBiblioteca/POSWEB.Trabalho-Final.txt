@@ -8,7 +8,7 @@
 		- Ao cadastrar um usuário, no atual cadastro de usuários, inserir também na tabela de usuários da aplicação
 		- Deve ser permitido a essa pessoa fazer login no sistema, com o privilégio (Role) definida pelo Tipo de Usuário
 		
-	#2:
+	#2:	felipechrist, rodrigomuller
 		- Desenvolver uma funcionalidade de empréstimo onde
 			-> Dado um usuário logado no sistema com privilégio "PodeEmprestar"
 			-> Apresentar uma tela de empréstimo que:	
