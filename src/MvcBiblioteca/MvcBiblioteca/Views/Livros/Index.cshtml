@@ -72,7 +72,7 @@
                      new { @class = "linkReserva" })
                 </td>
                 <td>
-                    @if (Roles.IsUserInRole(PapeisDaBiblioteca.PodeEmprestar))
+                    @if (Roles.IsUserInRole("PodeEmprestar"))
                     {
                         @Html.ActionLink(
                              "Emprestar",
