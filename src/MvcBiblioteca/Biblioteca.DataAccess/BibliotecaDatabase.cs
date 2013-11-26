@@ -14,5 +14,6 @@ namespace Biblioteca.DataAccess
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<ReservaLivro> Reservas { get; set; }
         public DbSet<Emprestimo> Emprestimos { get; set; }
+        public DbSet<Debito> Debitos { get; set; }
     }
 }
