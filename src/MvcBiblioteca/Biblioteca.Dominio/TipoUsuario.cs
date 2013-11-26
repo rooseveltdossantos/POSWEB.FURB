@@ -13,6 +13,7 @@ namespace Biblioteca.Dominio
         Aluno = 2,
 
         [Visualizacao(ApresentacaoParaFormulario="Ex Aluno", ApresentacaoParaTabela="Ex-Aluno")]
-        ExAluno = 3
+        ExAluno = 3,
+        Operador=4
     }
 }
