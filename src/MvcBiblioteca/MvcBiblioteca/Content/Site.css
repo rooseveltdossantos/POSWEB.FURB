@@ -781,3 +781,8 @@ a.linkComentarios
     height: 16px;
     text-indent: -999999px;
 }
+
+a.linkReserva
+{
+    color:red;   
+}

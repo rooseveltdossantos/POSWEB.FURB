@@ -24,6 +24,7 @@
             <th>Ano</th>
             <th>Preço</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -48,7 +49,15 @@
                      "Comentarios",
                      new { livroId = @livro.LivroId },
                      new { @class = "linkComentarios" })
-                }
+                }                
+            </td>
+            <td>
+                 @Html.ActionLink(
+                     "Reservar",
+                     "Index",
+                     "Reserva",
+                     new { livroId = @livro.LivroId },
+                     new { @class = "linkReserva" })
             </td>
            </tr>
         }
