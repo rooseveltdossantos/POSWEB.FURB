@@ -1,71 +1,93 @@
 ﻿@model IEnumerable<Biblioteca.Dominio.Livro>
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
 }
-
-<h2>Lista de Livros</h2>
-
+<h2>
+    Lista de Livros</h2>
 @using (Html.BeginForm("Localizar", "Livros", FormMethod.Post))
 {
-    @Html.TextBox("q", null, new { PlaceHolder = "localizar...", id = "localizar"})
-    <button type="submit" value="Localizar">Localizar</button>
+    @Html.TextBox("q", null, new { PlaceHolder = "localizar...", id = "localizar" })
+    <button type="submit" value="Localizar">
+        Localizar</button>
 }
-
 <table>
     <thead>
         <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Ano</th>
-            <th>Preço</th>
-            <th></th>
-            <th></th>
+            <th>
+                Título
+            </th>
+            <th>
+                Autor
+            </th>
+            <th>
+                Ano
+            </th>
+            <th>
+                Preço
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var livro in Model)
         {
-           <tr>
-            <td>@Html.ActionLink(
-                        @livro.Titulo, 
-                        "descricaoLivro", 
-                        new { livroId = @livro.LivroId }, 
-                        new { @class = "descricaoLink"}) 
+            <tr>
+                <td>@Html.ActionLink(
+                        @livro.Titulo,
+                        "descricaoLivro",
+                        new { livroId = @livro.LivroId },
+                        new { @class = "descricaoLink" })
                 </td>
-            <td>@livro.Autor</td>
-            <td>@livro.Ano</td>
-            <td>@livro.Preco</td>
-            <td>
-                @if (Roles.IsUserInRole("PodeComentar")  || Roles.IsUserInRole("PodeAdicionarLivro" ))
-                {
-                    @Html.ActionLink(
+                <td>@livro.Autor
+                </td>
+                <td>@livro.Ano
+                </td>
+                <td>@livro.Preco
+                </td>
+                <td>
+                    @if (Roles.IsUserInRole("PodeComentar") || Roles.IsUserInRole("PodeAdicionarLivro"))
+                    {
+                        @Html.ActionLink(
                      "comentários",
                      "Index",
                      "Comentarios",
                      new { livroId = @livro.LivroId },
                      new { @class = "linkComentarios" })
-                }                
-            </td>
-            <td>
-                 @Html.ActionLink(
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink(
                      "Reservar",
                      "Index",
                      "Reserva",
                      new { livroId = @livro.LivroId },
                      new { @class = "linkReserva" })
-            </td>
-           </tr>
+                </td>
+                <td>
+                    @if (Roles.IsUserInRole(PapeisDaBiblioteca.PodeEmprestar))
+                    {
+                        @Html.ActionLink(
+                             "Emprestar",
+                             "Index",
+                             "Emprestimos",
+                             new { livroId = @livro.LivroId },
+                             new { @class = "linkEmprestimo" })
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
-
-<div id="descricaoLivro"></div>
-
+<div id="descricaoLivro">
+</div>
 @if (Roles.IsUserInRole("PodeAdicionarLivro"))
 {
     @Html.ActionLink("Criar Livro", "novo")
