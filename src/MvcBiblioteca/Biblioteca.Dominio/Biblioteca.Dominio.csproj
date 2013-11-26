@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ComentarioLivro.cs" />
     <Compile Include="Debito.cs" />
+    <Compile Include="Emprestimo.cs" />
     <Compile Include="Livro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservaLivro.cs" />
