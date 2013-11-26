@@ -5,6 +5,14 @@
 }
 
 <h2>Reserva de livro</h2>
+
+@using (Html.BeginForm("Localizar", "Livros", FormMethod.Post))
+{
+    @Html.TextBox("q", null, new { PlaceHolder = "localizar...", id = "localizar" })
+    <button type="submit" value="Localizar">
+        Localizar</button>
+}
+
 <div>
    
         @if(Model.ReservaLivroId > 0){

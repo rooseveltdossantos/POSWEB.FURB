@@ -32,12 +32,12 @@ namespace MvcBiblioteca.Controllers
                                 where l.LivroId == livroId && r.Situacao == true
                                 select r).FirstOrDefault();
 
-                if (result == null)
-                {
-                    result = new ReservaLivro();
-                    var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
-                    result.LivroRelacionado = livro;
-                }
+//                if (result == null)
+//                {
+//                    result = new ReservaLivro();
+//                    var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
+ //                   result.LivroRelacionado = livro;
+//                }
             }
 
             
@@ -69,6 +69,23 @@ namespace MvcBiblioteca.Controllers
             
             return View("Livros/Index");
         }
+
+        public ActionResult Procurar(string term)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+
+                var livros = from livro in bd.Livros
+                             select new
+                             {
+                                 id = livro.LivroId,
+                                 label = livro.Titulo,
+                                 value = livro.Titulo
+                             };
+                return Json(livros, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
     }
 }
