@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Biblioteca.DataAccess;
+using Biblioteca.Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +17,21 @@ namespace MvcBiblioteca.Controllers
         {
             return View();
         }
+
+        private static IEnumerable<Emprestimo> ObterEmprestimosEmAberto()
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = from p in bd.Emprestimos
+                            where p.DevolvidoEm == null
+                            select p;
+
+                return query.ToList();
+            }
+        }
+
+        
+
 
     }
 }
