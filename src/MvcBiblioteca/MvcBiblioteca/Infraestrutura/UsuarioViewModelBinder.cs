@@ -26,7 +26,7 @@ namespace MvcBiblioteca.Infraestrutura
 
         private void ConverterParaTipoUsuario(ModelBindingContext bindingContext, string propertyName, string propertyValue)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
 

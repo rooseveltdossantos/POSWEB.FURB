@@ -8,7 +8,7 @@ namespace Biblioteca.Dominio
 {
     public class ReservaLivro
     {
-        public int ReservaId { get; set; }
+        public int ReservaLivroId { get; set; }
 
         [DisplayName("Livro")]
         public Livro LivroRelacionado { get; set; }

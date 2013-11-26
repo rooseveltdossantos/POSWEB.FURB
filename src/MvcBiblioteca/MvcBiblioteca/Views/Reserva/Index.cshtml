@@ -4,7 +4,22 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Reservar esse livro</h2>
+<h2>Reserva de livro</h2>
+<div>
+   
+        @if(Model.ReservaLivroId > 0){
+            <p>Esse livro já está reservado por:</p><strong>@Model.UsuarioDeb.Nome</strong>
+        }      
+        else{
+               <p>Clique aqui para <strong> @Html.ActionLink(
+                     "reservar",
+                     "Reservar",
+                     "Reserva",
+                     new { livroId = @Model.LivroRelacionado.LivroId },
+                     new { @class = "linkReserva" })</strong> o livro <strong>@Model.LivroRelacionado.Titulo</strong>.</p>
+        }
+   
+</div>
 <hr />
 @Html.ActionLink("Voltar", "Index", "Livros")
 
