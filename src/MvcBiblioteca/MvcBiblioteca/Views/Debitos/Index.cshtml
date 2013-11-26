@@ -1,7 +1,41 @@
-﻿@model Biblioteca.Dominio.Debito
-
+﻿@model IEnumerable<Biblioteca.Dominio.Debito>
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
 }
 
 <h2>Débitos ativos</h2>
+
+@using (Html.BeginForm("LocalizarDebitosUsuario", "Debitos", FormMethod.Post))
+{
+    @Html.TextBox("NomeUsuario", null, new { PlaceHolder = "localizar...", id = "localizar" })
+    <button type="submit" value="Localizar">
+        Localizar</button>
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Pessoa
+            </th>
+            <th>
+                Livro
+            </th>
+            <th>
+                Ano
+            </th>
+            <th>
+                Preço
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+</table>
