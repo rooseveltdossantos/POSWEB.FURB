@@ -786,3 +786,12 @@ a.linkReserva
 {
     color:red;   
 }
+
+a.linkEmprestimo
+{
+    background: url(../images/emprestar.png) no-repeat top left;
+    display: block;
+    width: 16px;
+    height: 16px;
+    text-indent: -999999px;
+}
