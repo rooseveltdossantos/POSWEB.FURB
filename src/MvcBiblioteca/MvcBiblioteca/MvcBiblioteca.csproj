@@ -168,6 +168,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DebitosController.cs" />
     <Compile Include="Controllers\DevolucaoController.cs" />
     <Compile Include="Controllers\EmprestimosController.cs" />
     <Compile Include="Controllers\HistoricoController.cs" />
