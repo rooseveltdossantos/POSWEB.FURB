@@ -29,6 +29,12 @@
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                             <li>@Html.ActionLink("Devolução", "Index", "Devolucao")</li>
                             <li>@Html.ActionLink("Empréstimos", "Index", "Emprestimos")</li>
+                            @if (Roles.IsUserInRole("PodeGerenciarUsuarios"))
+                            {
+                                <li>@Html.ActionLink("Usuários", "Index", "Usuarios")</li>
+
+                            }                            
+                              
                         </ul>
                     </nav>
                 </div>
