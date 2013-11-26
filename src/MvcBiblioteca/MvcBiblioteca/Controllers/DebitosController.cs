@@ -33,7 +33,7 @@ namespace MvcBiblioteca.Controllers
             {
                 IQueryable<Debito> debitos = from debito in bd.Debitos
                                              where debito.DebitoAtivo
-                                             orderby debito.Emprestimo.horarioTermino descending
+                                             orderby debito.Emprestimo.DevolvidoEm descending
                                              select debito;
 
                 if (!string.IsNullOrEmpty(NomeUsuario))

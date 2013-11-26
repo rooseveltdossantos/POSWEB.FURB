@@ -15,11 +15,21 @@ namespace Biblioteca.Dominio
 
         [DisplayName("Usuário")]
         public Usuario UsuarioEmprestimo { get; set; }
+        
+        //[DisplayName("Horário de Início")]
+        //public DateTime horarioInicio { get; set; }
+                
+        [DisplayName("Data de Retirada")]
+        public DateTime RetiradoEm { get; set; }
 
-        [DisplayName("Horário de Início")]
-        public DateTime horarioInicio { get; set; }
+        [DisplayName("Entregar até")]
+        public DateTime DevolverAte { get; set; }
 
-        [DisplayName("Horário de Término")]
-        public DateTime horarioTermino { get; set; }
+        //[DisplayName("Horário de Término")]
+        //public DateTime horarioTermino { get; set; }
+       
+        [DisplayName("Data de Retirada")]
+        public DateTime DevolvidoEm { get; set; }
+
     }
 }
