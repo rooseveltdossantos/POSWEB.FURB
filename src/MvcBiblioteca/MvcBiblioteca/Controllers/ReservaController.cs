@@ -19,18 +19,17 @@ namespace MvcBiblioteca.Controllers
 
             using (var bd = new BibliotecaDatabase())
             {
-                var reservas = (from r in bd.Reservas
-                               where r.LivroRelacionado.LivroId == livroId
-                               where r.UsuarioDeb.UsuarioId == 1
+                var reservas = (from r in bd.Reservas /*Como fazer join com Livro e Usuário? está retornando null*/
+                               where r.LivroRelacionado.LivroId == livroId                              
                                where r.Situacao == true
-                               /*orderby r.DtReserva*/
+                               /*orderby r.DtReserva tem que ordenar decrescente isso*/
                                 select r).FirstOrDefault();
                 //result = reservas.ToList().FirstOrDefault();
 
                 if (result == null)
                 {
                     result = new ReservaLivro();
-                    var livro = bd.Livros.Find(livroId);
+                    var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
                     result.LivroRelacionado = livro;
                 }
             }
@@ -51,7 +50,7 @@ namespace MvcBiblioteca.Controllers
             using (var bd = new BibliotecaDatabase())
             {
                 var livro = bd.Livros.Find(livroId);
-                var usuario = bd.Usuarios.Find(1);
+                var usuario = bd.Usuarios.Find(1); /*Precisa pegar o usuário logado*/
                 ReservaLivro reserva = new ReservaLivro();
                 reserva.LivroRelacionado = livro;
                 reserva.UsuarioDeb = usuario;
