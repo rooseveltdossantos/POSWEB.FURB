@@ -65,6 +65,9 @@ namespace MvcBiblioteca.Filters
                 if (!roles.Any(r => r == PapeisDaBiblioteca.PodeGerenciarUsuarios))
                     Roles.CreateRole(PapeisDaBiblioteca.PodeGerenciarUsuarios);
 
+                if (!roles.Any(r => r == PapeisDaBiblioteca.PodeEmprestar))
+                    Roles.CreateRole(PapeisDaBiblioteca.PodeEmprestar);
+
                 if (!WebSecurity.UserExists("Admin"))
                 {
                     WebSecurity.CreateUserAndAccount("Admin", "admin");
@@ -76,6 +79,9 @@ namespace MvcBiblioteca.Filters
 
                 if (!Roles.IsUserInRole("Admin", PapeisDaBiblioteca.PodeGerenciarUsuarios))
                     Roles.AddUserToRole("Admin", PapeisDaBiblioteca.PodeGerenciarUsuarios);
+
+                if (!Roles.IsUserInRole("Admin", PapeisDaBiblioteca.PodeEmprestar))
+                    Roles.AddUserToRole("Admin", PapeisDaBiblioteca.PodeEmprestar);
             }
         }
     }
