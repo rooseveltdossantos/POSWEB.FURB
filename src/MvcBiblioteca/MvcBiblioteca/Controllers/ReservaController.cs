@@ -19,12 +19,18 @@ namespace MvcBiblioteca.Controllers
 
             using (var bd = new BibliotecaDatabase())
             {
-                var reservas = (from r in bd.Reservas /*Como fazer join com Livro e Usuário? está retornando null*/
-                               where r.LivroRelacionado.LivroId == livroId                              
-                               where r.Situacao == true
-                               /*orderby r.DtReserva tem que ordenar decrescente isso*/
+  //              var reservas = (from r in bd.Reservas /*Como fazer join com Livro e Usuário? está retornando null*/
+  //                             where r.LivroRelacionado.LivroId == livroId                              
+  //                             where r.Situacao == true
+  //                             /*orderby r.DtReserva tem que ordenar decrescente isso*/
+  //                              select r).FirstOrDefault();
+  //              //result = reservas.ToList().FirstOrDefault();
+
+                var reservas = (from r in bd.Reservas
+                                join l in bd.Livros on r.LivroRelacionado equals l
+                                join u in bd.Usuarios on r.UsuarioDeb equals u
+                                where l.LivroId == livroId && r.Situacao == true
                                 select r).FirstOrDefault();
-                //result = reservas.ToList().FirstOrDefault();
 
                 if (result == null)
                 {
