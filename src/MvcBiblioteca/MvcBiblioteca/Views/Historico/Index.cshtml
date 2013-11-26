@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+
+        <h2>Histórico</h2>
+        
+        <form action="">
+            <p>
+                Busca por:
+                <select id="Select1">
+                    <option>Usuário</option>
+                    <option>Livro</option>
+                </select>
+                <input id="Text1" type="text" />
+                <input id="Submit1" type="submit" value="submit" />
+            </p>
+        </form>
+        
+        <table>
+            <tr>
+                <th>Livro</th>
+                <th>Data Empréstimo</th>
+                <th>Data Devolução</th>
+                <th>Usuário</th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
