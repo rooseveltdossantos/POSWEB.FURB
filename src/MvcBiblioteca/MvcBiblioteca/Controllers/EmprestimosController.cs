@@ -16,5 +16,11 @@ namespace MvcBiblioteca.Controllers
             return View();
         }
 
+        [Authorize(Roles = PapeisDaBiblioteca.PodeEmprestar)]
+        public ActionResult Novo()
+        {
+            return View();
+        }
+
     }
 }
