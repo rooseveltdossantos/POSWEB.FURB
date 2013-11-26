@@ -13,11 +13,7 @@ namespace Biblioteca.Dominio
         [DisplayName("Usuário")]
         public Usuario UsuarioDeb { get; set; }
 
-        [DisplayName("Livro")]
-        public Livro LivroRelacionado { get; set; }
-
-        [DisplayName("Data Débito")]
-        public DateTime DataDebito { get; set; }
+        public Emprestimo Emprestimo { get; set; }
 
         [DisplayName("Dias Atraso")]
         public int DiasAtraso { get; set; }
