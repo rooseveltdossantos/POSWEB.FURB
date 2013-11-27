@@ -20,24 +20,24 @@ namespace MvcBiblioteca.Controllers
 
             using (var bd = new BibliotecaDatabase())
             {     
-                var livros = from l in bd.Livros select l;
-                Debug.WriteLine("livros.ToList().Count:" + livros.ToList().Count);
+                
 
-                var usuarios = from u in bd.Usuarios select u;
-                Debug.WriteLine("usuarios.ToList().Count:" + usuarios.ToList().Count);
+                var reservas = (from r in bd.Reservas.Include("LivroRelacionado").Include("UsuarioDeb")
+                                //join l in bd.Livros.Include(a => a.) on r.LivroRelacionado.LivroId equals l.LivroId
+                                //join u in bd.Usuarios on r.UsuarioDeb.UsuarioId equals u.UsuarioId
+                                where r.LivroRelacionado.LivroId.Equals(livroId) && r.Situacao.Equals(true)
+                                select r).FirstOrDefault();
+                       
 
-                result = (from r in bd.Reservas
-                          where r.LivroRelacionado.LivroId == livroId && r.Situacao == true
-                          join l in bd.Livros on r.LivroRelacionado.LivroId equals l.LivroId
-                          join u in bd.Usuarios on r.UsuarioDeb.UsuarioId equals u.UsuarioId
-                          select r).FirstOrDefault();
+                result = reservas;
+
 
                 if (result == null)
                 {
                     result = new ReservaLivro();
                     var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
                     result.LivroRelacionado = livro;
-               }
+                }
             }
 
             
