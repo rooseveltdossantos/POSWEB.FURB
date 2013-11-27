@@ -13,33 +13,42 @@ namespace MvcBiblioteca.Controllers
 
         public ActionResult Index()
         {
+            var list = new List<SelectListItem>();
+
+            foreach (var usuario in ObterUsuariosComEmprestimo())
+                list.Add(new SelectListItem() { Text = usuario.Nome, Value = usuario.UsuarioId.ToString() });
+
+            ViewBag.Usuarios = list;
             return View();
         }
 
-        private static IEnumerable<Usuario> ObterUsuariosComEmprestimo()
+
+        public IEnumerable<Usuario> ObterUsuariosComEmprestimo()
         {
             using (var bd = new BibliotecaDatabase())
             {
                 var query = (from p in bd.Emprestimos
-                             where p.DevolvidoEm == null
-                             select p.UsuarioEmprestimo).Distinct().ToList();
-
+                             //where p.DevolvidoEm == null
+                             select p.UsuarioEmprestimo).ToList();
                 return query.ToList();
             }
         }
 
 
-        public ActionResult ListarLivros(int id)
+        public ActionResult Devolver()
+        {
+            return View();
+        }
+
+        [ActionName("ListarLivros")]
+        public ActionResult ListarLivros()
         {
             using (var bd = new BibliotecaDatabase())
             {
-                var query = from p in bd.Emprestimos
-                            where p.UsuarioEmprestimo.UsuarioId == id
-                            select new
-                            {
-                                id = p.LivroEmprestimo.LivroId,
-                                value = p.LivroEmprestimo.Titulo
-                            };
+                var query = (from p in ObterUsuariosComEmprestimo()
+                             //where p.UsuarioEmprestimo.UsuarioId == id
+                             select new { Id = p.UsuarioId, Value = p.Nome });
+
 
                 return Json(query, JsonRequestBehavior.AllowGet);
             }
