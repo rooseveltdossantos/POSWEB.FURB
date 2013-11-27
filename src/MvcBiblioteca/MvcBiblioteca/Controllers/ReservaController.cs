@@ -76,11 +76,12 @@ namespace MvcBiblioteca.Controllers
                 bd.SaveChanges();
             }
 
-            return RedirectToAction("Index", "Livros");
+            return View("ReservaEfetuadaComSucesso");
         }
 
-        public ActionResult Procurar(string term)
+        public ActionResult ReservaEfetuadaComSucesso() 
         {
+            return View();
             using (var bd = new BibliotecaDatabase())
             {
 
@@ -103,6 +104,7 @@ namespace MvcBiblioteca.Controllers
                 bd.SaveChanges();
             }
         }
+     }
 
     }
 }
