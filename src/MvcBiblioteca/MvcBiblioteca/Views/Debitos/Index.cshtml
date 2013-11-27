@@ -25,17 +25,38 @@
                 Livro
             </th>
             <th>
-                Ano
+                Data Débito
             </th>
             <th>
-                Preço
-            </th>
-            <th>
-            </th>
-            <th>
+                Valor Débito
             </th>
             <th>
             </th>
         </tr>
     </thead>
+    <tbody>
+        @foreach (var debito in Model)
+        {
+            <tr>
+                <td>
+                    @debito.UsuarioDeb.Nome
+                </td>
+                <td>
+                    @debito.Emprestimo.LivroEmprestimo.Titulo
+                </td>
+                <td>
+                    @debito.Emprestimo.DevolvidoEm
+                </td>
+                <td>
+                    R$ @(debito.DiasAtraso * 2.00)
+                </td>
+                <td>
+                    @Html.ActionLink("efetuarPgto", 
+                                     "efetuarPgto", 
+                                     new { usuarioId = @debito.DebitoId }, 
+                                     new {@class = "linkPagto" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
