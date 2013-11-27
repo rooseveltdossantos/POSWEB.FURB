@@ -5,22 +5,13 @@
 }
 
 <h2>Reserva de livro</h2>
-
-@using (Html.BeginForm("Localizar", "Livros", FormMethod.Post))
-{
-    @Html.TextBox("q", null, new { PlaceHolder = "localizar...", id = "localizar" })
-    <button type="submit" value="Localizar">
-        Localizar</button>
-}
-
-<div>
-   
+<div>   
         @if(Model.ReservaLivroId > 0){
-            <p>Esse livro já está reservado por:</p><strong>@Model.UsuarioDeb.Nome</strong>
+            <div id="livroJaEmprestado">Esse livro já está reservado pelo usuário <strong>@Model.UsuarioDeb.Nome</strong></div>
         }      
         else{
-               <p>Clique aqui para <strong> @Html.ActionLink(
-                     "reservar",
+               <p>Clique <strong> @Html.ActionLink(
+                     "aqui para reservar",
                      "Reservar",
                      "Reserva",
                      new { livroId = @Model.LivroRelacionado.LivroId },

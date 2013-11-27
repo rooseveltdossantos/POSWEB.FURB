@@ -2,6 +2,7 @@
 using Biblioteca.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,25 +20,33 @@ namespace MvcBiblioteca.Controllers
 
             using (var bd = new BibliotecaDatabase())
             {
-  //              var reservas = (from r in bd.Reservas /*Como fazer join com Livro e Usuário? está retornando null*/
-  //                             where r.LivroRelacionado.LivroId == livroId                              
-  //                             where r.Situacao == true
-  //                             /*orderby r.DtReserva tem que ordenar decrescente isso*/
-  //                              select r).FirstOrDefault();
-  //              //result = reservas.ToList().FirstOrDefault();
+               // result = (from r in bd.Reservas /*Como fazer join com Livro e Usuário? está retornando null*/
+               //                where r.LivroRelacionado.LivroId == livroId                              
+              //                 where r.Situacao == true
+              //                 join l in bd.Livros on l.
+             //                  /*orderby r.DtReserva tem que ordenar decrescente isso*/
+             //                   select r).FirstOrDefault();
+                /*result = reservas.ToList().FirstOrDefault();*/
 
-                var reservas = (from r in bd.Reservas
-                                join l in bd.Livros on r.LivroRelacionado equals l
-                                join u in bd.Usuarios on r.UsuarioDeb equals u
-                                where l.LivroId == livroId && r.Situacao == true
+                var livros = from l in bd.Livros select l;
+                Debug.WriteLine("livros.ToList().Count:" + livros.ToList().Count);
+
+                var usuarios = from u in bd.Usuarios select u;
+                Debug.WriteLine("usuarios.ToList().Count:" + usuarios.ToList().Count);
+
+                result = (from r in bd.Reservas
+                                where r.LivroRelacionado.LivroId == livroId && r.Situacao == true
+                          join l in bd.Livros on r.LivroRelacionado.LivroId equals l.LivroId
+                          join u in bd.Usuarios on r.UsuarioDeb.UsuarioId equals u.UsuarioId
+                                
                                 select r).FirstOrDefault();
 
-//                if (result == null)
-//                {
-//                    result = new ReservaLivro();
-//                    var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
- //                   result.LivroRelacionado = livro;
-//                }
+                if (result == null)
+                {
+                    result = new ReservaLivro();
+                    var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
+                    result.LivroRelacionado = livro;
+               }
             }
 
             
@@ -66,8 +75,8 @@ namespace MvcBiblioteca.Controllers
                 bd.Reservas.Add(reserva);
                 bd.SaveChanges();
             }
-            
-            return View("Livros/Index");
+
+            return RedirectToAction("Index", "Livros");
         }
 
         public ActionResult Procurar(string term)
