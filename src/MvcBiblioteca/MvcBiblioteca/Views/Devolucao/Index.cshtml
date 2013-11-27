@@ -1,11 +1,69 @@
-﻿@model IEnumerable<Biblioteca.Dominio.Usuario>
+﻿@model MvcBiblioteca.Models.DevolucaoViewModel
 
 @{
     ViewBag.Title = "#2 - Devolução";
 }
 
+@section head {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#Usuarios").change(function () {
+
+                $.ajax({
+                    url: "Devolucao/ListarLivros",
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                    },
+                    success: function (json) {
+                        alert('ok');
+                        var ddl = $('#selectLivro');
+                        ddl.empty();
+                        $(json).each(function () {
+                            $(document.createElement('option'))
+                                .attr('value', this.Id)
+                                .text(this.Value)
+                                .appendTo(ddl);
+                        });
+
+
+                    }
+                });
+
+                $("#selectLivro").removeAttr("disabled");
+                
+            });
+
+
+        });
+
+    </script>
+
+}
+
 <h2>Devolução</h2>
+<br />
+<br />
 
+@using (Html.BeginForm("devolver", "devolucao"))
+{
+    
+    <div>
+        @Html.LabelFor(x => x.emprestimo.UsuarioEmprestimo.Nome)
+        @Html.DropDownList("Usuarios")
+    </div>
+    
+    <div>
+        @Html.LabelFor(x => x.emprestimo.LivroEmprestimo.Titulo)
+        <select id="selectLivro" disabled="disabled"></select>
+    </div>
+    
+    <br />
 
-
+    <input type="submit" value="Submeter" />
+}
 
