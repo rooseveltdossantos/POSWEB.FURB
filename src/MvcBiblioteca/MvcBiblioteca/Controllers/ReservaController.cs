@@ -86,6 +86,14 @@ namespace MvcBiblioteca.Controllers
             }
         }
 
+        public void CancelaReserva(ReservaLivro livroReservado)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                bd.Reservas.Remove(livroReservado);
+                bd.SaveChanges();
+            }
+        }
 
     }
 }
