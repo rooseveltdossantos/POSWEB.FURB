@@ -14,12 +14,12 @@
         <form action="">
             <p>
                 Busca por:
-                <select id="Select1">
-                    <option>Usuário</option>
-                    <option>Livro</option>
+                <select id="filtro">
+                    <option value='usuario'>Usuário</option>
+                    <option value='livro'>Livro</option>
                 </select>
-                <input id="Text1" type="text" />
-                <input id="Submit1" type="submit" value="submit" />
+                <input id="textoFiltro" type="text" />
+                <input id="botaoFiltro" type="submit" value="Filtrar" />
             </p>
         </form>
         
@@ -29,6 +29,15 @@
                 <th>Data Empréstimo</th>
                 <th>Data Devolução</th>
                 <th>Usuário</th>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Usuário</th>
+                <th>Data Empréstimo</th>
+                <th>Data Devolução</th>
+                <th>Livro</th>
             </tr>
         </table>
     </div>
