@@ -19,15 +19,7 @@ namespace MvcBiblioteca.Controllers
             ReservaLivro result = null;
 
             using (var bd = new BibliotecaDatabase())
-            {
-               // result = (from r in bd.Reservas /*Como fazer join com Livro e Usuário? está retornando null*/
-               //                where r.LivroRelacionado.LivroId == livroId                              
-              //                 where r.Situacao == true
-              //                 join l in bd.Livros on l.
-             //                  /*orderby r.DtReserva tem que ordenar decrescente isso*/
-             //                   select r).FirstOrDefault();
-                /*result = reservas.ToList().FirstOrDefault();*/
-
+            {     
                 var livros = from l in bd.Livros select l;
                 Debug.WriteLine("livros.ToList().Count:" + livros.ToList().Count);
 
@@ -35,11 +27,10 @@ namespace MvcBiblioteca.Controllers
                 Debug.WriteLine("usuarios.ToList().Count:" + usuarios.ToList().Count);
 
                 result = (from r in bd.Reservas
-                                where r.LivroRelacionado.LivroId == livroId && r.Situacao == true
+                          where r.LivroRelacionado.LivroId == livroId && r.Situacao == true
                           join l in bd.Livros on r.LivroRelacionado.LivroId equals l.LivroId
                           join u in bd.Usuarios on r.UsuarioDeb.UsuarioId equals u.UsuarioId
-                                
-                                select r).FirstOrDefault();
+                          select r).FirstOrDefault();
 
                 if (result == null)
                 {
@@ -82,18 +73,6 @@ namespace MvcBiblioteca.Controllers
         public ActionResult ReservaEfetuadaComSucesso() 
         {
             return View();
-            using (var bd = new BibliotecaDatabase())
-            {
-
-                var livros = from livro in bd.Livros
-                             select new
-                             {
-                                 id = livro.LivroId,
-                                 label = livro.Titulo,
-                                 value = livro.Titulo
-                             };
-                return Json(livros, JsonRequestBehavior.AllowGet);
-            }
         }
 
         public void CancelaReserva(ReservaLivro livroReservado)
@@ -104,7 +83,7 @@ namespace MvcBiblioteca.Controllers
                 bd.SaveChanges();
             }
         }
-     }
+    
 
     }
 }
