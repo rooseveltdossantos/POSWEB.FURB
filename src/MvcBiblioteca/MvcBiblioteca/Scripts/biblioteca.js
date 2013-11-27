@@ -1,4 +1,30 @@
 ﻿$(document).ready(function () {
+
+    $("#Usuarios").change(function () {
+
+        $.ajax({
+            url: "Devolucao/ListarLivros",
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+            },
+            success: function (json) {
+                var ddl = $('#selectLivro');
+                ddl.empty();
+                $(json).each(function () {
+                    $(document.createElement('option'))
+                        .attr('value', this.Id)
+                        .text(this.Value)
+                        .appendTo(ddl);
+                });
+            }
+        });
+
+        $("#selectLivro").removeAttr("disabled");
+
+    });
+
     $(".descricaoLink").click(function (event) {
 
         event.preventDefault();
