@@ -32,6 +32,20 @@ namespace MvcBiblioteca.Controllers
             // e calcular a diferença de dias para fazer a gravação correta do débito.
 
             // TODO: Tratar também o evento do change dos select, trazer o primeiro emprestimo para que não seja necessário fazer o change.
+            
+            var bd = new BibliotecaDatabase();
+            Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
+            TimeSpan ts = emprestimo.DevolvidoEm - emprestimo.DevolverAte;
+            int diasAtraso = ts.Days;
+            if (diasAtraso > 0)
+            {
+                Debito debito = new Debito();
+                debito.DebitoAtivo = true;
+                debito.Emprestimo = emprestimo;
+                debito.DiasAtraso = diasAtraso;
+                bd.Debitos.Add(debito);
+                bd.SaveChanges();
+            }
             return View("Index", new UsuarioViewModel());
         }
 
