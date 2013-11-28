@@ -1,10 +1,11 @@
 ﻿$(document).ready(function () {
 
-    $("#Usuarios").change(function () {
-
+    //Método que invoca o método que retorna os livros de um determinado usuário.
+    $(".Usuario").change(function () {
         $.ajax({
-            url: "Devolucao/ListarLivros",
+            url: "Devolucao/ListarLivrosDoUsuario",
             type: 'POST',
+            data: "{ id: " + $(this).val() + " }",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
@@ -14,15 +15,32 @@
                 ddl.empty();
                 $(json).each(function () {
                     $(document.createElement('option'))
-                        .attr('value', this.Id)
-                        .text(this.Value)
+                        .attr('value', this.LivroId)
+                        .text(this.Titulo)
                         .appendTo(ddl);
                 });
+
+                $("#selectLivro").removeAttr("disabled");
+            }
+        });
+    });
+
+    $("#selectLivro").change(function () {
+        $.ajax({
+            url: "Devolucao/CarregarEmprestimo",
+            type: 'POST',
+            data: "{ idLivro: " + $(this).val() + ", idUsuario:" + $(".Usuario").val() + " }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+            },
+            success: function (json) {
+                $("#idEmprestimo").val(json.idEmprestimo);
             }
         });
 
-        $("#selectLivro").removeAttr("disabled");
 
+        $("#idLivro").val($(this).val());
     });
 
     $(".descricaoLink").click(function (event) {
