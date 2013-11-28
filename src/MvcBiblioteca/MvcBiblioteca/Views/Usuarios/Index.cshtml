@@ -6,6 +6,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@if (!Roles.IsUserInRole("PodeGerenciarUsuarios"))
+{
+
+    <h2>Somente o usuário Admin pode acessar esse cadastro</h2>
+}
+else
+{    
 <h2>
     Lista de Usuarios</h2>
 <table>
@@ -38,16 +46,16 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink("alterar", 
-                                     "alterar", 
-                                     new { usuarioId = @usuario.UsuarioId }, 
-                                     new {@class = "linkAlteracao" })
+                    @Html.ActionLink("alterar",
+                                     "alterar",
+                                     new { usuarioId = @usuario.UsuarioId },
+                                     new { @class = "linkAlteracao" })
                 </td>
                 <td>
-                    @Html.ActionLink("excluir", 
-                                     "excluir", 
-                                     new { usuarioId = @usuario.UsuarioId }, 
-                                     new {@class = "linkExclusao" })
+                    @Html.ActionLink("excluir",
+                                     "excluir",
+                                     new { usuarioId = @usuario.UsuarioId },
+                                     new { @class = "linkExclusao" })
                 </td>
                 <td>@usuario.Cpf
                 </td>
@@ -64,3 +72,4 @@
     </tbody>
 </table>
 @Html.ActionLink("Criar um novo", "novo")
+}
