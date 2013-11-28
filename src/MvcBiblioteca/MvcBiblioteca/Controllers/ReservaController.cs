@@ -6,9 +6,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace MvcBiblioteca.Controllers
 {
+    [Authorize]
     public class ReservaController : Controller
     {
         //
@@ -19,19 +21,13 @@ namespace MvcBiblioteca.Controllers
             ReservaLivro result = null;
 
             using (var bd = new BibliotecaDatabase())
-            {     
-                
+            {
 
-                var reservas = (from r in bd.Reservas.Include("LivroRelacionado").Include("UsuarioDeb")
-                                //join l in bd.Livros.Include(a => a.) on r.LivroRelacionado.LivroId equals l.LivroId
-                                //join u in bd.Usuarios on r.UsuarioDeb.UsuarioId equals u.UsuarioId
+
+                result = (from r in bd.Reservas.Include("LivroRelacionado").Include("UsuarioDeb")                                
                                 where r.LivroRelacionado.LivroId.Equals(livroId) && r.Situacao.Equals(true)
                                 select r).FirstOrDefault();
                        
-
-                result = reservas;
-
-
                 if (result == null)
                 {
                     result = new ReservaLivro();
@@ -49,14 +45,24 @@ namespace MvcBiblioteca.Controllers
         {
             return View(getReserva(livroId));
         }
-
+        
+        
         public ActionResult Reservar(int livroId)
         {
 
             using (var bd = new BibliotecaDatabase())
             {
                 var livro = bd.Livros.Find(livroId);
-                var usuario = bd.Usuarios.Find(1); /*Precisa pegar o usuário logado*/
+
+                //Pega o id do usuário logado
+                int userId = WebSecurity.GetUserId(User.Identity.Name);
+
+                var usuario = bd.Usuarios.Find(userId);
+                if(usuario == null)
+                {
+                    throw new Exception("Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name);
+                }
+
                 ReservaLivro reserva = new ReservaLivro();
                 reserva.LivroRelacionado = livro;
                 reserva.UsuarioDeb = usuario;
