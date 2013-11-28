@@ -13,10 +13,13 @@
     @{Html.EnableClientValidation();}
     @{Html.EnableUnobtrusiveJavaScript();}
     @using (Html.BeginForm("novo", "usuarios", FormMethod.Post))
-    {     
-          
-        @Html.HiddenFor(x => x.UsuarioId, new { data_val = "false" })        
-               <div>            
+    {
+        if (Model != null) { 
+            @Html.HiddenFor(x => x.UsuarioId, new { data_val = "false" })    
+        }
+        
+            
+        <div>
             @Html.LabelFor(x => x.Cpf)
             @Html.TextBoxFor(x => x.Cpf)
             @Html.ValidationMessageFor(x => x.Cpf)
