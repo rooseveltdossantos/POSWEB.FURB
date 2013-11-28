@@ -5,4 +5,5 @@
     public const string PodeComentarEAdicionar = "PodeComentar, PodeAdicionarLivro";
     public static string PodeGerenciarUsuarios = "PodeGerenciarUsuarios";
     public const string PodeEmprestar = "PodeEmprestar";
+    public const string PodeReservar = "PodeReservar";
 }

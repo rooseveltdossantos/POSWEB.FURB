@@ -5,20 +5,30 @@
 }
 
 <h2>Reserva de livro</h2>
-<div>   
-        @if(Model.ReservaLivroId > 0){
-            <div id="livroJaEmprestado">Esse livro já está reservado pelo usuário <strong>@Model.UsuarioDeb.Nome</strong></div>
-        }      
-        else{
-               <p>Clique <strong> @Html.ActionLink(
-                     "aqui para reservar",
-                     "Reservar",
-                     "Reserva",
-                     new { livroId = @Model.LivroRelacionado.LivroId },
-                     new { @class = "linkReserva" })</strong> o livro <strong>@Model.LivroRelacionado.Titulo</strong>.</p>
-        }
+
+@if (!Roles.IsUserInRole("PodeReservar"))
+{
+
+    <h2>Seu usuário não pode fazer a Reserva de Livros</h2>
+}
+else
+{ 
+    <div>   
+            @if(Model.ReservaLivroId > 0){
+                <div id="livroJaEmprestado">Esse livro já está reservado pelo usuário <strong>@Model.UsuarioDeb.Nome</strong></div>
+            }      
+            else{
+                   <p>Clique <strong> @Html.ActionLink(
+                         "aqui para reservar",
+                         "Reservar",
+                         "Reserva",
+                         new { livroId = @Model.LivroRelacionado.LivroId },
+                         new { @class = "linkReserva" })</strong> o livro <strong>@Model.LivroRelacionado.Titulo</strong>.</p>
+            }
    
-</div>
+    </div>
+}
+
 <hr />
 @Html.ActionLink("Voltar", "Index", "Livros")
 
