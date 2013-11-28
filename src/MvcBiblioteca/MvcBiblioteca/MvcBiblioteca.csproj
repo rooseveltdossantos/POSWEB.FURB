@@ -256,6 +256,7 @@
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\emprestar.png" />
+    <Content Include="Images\pagamento.png" />
     <Content Include="POSWEB.Trabalho-Final.txt" />
     <Content Include="Scripts\biblioteca.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
