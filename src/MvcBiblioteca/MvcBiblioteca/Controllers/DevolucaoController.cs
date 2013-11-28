@@ -1,10 +1,12 @@
 ﻿using Biblioteca.DataAccess;
 using Biblioteca.Dominio;
+using MvcBiblioteca.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace MvcBiblioteca.Controllers
 {
@@ -13,47 +15,55 @@ namespace MvcBiblioteca.Controllers
 
         public ActionResult Index()
         {
-            var list = new List<SelectListItem>();
+            return View(new DevolucaoViewModel());
+        }
 
-            foreach (var usuario in ObterUsuariosComEmprestimo())
-                list.Add(new SelectListItem() { Text = usuario.Nome, Value = usuario.UsuarioId.ToString() });
+        public ActionResult Devolver(int idEmprestimo)
+        {
+            // TODO: Verificar se há necessidade de fazer método que poderá ser usado na listagem de emprestimo, passado usuário e id pode-se devolver em apenas 
+            // clique, evitando assim a interface, tentar manter os dois modelos.
+            throw new NotImplementedException();
+        }
 
-            ViewBag.Usuarios = list;
-            return View();
+        public ActionResult Devolver(DevolucaoViewModel u)
+        {
+
+            // TODO: Procurar pelo emprestimo e se a data de entrega do livro for maior que a devolução gerar débito
+            // e calcular a diferença de dias para fazer a gravação correta do débito.
+
+            // TODO: Tratar também o evento do change dos select, trazer o primeiro emprestimo para que não seja necessário fazer o change.
+            return View("Index", new UsuarioViewModel());
         }
 
 
-        public IEnumerable<Usuario> ObterUsuariosComEmprestimo()
+        [ActionName("ListarLivrosDoUsuario")]
+        public ActionResult ListarLivrosDoUsuario(int id)
         {
+
             using (var bd = new BibliotecaDatabase())
             {
-                var query = (from p in bd.Emprestimos
-                             //where p.DevolvidoEm == null
-                             select p.UsuarioEmprestimo).ToList();
-                return query.ToList();
+
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
+                             where e.UsuarioEmprestimo.UsuarioId == id
+                             select e.LivroEmprestimo).ToList();
+
+                return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
 
 
-        public ActionResult Devolver()
-        {
-            return View();
-        }
-
-        [ActionName("ListarLivros")]
-        public ActionResult ListarLivros()
+        [ActionName("CarregarEmprestimo")]
+        public ActionResult CarregarEmprestimo(int idUsuario, int idLivro)
         {
             using (var bd = new BibliotecaDatabase())
             {
-                var query = (from p in ObterUsuariosComEmprestimo()
-                             //where p.UsuarioEmprestimo.UsuarioId == id
-                             select new { Id = p.UsuarioId, Value = p.Nome });
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
+                             where e.LivroEmprestimo.LivroId == idLivro && e.UsuarioEmprestimo.UsuarioId == idUsuario
+                             select e.EmprestimoId).FirstOrDefault();
 
-
-                return Json(query, JsonRequestBehavior.AllowGet);
+                return Json(new { idEmprestimo = query }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
     }
 }

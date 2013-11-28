@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Infraestrutura\UsuarioViewModelBinder.cs" />
     <Compile Include="Infraestrutura\UsuarioViewModelBinderProvider.cs" />
+    <Compile Include="Models\DevolucaoViewModel.cs" />
     <Compile Include="PapeisDaBiblioteca.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ComentariosController.cs" />
@@ -354,7 +355,9 @@
   <ItemGroup>
     <Content Include="Views\Debitos\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Devolucao\Index.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Historico\Index.cshtml" />
   </ItemGroup>

@@ -4,45 +4,8 @@
     ViewBag.Title = "#2 - Devolução";
 }
 
-@section head {
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            $("#Usuarios").change(function () {
-
-                $.ajax({
-                    url: "Devolucao/ListarLivros",
-                    type: 'POST',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    beforeSend: function () {
-                    },
-                    success: function (json) {
-                        alert('ok');
-                        var ddl = $('#selectLivro');
-                        ddl.empty();
-                        $(json).each(function () {
-                            $(document.createElement('option'))
-                                .attr('value', this.Id)
-                                .text(this.Value)
-                                .appendTo(ddl);
-                        });
-
-
-                    }
-                });
-
-                $("#selectLivro").removeAttr("disabled");
-                
-            });
-
-
-        });
-
-    </script>
-
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
 }
 
 <h2>Devolução</h2>
@@ -53,17 +16,18 @@
 {
     
     <div>
-        @Html.LabelFor(x => x.emprestimo.UsuarioEmprestimo.Nome)
-        @Html.DropDownList("Usuarios")
+        @Html.Label("Usuario")
+        @Html.DropDownList("Usuario", new SelectList(Model.ObterUsuariosComEmprestimo(), "UsuarioId", "Nome"), new { @class = "Usuario" })
     </div>
     
     <div>
-        @Html.LabelFor(x => x.emprestimo.LivroEmprestimo.Titulo)
-        <select id="selectLivro" disabled="disabled"></select>
+        @Html.Label("Livro")
+        <select id="selectLivro" name="selectLivro" disabled="disabled"></select>
+        @Html.HiddenFor(x=>x.idEmprestimo)
     </div>
     
     <br />
 
-    <input type="submit" value="Submeter" />
+    <input type="submit" value="Devolver" />
 }
 
