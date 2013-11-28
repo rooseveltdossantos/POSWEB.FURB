@@ -16,5 +16,10 @@ namespace MvcBiblioteca.Controllers
             return View();
         }
 
+        public ActionResult ListarHistoricoUsuario()
+        {
+            return null;
+        }
+
     }
 }
