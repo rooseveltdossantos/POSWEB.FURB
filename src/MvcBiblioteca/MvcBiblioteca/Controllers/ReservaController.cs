@@ -60,7 +60,7 @@ namespace MvcBiblioteca.Controllers
                 var usuario = bd.Usuarios.Find(userId);
                 if(usuario == null)
                 {
-                    throw new Exception("Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name);
+                    throw new Exception("Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.");
                 }
 
                 ReservaLivro reserva = new ReservaLivro();
