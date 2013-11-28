@@ -803,3 +803,13 @@ a.linkEmprestimo
     border: 1px solid black;
     width: 70%;
 }
+
+
+a.linkEfetuarPgto
+{
+    background: url(../images/pagamento.png) no-repeat top left;
+    display: block;
+    width: 16px;
+    height: 16px;
+    text-indent: -999999px;
+}
