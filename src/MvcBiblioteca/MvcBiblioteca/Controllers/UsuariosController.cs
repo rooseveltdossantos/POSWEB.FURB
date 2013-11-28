@@ -8,6 +8,7 @@ using Biblioteca.Dominio;
 using MvcBiblioteca.Models;
 using System.Data.Entity;
 using WebMatrix.WebData;
+using System.Web.Security;
 
 namespace MvcBiblioteca.Controllers
 {
@@ -39,11 +40,29 @@ namespace MvcBiblioteca.Controllers
                 using (var bd = new BibliotecaDatabase())
                 {
                     if (usuario.UsuarioId <= 0)
+                    {
                         bd.Usuarios.Add(usuario.ParaEntidade());
+                    }
                     else
                         bd.Entry(usuario.ParaEntidade()).State = EntityState.Modified;
+
+                    if (!WebSecurity.UserExists(usuario.Login))
+                    {
+                        WebSecurity.CreateUserAndAccount(usuario.Login, usuario.Senha);
+                        if (usuario.TipoUsuario == TipoUsuario.Funcionario)
+                        {
+                            Roles.AddUserToRole(usuario.Login, "PodeAdicionarLivro");
+                        }
+
+
+                        Roles.AddUserToRole(usuario.Login, "PodeComentar");
+                    
+                    }
+                        
+
+                    
                     bd.SaveChanges();
-                    WebSecurity.CreateUserAndAccount(usuario.Login, usuario.Senha);
+                    
                     return RedirectToAction("index");
                 } 
             }
