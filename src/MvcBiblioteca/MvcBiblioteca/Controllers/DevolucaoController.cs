@@ -28,13 +28,17 @@ namespace MvcBiblioteca.Controllers
         public ActionResult Devolver(DevolucaoViewModel u)
         {
 
-            // TODO: Procurar pelo emprestimo e se a data de entrega do livro for maior que a devolução gerar débito
-            // e calcular a diferença de dias para fazer a gravação correta do débito.
-
             // TODO: Tratar também o evento do change dos select, trazer o primeiro emprestimo para que não seja necessário fazer o change.
-            
+
+            // Procurar pelo emprestimo e se a data de entrega do livro for maior que a devolução gerar débito
+            // e calcular a diferença de dias para fazer a gravação correta do débito.
             var bd = new BibliotecaDatabase();
             Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
+            emprestimo.DevolvidoEm = new DateTime();
+            //Atualizando o debito para devolvido
+            bd.Entry(emprestimo).State = EntityState.Modified;
+            bd.SaveChanges();
+            //Calculando os dias de atraso
             TimeSpan ts = emprestimo.DevolvidoEm - emprestimo.DevolverAte;
             int diasAtraso = ts.Days;
             if (diasAtraso > 0)
