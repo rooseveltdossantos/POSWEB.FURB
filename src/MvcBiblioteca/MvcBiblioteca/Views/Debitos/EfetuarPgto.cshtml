@@ -40,7 +40,6 @@
         <div>
             @Html.Label("Valor a pagar")
             @((Convert.ToDecimal(Html.DisplayFor(x => x.DiasAtraso).ToString()) * 2).ToString("C"))
-            @*@((Convert.ToDecimal(Html.DisplayFor(x => x.DiasAtraso)) * 2).ToString("C"))*@
         </div>
         
         <button type="submit">Efetuar pagamento</button>

@@ -10,7 +10,7 @@
 
 @using (Html.BeginForm("LocalizarDebitosUsuario", "Debitos", FormMethod.Post))
 {
-    @Html.TextBox("NomeUsuario", null, new { PlaceHolder = "localizar...", id = "localizar" })
+    @Html.TextBox("usuario", null, new { PlaceHolder = "localizar...", id = "NomeUsuario" })
     <button type="submit" value="Localizar">
         Localizar</button>
 }
@@ -48,13 +48,13 @@
                     @debito.Emprestimo.DevolvidoEm
                 </td>
                 <td>
-                    R$ @(debito.DiasAtraso * 2.00)
+                    @((debito.DiasAtraso * 2.00).ToString("C"))
                 </td>
                 <td>
-                    @Html.ActionLink("efetuarPgto", 
-                                     "efetuarPgto", 
-                                     new { usuarioId = @debito.DebitoId }, 
-                                     new {@class = "linkEfetuarPgto" })
+                    @Html.ActionLink("efetuarPgto",
+                                     "efetuarPgto",
+                                     new { debitoId = @debito.DebitoId },
+                                     new { @class = "linkEfetuarPgto" })
                 </td>
             </tr>
         }
