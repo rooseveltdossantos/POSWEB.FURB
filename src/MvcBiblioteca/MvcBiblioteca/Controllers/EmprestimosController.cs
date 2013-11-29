@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Biblioteca.DataAccess;
 using Biblioteca.Dominio;
+using MvcBiblioteca.Models;
 
 namespace MvcBiblioteca.Controllers
 {
@@ -102,13 +103,30 @@ namespace MvcBiblioteca.Controllers
                     Emprestimo emprestimo = new Emprestimo { LivroEmprestimo = livro, UsuarioEmprestimo = usuario, RetiradoEm = hoje, DevolverAte = prazo };
                     bd.Emprestimos.Add(emprestimo);
                     bd.SaveChanges();
+                    Console.WriteLine("Livro emprestado com sucesso");
                 }
                 else {
+                    Console.WriteLine("O emprestimo não foi efetuado.");
+                    //return View("Erro");
                     // Exibe mensagem de erro.
                 }
                 
             }
             return View("Index");
+        }
+
+        [ActionName("ObterUsuarios")]
+        public ActionResult ObterUsuarios()
+        {
+            EmprestimoViewModel evm = new EmprestimoViewModel();
+            return Json(new { usuarios = evm.ObterUsuarios() }, JsonRequestBehavior.AllowGet);
+        }
+
+        [ActionName("ObterLivros")]
+        public ActionResult ObterLivros()
+        {
+            EmprestimoViewModel evm = new EmprestimoViewModel();
+            return Json(new { livros = evm.ObterLivros() }, JsonRequestBehavior.AllowGet);
         }
 
     }

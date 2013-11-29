@@ -1,0 +1,87 @@
+﻿@model MvcBiblioteca.Models.EmprestimoViewModel
+@{
+    ViewBag.Title = "Novo Empréstimo";
+}
+<h2>
+    Empréstimo de livro</h2>
+@if (!Roles.IsUserInRole("PodeEmprestar"))
+{
+    <h2>
+        Seu usuário não pode fazer o Empréstimo de Livros</h2>
+}
+else
+{
+    using (Html.BeginForm("emprestar", "emprestimos"))
+    {
+        <div>
+            <label for="usuarioId">Usuário</label>
+            <select id="usuarioId" name="usuarioId"></select>
+        </div>
+    
+        <div>
+            <label for="livroId">Livro</label>
+            <select id="livroId" name="livroId"></select>
+        </div>
+    
+        <br />
+
+        <input type="submit" value="Emprestar" />
+    }
+}
+<hr />
+@Html.ActionLink("Voltar", "Index", "Livros")
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/Emprestimos/ObterUsuarios",
+            data: {},
+            dataType: "json",
+            success: function (json) {
+                atualizaListaUsuarios(json);
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Emprestimos/ObterLivros",
+            data: {},
+            dataType: "json",
+            success: function (json) {
+                atualizaListaLivros(json);
+            }
+        });
+
+    });
+
+    function atualizaListaUsuarios(resp) {
+        var $select = $('#usuarioId');
+        var usuarios = resp.usuarios;
+
+        $.each(usuarios, function (i, usuario) {
+            console.log(usuario);
+            var option = $('<option>', {
+                value: usuario.UsuarioId
+            }).html(usuario.Nome).appendTo($select);
+            console.log(option);
+        });
+    }
+
+    function atualizaListaLivros(resp) {
+        var $select = $('#livroId');
+        var livros = resp.livros;
+
+        $.each(livros, function (i, livro) {
+            console.log(livro);
+            var option = $('<option>', {
+                value: livro.LivroId
+            }).html(livro.Titulo).appendTo($select);
+            console.log(option);
+        });
+    }
+</script>
