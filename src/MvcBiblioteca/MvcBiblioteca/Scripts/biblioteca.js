@@ -77,4 +77,9 @@
         source: urlCompletar,
         minLength: 2
     });
+
+    $("input#NomeUsuario").autocomplete({
+        source: "/Debitos/Procurar",
+        minLength: 2
+    });
 });
