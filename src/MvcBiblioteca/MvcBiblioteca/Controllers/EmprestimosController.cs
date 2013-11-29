@@ -14,25 +14,36 @@ namespace MvcBiblioteca.Controllers
         //
         // GET: /Emprestimos/
 
-        // Lista os empréstimos ativos
+        // TODO: Listar os empréstimos ativos
         public ActionResult Index()
         {
             return View();
+
         }
 
         [Authorize(Roles = PapeisDaBiblioteca.PodeEmprestar)]
         public ActionResult Novo()
         {
-            return View();
+            return View(new EmprestimoViewModel());
         }
 
-
-        public IEnumerable<Emprestimo> ObterEmprestimosDoUsuario(int usuarioId)
+        private Emprestimo ObterEmprestimoDoLivro(int livroId)
         {
             using (var bd = new BibliotecaDatabase())
             {
                 var query = (from e in bd.Emprestimos
-                             where e.UsuarioEmprestimo.UsuarioId == usuarioId && e.DevolvidoEm == null
+                             where e.LivroEmprestimo.LivroId == livroId && !e.DevolvidoEm.HasValue
+                             select e).FirstOrDefault();
+                return query;
+            }
+        }
+
+        private IEnumerable<Emprestimo> ObterEmprestimosDoUsuario(int usuarioId)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos
+                             where e.UsuarioEmprestimo.UsuarioId == usuarioId && !e.DevolvidoEm.HasValue
                              select e).Distinct().ToList();
                 return query.ToList();
             }
@@ -46,87 +57,96 @@ namespace MvcBiblioteca.Controllers
             DateTime prazoFuncionario = hoje.AddDays(7);
             DateTime prazoExAluno = hoje.AddDays(7);
 
-            using (var bd = new BibliotecaDatabase())
+            string msg = ("");
+
+            try
             {
-                var livro = bd.Livros.Find(livroId);
-                if (livro == null)
-                {
-                    throw new Exception("Não foi possível encontrar o livro:" + livroId);
-                }
-                
-                var usuario = bd.Usuarios.Find(usuarioId);
-                if (usuario == null)
-                {
-                    throw new Exception("Não foi possível encontrar o usuário:" + usuarioId);
+                using (var bd = new BibliotecaDatabase()) {
+
+                    var livro = bd.Livros.Find(livroId);
+                    if (livro == null)
+                    {
+                        msg = ("Não foi possível encontrar o livro: " + livroId);
+                        throw new Exception(msg);
+                    }
+
+                    // Verifica se o livro está emprestado ou reservado
+                    if (ObterEmprestimoDoLivro(livroId) != null)
+                    {
+                        msg = ("O livro já está emprestado: " + livroId);
+                        throw new Exception(msg);
+                    }
+
+                    var usuario = bd.Usuarios.Find(usuarioId);
+                    if (usuario == null)
+                    {
+                        msg = ("Não foi possível encontrar o usuário:" + usuarioId);
+                        throw new Exception(msg);
+                    }
+
+                    // Verifica a quantidade de livros emprestados para o Usuário e o tipo do usuário.
+                    IEnumerable<Emprestimo> emprestimosAtivos = ObterEmprestimosDoUsuario(usuarioId);
+                    int quantidadeEmprestada = emprestimosAtivos.Count();
+
+                    TipoUsuario tipo = usuario.TipoUsuario;
+
+                    bool realizaEmprestimo = false;
+                    DateTime prazo = DateTime.Now;
+
+                    switch (tipo)
+                    {
+                        case TipoUsuario.Professor:
+                            // 10 livros
+                            realizaEmprestimo = quantidadeEmprestada <= 10 ? true : false;
+                            prazo = prazoProfessor;
+                            break;
+                        case TipoUsuario.Aluno:
+                            // 5 livros
+                            realizaEmprestimo = quantidadeEmprestada <= 5 ? true : false;
+                            prazo = prazoAluno;
+                            break;
+                        case TipoUsuario.Funcionario:
+                            // 3 livros
+                            realizaEmprestimo = quantidadeEmprestada <= 3 ? true : false;
+                            prazo = prazoFuncionario;
+                            break;
+                        case TipoUsuario.ExAluno:
+                            // 1 livro
+                            realizaEmprestimo = quantidadeEmprestada <= 1 ? true : false;
+                            prazo = prazoExAluno;
+                            break;
+                        default:
+                            realizaEmprestimo = false;
+                            prazo = DateTime.Now;
+                            Console.WriteLine("Nenhum tipo de usuário foi específicado");
+                            break;
+                    }
+
+                    if (realizaEmprestimo)
+                    {
+                        Emprestimo emprestimo = new Emprestimo { LivroEmprestimo = livro, UsuarioEmprestimo = usuario, RetiradoEm = hoje, DevolverAte = prazo };
+                        bd.Emprestimos.Add(emprestimo);
+                        bd.SaveChanges();
+                        msg = ("Livro emprestado com sucesso " + msg);
+                        Console.WriteLine(msg);
+                    }
+                    else
+                    {
+                        msg = ("O emprestimo não foi efetuado. " + msg);
+                        Console.WriteLine(msg);
+                        //return View("Erro");
+                        // Exibe mensagem de erro.
+                    }
                 }
 
-                // Verifica a quantidade de livros emprestados para o Usuário e o tipo do usuário.
-                IEnumerable<Emprestimo> emprestimosAtivos = ObterEmprestimosDoUsuario(usuarioId);
-                int quantidadeEmprestada = emprestimosAtivos.Count();
-
-                TipoUsuario tipo = usuario.TipoUsuario;
-
-                bool realizaEmprestimo = false;
-                DateTime prazo = DateTime.Now;
-
-                switch (tipo)
-                {
-                    case TipoUsuario.Professor:
-                        // 10 livros
-                        realizaEmprestimo = quantidadeEmprestada <= 10 ? true : false;
-                        prazo = prazoProfessor;
-                        break;
-                    case TipoUsuario.Aluno:
-                        // 5 livros
-                        realizaEmprestimo = quantidadeEmprestada <= 5 ? true : false;
-                        prazo = prazoAluno;
-                        break;
-                    case TipoUsuario.Funcionario:
-                        // 3 livros
-                        realizaEmprestimo = quantidadeEmprestada <= 3 ? true : false;
-                        prazo = prazoFuncionario;
-                        break;
-                    case TipoUsuario.ExAluno:
-                        // 1 livro
-                        realizaEmprestimo = quantidadeEmprestada <= 1 ? true : false;
-                        prazo = prazoExAluno;
-                        break;
-                    default:
-                        realizaEmprestimo = false;
-                        prazo = DateTime.Now;
-                        Console.WriteLine("Nenhum tipo de usuário foi específicado");
-                        break;
-                }
-
-                if (realizaEmprestimo)
-                {
-                    Emprestimo emprestimo = new Emprestimo { LivroEmprestimo = livro, UsuarioEmprestimo = usuario, RetiradoEm = hoje, DevolverAte = prazo };
-                    bd.Emprestimos.Add(emprestimo);
-                    bd.SaveChanges();
-                    Console.WriteLine("Livro emprestado com sucesso");
-                }
-                else {
-                    Console.WriteLine("O emprestimo não foi efetuado.");
-                    //return View("Erro");
-                    // Exibe mensagem de erro.
-                }
-                
             }
+            catch {
+                ViewBag.Mensagem = msg;
+                return View("Index");
+            }
+            ViewBag.Mensagem = msg;
             return View("Index");
-        }
-
-        [ActionName("ObterUsuarios")]
-        public ActionResult ObterUsuarios()
-        {
-            EmprestimoViewModel evm = new EmprestimoViewModel();
-            return Json(new { usuarios = evm.ObterUsuarios() }, JsonRequestBehavior.AllowGet);
-        }
-
-        [ActionName("ObterLivros")]
-        public ActionResult ObterLivros()
-        {
-            EmprestimoViewModel evm = new EmprestimoViewModel();
-            return Json(new { livros = evm.ObterLivros() }, JsonRequestBehavior.AllowGet);
+            
         }
 
     }
