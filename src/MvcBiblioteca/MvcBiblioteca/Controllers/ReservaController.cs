@@ -49,7 +49,7 @@ namespace MvcBiblioteca.Controllers
 
         public static void removerReserva(int livroId)
         {
-            ReservaLivro reserva = getReserva(livroId);
+            ReservaLivro reserva = ReservaController.getReserva(livroId);
             if (reserva != null && reserva.ReservaLivroId > 0)
             {
                 reserva.Situacao = false;//Libera a reserva
