@@ -1,0 +1,48 @@
+﻿@model Biblioteca.Dominio.Debito
+
+@{
+    ViewBag.Title = "EfetuarPgto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Efetuar Pagamento de Débito</h2>
+
+<div>
+    @{Html.EnableUnobtrusiveJavaScript();}
+    @using (Html.BeginForm("efetuarPgto", "debitos", FormMethod.Post))
+    {     
+          
+        @Html.HiddenFor(x => x.DebitoId, new { data_val = "false" })        
+        <div>
+            @Html.LabelFor(x => x.UsuarioDeb.Nome)
+            @Html.DisplayFor(x => x.UsuarioDeb.Nome)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Emprestimo.LivroEmprestimo.Titulo)
+            @Html.DisplayFor(x => x.Emprestimo.LivroEmprestimo.Titulo)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Emprestimo.RetiradoEm)
+            @Html.DisplayFor(x => x.Emprestimo.RetiradoEm)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Emprestimo.DevolverAte)
+            @Html.DisplayFor(x => x.Emprestimo.DevolverAte)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Emprestimo.DevolvidoEm)
+            @Html.DisplayFor(x => x.Emprestimo.DevolvidoEm)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.DiasAtraso)
+            @Html.DisplayFor(x => x.DiasAtraso)
+        </div>
+        <div>
+            @Html.Label("Valor a pagar")
+            @((Convert.ToDecimal(Html.DisplayFor(x => x.DiasAtraso).ToString()) * 2).ToString("C"))
+            @*@((Convert.ToDecimal(Html.DisplayFor(x => x.DiasAtraso)) * 2).ToString("C"))*@
+        </div>
+        
+        <button type="submit">Efetuar pagamento</button>
+    }
+</div>
