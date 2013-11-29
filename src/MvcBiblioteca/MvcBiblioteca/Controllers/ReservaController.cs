@@ -16,7 +16,7 @@ namespace MvcBiblioteca.Controllers
         //
         // GET: /Reserva/
 
-        private ReservaLivro getReserva(int livroId) 
+        public static ReservaLivro getReserva(int livroId) 
         {
             ReservaLivro result = null;
 
@@ -31,6 +31,7 @@ namespace MvcBiblioteca.Controllers
                 if (result == null)
                 {
                     result = new ReservaLivro();
+                    result.ReservaLivroId = 0;
                     var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
                     result.LivroRelacionado = livro;
                 }
@@ -44,6 +45,16 @@ namespace MvcBiblioteca.Controllers
         public ActionResult Index(int livroId)
         {
             return View(getReserva(livroId));
+        }
+
+        public static void removerReserva(int livroId)
+        {
+            ReservaLivro reserva = getReserva(livroId);
+            if (reserva != null && reserva.ReservaLivroId > 0)
+            {
+                reserva.Situacao = false;//Libera a reserva
+            }
+            
         }
         
         

@@ -68,6 +68,8 @@ namespace MvcBiblioteca.Controllers
             throw new NotImplementedException();
         }
 
+        
+
         [HttpPost]
         public ActionResult Devolver(DevolucaoViewModel u)
         {
@@ -91,6 +93,11 @@ namespace MvcBiblioteca.Controllers
                     debito.UsuarioDeb = emprestimo.UsuarioEmprestimo;
                     debito.DiasAtraso = diasAtraso;
                     bd.Debitos.Add(debito);
+
+                    //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
+                    //TODO: Isso precisa ser testado ainda, devido a devolução ainda não estar pronta.
+                    ReservaController.removerReserva(emprestimo.LivroEmprestimo.LivroId);
+
                     bd.SaveChanges();
                 }
             }
