@@ -1,12 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Biblioteca.Dominio.Emprestimo>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div>
         
         
         <h2>Histórico</h2>
@@ -30,16 +29,23 @@
                 <th>Data Devolução</th>
                 <th>Usuário</th>
             </tr>
+            <!--
+            foreach (var emprestimo in Model)
+            {
+                <tr>
+                    <td>emprestimo.LivroEmprestimo.Titulo</td>
+                </tr>        
+                <tr>
+                    <td>emprestimo.UsuarioEmprestimo.Nome</td>
+                </tr>     
+                <tr>
+                    <td>emprestimo.RetiradoEm</td>
+                </tr>     
+                <tr>
+                    <td>emprestimo.DevolvidoEm</td>
+                </tr>     
+            } -->
+            
         </table>
 
-        <table>
-            <tr>
-                <th>Usuário</th>
-                <th>Data Empréstimo</th>
-                <th>Data Devolução</th>
-                <th>Livro</th>
-            </tr>
-        </table>
-    </div>
-</body>
-</html>
+      

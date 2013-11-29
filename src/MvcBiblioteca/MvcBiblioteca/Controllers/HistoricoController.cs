@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Biblioteca.DataAccess;
+using Biblioteca.Dominio;
+using MvcBiblioteca.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace MvcBiblioteca.Controllers
 {
@@ -15,13 +19,8 @@ namespace MvcBiblioteca.Controllers
         {
             return View();
         }
-
-		public ActionResult ListarHistoricoUsuario()
-		{
-            return null;
-        }
-
-		/*
+    
+		
         public ActionResult ListarHistoricoUsuario(int idUsuario)
         {
             using (var bd = new BibliotecaDatabase())
@@ -34,9 +33,9 @@ namespace MvcBiblioteca.Controllers
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-		*/
 		
-		/*
+		
+		
 		public ActionResult ListarHistoricoLivro(int idLivro)
         {
               using (var bd = new BibliotecaDatabase())
@@ -48,9 +47,9 @@ namespace MvcBiblioteca.Controllers
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-		*/
 		
-		/*
+		
+		
 		 public ActionResult ListarHistoricoLivroUsuario(int idUsuario, int idLivro)
         {
             using (var bd = new BibliotecaDatabase())
@@ -62,12 +61,8 @@ namespace MvcBiblioteca.Controllers
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-		*/
 		
-        public ActionResult ListarHistoricoLivro()
-        {
-            return null;
-        }
+		
 
     }
 }
