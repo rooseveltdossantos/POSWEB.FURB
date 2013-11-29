@@ -26,7 +26,13 @@ namespace MvcBiblioteca.Infraestrutura
 
         private void ConverterParaTipoUsuario(ModelBindingContext bindingContext, string propertyName, string propertyValue)
         {
-            //throw new NotImplementedException();
+            switch(propertyValue) {
+                case "Professor": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Professor; break;
+                case "Funcionario": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Funcionario; break;
+                case "Aluno": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Aluno; break;
+                case "ExAluno": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.ExAluno; break;
+                case "Operador": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Operador; break;
+            }
         }
 
 

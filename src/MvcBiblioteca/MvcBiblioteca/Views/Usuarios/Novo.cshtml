@@ -45,10 +45,7 @@
             @Html.DropDownListFor(x => x.TipoUsuario,   mostrar => mostrar.ApresentacaoParaFormulario)
 
         </div>
-        <div>
-            @Html.EnumDropDownListFor(x => x.TipoUsuario, Biblioteca.Dominio.TipoUsuario.Operador  ) @* , x.TipoUsuarioTypeList )*@
-       
-        </div>
+        
         
         <button type="submit">Gravar</button>
     }
