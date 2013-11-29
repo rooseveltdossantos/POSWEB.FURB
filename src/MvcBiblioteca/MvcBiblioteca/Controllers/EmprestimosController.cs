@@ -9,23 +9,25 @@ using MvcBiblioteca.Models;
 
 namespace MvcBiblioteca.Controllers
 {
+    [Authorize(Roles = PapeisDaBiblioteca.PodeEmprestar)]
     public class EmprestimosController : Controller
     {
         //
         // GET: /Emprestimos/
 
         // TODO: Listar os empréstimos ativos
+        [Authorize]
         public ActionResult Index()
         {
             return View();
 
         }
 
-        [Authorize(Roles = PapeisDaBiblioteca.PodeEmprestar)]
         public ActionResult Novo()
         {
             return View(new EmprestimoViewModel());
         }
+
 
         private Emprestimo ObterEmprestimoDoLivro(int livroId)
         {

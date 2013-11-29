@@ -16,8 +16,16 @@
         @Html.DropDownList("usuarioId", new SelectList(Model.ObterUsuarios(), "usuarioId", "Nome"), new { @class = "Usuario" })
     </div>
     <div>
-        @Html.Label("Livro")
-        @Html.DropDownList("livroId", new SelectList(Model.ObterLivrosNaoEmprestados(), "livroId", "Titulo"), new { @class = "Livro" })
+        @if ( !string.IsNullOrEmpty(Request["livroId"]) )
+        {
+            // Tem livroId
+            <input type="hidden" name="livroId" value="@Request["livroId"]" />
+        }
+        else
+        {
+            @Html.Label("Livro")
+            @Html.DropDownList("livroId", new SelectList(Model.ObterLivrosNaoEmprestados(), "livroId", "Titulo"), new { @class = "Livro" })
+        }
     </div>
     
     <br />

@@ -11,8 +11,8 @@ namespace MvcBiblioteca.Models
     {
         private Emprestimo emprestimo;
         public int EmprestimoId { get; set; }
-
-        public EmprestimoViewModel() 
+        
+        public EmprestimoViewModel()
         {
             this.emprestimo = new Emprestimo();
         }
