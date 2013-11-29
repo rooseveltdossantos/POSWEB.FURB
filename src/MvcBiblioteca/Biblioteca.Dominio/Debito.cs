@@ -8,7 +8,7 @@ namespace Biblioteca.Dominio
 {
     public class Debito
     {
-        public int DebitoId { get; set; }
+        public long DebitoId { get; set; }
 
         [DisplayName("Usuário")]
         public Usuario UsuarioDeb { get; set; }
