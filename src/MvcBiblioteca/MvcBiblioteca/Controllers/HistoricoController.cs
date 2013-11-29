@@ -16,11 +16,54 @@ namespace MvcBiblioteca.Controllers
             return View();
         }
 
-        public ActionResult ListarHistoricoUsuario()
-        {
+		public ActionResult ListarHistoricoUsuario()
+		{
             return null;
         }
 
+		/*
+        public ActionResult ListarHistoricoUsuario(int idUsuario)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
+                             where e.UsuarioEmprestimo.UsuarioId == idUsuario
+                             select e ).ToList();
+
+                return Json(query.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+		*/
+		
+		/*
+		public ActionResult ListarHistoricoLivro(int idLivro)
+        {
+              using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
+                             where e.LivroEmprestimo.LivroId == idLivro
+                             select e ).ToList();
+
+                return Json(query.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+		*/
+		
+		/*
+		 public ActionResult ListarHistoricoLivroUsuario(int idUsuario, int idLivro)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
+                             where e.LivroEmprestimo.LivroId == idLivro && e.UsuarioEmprestimo.UsuarioId == idUsuario
+                             select e ).ToList();
+
+                return Json(query.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+		*/
+		
         public ActionResult ListarHistoricoLivro()
         {
             return null;
