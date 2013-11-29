@@ -2,6 +2,7 @@
 using Biblioteca.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -66,12 +67,13 @@ namespace MvcBiblioteca.Controllers
             return View(getReserva(livroId));
         }
 
-        public static void removerReserva(int livroId)
+        public static void removerReserva(BibliotecaDatabase bd, int livroId)
         {
             ReservaLivro reserva = ReservaController.getReserva(livroId);
             if (reserva != null && reserva.ReservaLivroId > 0)
             {
                 reserva.Situacao = false;//Libera a reserva
+                bd.Entry(reserva).State = EntityState.Modified; //Sinaliza que foi alterado.
             }
             
         }

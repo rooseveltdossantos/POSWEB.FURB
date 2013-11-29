@@ -96,7 +96,7 @@ namespace MvcBiblioteca.Controllers
 
                     //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
                     //TODO: Isso precisa ser testado ainda, devido a devolução ainda não estar pronta.
-                    ReservaController.removerReserva(emprestimo.LivroEmprestimo.LivroId);
+                    ReservaController.removerReserva(bd, emprestimo.LivroEmprestimo.LivroId);
 
                     bd.SaveChanges();
                 }
