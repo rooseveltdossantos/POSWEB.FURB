@@ -19,7 +19,7 @@
                         .text(this.Titulo)
                         .appendTo(ddl);
                 });
-
+                $("#selectLivro").val($(json)[0].LivroId).change();
                 $("#selectLivro").removeAttr("disabled");
             }
         });
