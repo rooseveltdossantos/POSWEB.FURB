@@ -61,16 +61,14 @@ namespace MvcBiblioteca.Controllers
             return View(new DevolucaoViewModel());
         }
 
-        // Desabilitando 
-        // O enunciado pede claramente "Dado um usuário, dado um livro"
-        // Além disso, estava gerando exceção de ambiguidade
-        //public ActionResult Devolver(int idEmprestimo)
-        //{
-        //    // TODO: Verificar se há necessidade de fazer método que poderá ser usado na listagem de emprestimo, passado usuário e id pode-se devolver em apenas 
-        //    // clique, evitando assim a interface, tentar manter os dois modelos.
-        //    throw new NotImplementedException();
-        //}
+        public ActionResult Devolver(int idEmprestimo)
+        {
+            // TODO: Verificar se há necessidade de fazer método que poderá ser usado na listagem de emprestimo, passado usuário e id pode-se devolver em apenas 
+            // clique, evitando assim a interface, tentar manter os dois modelos.
+            throw new NotImplementedException();
+        }
 
+        [HttpPost]
         public ActionResult Devolver(DevolucaoViewModel u)
         {
 
@@ -78,25 +76,28 @@ namespace MvcBiblioteca.Controllers
 
             // Procurar pelo emprestimo e se a data de entrega do livro for maior que a devolução gerar débito
             // e calcular a diferença de dias para fazer a gravação correta do débito.
-            var bd = new BibliotecaDatabase();
-            Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
-            //emprestimo.DevolvidoEm = new DateTime?();
-            emprestimo.DevolvidoEm = DateTime.Now.Date;
-            //Atualizando o debito para devolvido
-            bd.Entry(emprestimo).State = EntityState.Modified;
-            bd.SaveChanges();
-            //Calculando os dias de atraso
-            TimeSpan ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
-            int diasAtraso = ts.Days;
-            if (diasAtraso > 0)
+            using (var bd = new BibliotecaDatabase())
             {
-                Debito debito = new Debito();
-                debito.DebitoAtivo = true;
-                debito.Emprestimo = emprestimo;
-                debito.DiasAtraso = diasAtraso;
-                bd.Debitos.Add(debito);
+                Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
+
+                emprestimo.DevolvidoEm = DateTime.Now.Date;
+                //Atualizando o debito para devolvido
+                bd.Entry(emprestimo).State = EntityState.Modified;
                 bd.SaveChanges();
+                //Calculando os dias de atraso
+                TimeSpan ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
+                int diasAtraso = ts.Days;
+                if (diasAtraso > 0)
+                {
+                    Debito debito = new Debito();
+                    debito.DebitoAtivo = true;
+                    debito.Emprestimo = emprestimo;
+                    debito.DiasAtraso = diasAtraso;
+                    bd.Debitos.Add(debito);
+                    bd.SaveChanges();
+                }
             }
+            
             //return View("Index", new UsuarioViewModel());
             return RedirectToAction("Index", new DevolucaoViewModel());
         }
