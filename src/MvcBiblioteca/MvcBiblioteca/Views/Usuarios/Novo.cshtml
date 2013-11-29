@@ -1,6 +1,5 @@
 ﻿@using MvcBiblioteca
 @model MvcBiblioteca.Models.UsuarioViewModel
-
 @{
     ViewBag.Title = "Novo";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -43,9 +42,12 @@
         </div>
         <div>
             @Html.LabelFor(x => x.TipoUsuario)
-            @Html.DropDownListFor(usu => usu.TipoUsuario,
-                    mostrar => mostrar.ApresentacaoParaFormulario)
+            @Html.DropDownListFor(x => x.TipoUsuario,   mostrar => mostrar.ApresentacaoParaFormulario)
 
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(x => x.TipoUsuario, Biblioteca.Dominio.TipoUsuario.Operador  ) @* , x.TipoUsuarioTypeList )*@
+       
         </div>
         
         <button type="submit">Gravar</button>

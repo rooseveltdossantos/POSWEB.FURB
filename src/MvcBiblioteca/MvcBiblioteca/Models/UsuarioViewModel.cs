@@ -22,8 +22,7 @@ namespace MvcBiblioteca.Models
         {
             this.usuario = usuario;
         }
-        
-
+               
         public long UsuarioId
         {
             get { return this.usuario.UsuarioId; }
@@ -80,6 +79,11 @@ namespace MvcBiblioteca.Models
             get { return this.usuario.TipoUsuario; }
             set { this.usuario.TipoUsuario = value; }
         }
+
+        [Display(Name = "Tipoo")]
+        public TipoUsuario TipoUsuarioId { get; set; }
+        public TipoUsuario TipoUsuarioTypeList { get; set; }
+       
 
         internal Usuario ParaEntidade()
         {
