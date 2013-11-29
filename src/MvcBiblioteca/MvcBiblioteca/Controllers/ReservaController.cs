@@ -92,7 +92,7 @@ namespace MvcBiblioteca.Controllers
                 if(usuario == null)
                 {
                     ErroReserva erro = new ErroReserva();
-                    erro.mensagem = "Não foi possível encontrar o usuário:" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.";
+                    erro.mensagem = "Não foi possível encontrar o usuário '" + User.Identity.Name + "'. É possível que a base de usuários e o controle de login estejam desincronizados.";
                     return View("Erro", erro);                    
                 }
 

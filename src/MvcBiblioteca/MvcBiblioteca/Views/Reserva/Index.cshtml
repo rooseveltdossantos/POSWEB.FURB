@@ -15,7 +15,7 @@ else
 { 
     <div>   
             @if(Model.ReservaLivroId > 0){
-                <div id="livroJaEmprestado">Esse livro já está reservado pelo usuário <strong>@Model.UsuarioDeb.Nome</strong></div>
+                <div class="mensagem">Esse livro já está reservado pelo usuário <strong>@Model.UsuarioDeb.Nome</strong></div>
             }      
             else{
                    <p>Clique <strong> @Html.ActionLink(
