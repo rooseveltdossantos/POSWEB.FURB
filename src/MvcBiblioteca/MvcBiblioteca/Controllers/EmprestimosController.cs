@@ -19,7 +19,7 @@ namespace MvcBiblioteca.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            return View(new EmprestimoViewModel());
 
         }
 
@@ -36,6 +36,17 @@ namespace MvcBiblioteca.Controllers
                 var query = (from e in bd.Emprestimos
                              where e.LivroEmprestimo.LivroId == livroId && !e.DevolvidoEm.HasValue
                              select e).FirstOrDefault();
+                return query;
+            }
+        }
+
+        private IEnumerable<ReservaLivro> ObterReservasDoLivro(int livroId)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from r in bd.Reservas
+                             where r.LivroRelacionado.LivroId == livroId
+                             select r).ToList();
                 return query;
             }
         }
@@ -63,7 +74,8 @@ namespace MvcBiblioteca.Controllers
 
             try
             {
-                using (var bd = new BibliotecaDatabase()) {
+                using (var bd = new BibliotecaDatabase())
+                {
 
                     var livro = bd.Livros.Find(livroId);
                     if (livro == null)
@@ -72,17 +84,38 @@ namespace MvcBiblioteca.Controllers
                         throw new Exception(msg);
                     }
 
-                    // Verifica se o livro está emprestado ou reservado
+                    // Verifica se o livro está emprestado
                     if (ObterEmprestimoDoLivro(livroId) != null)
                     {
-                        msg = ("O livro já está emprestado: " + livroId);
+                        msg = ("O livro " + livro.Titulo + ", com código " + livroId +  ", já está emprestado");
                         throw new Exception(msg);
+                    }
+
+                    // Verifica se o livro está reservado
+                    IEnumerable<ReservaLivro> reservas = ObterReservasDoLivro(livroId);
+                    if (reservas.Count() > 0)
+                    {
+                        // Tem Reserva
+                        bool reservaParaOUsuario = false;
+                        foreach (ReservaLivro res in reservas)
+                        {
+                            if (res.UsuarioDeb.UsuarioId.Equals(usuarioId))
+                            {
+                                // A reserva é para o usuário
+                                reservaParaOUsuario = true;
+                            }
+                        }
+                        if (!reservaParaOUsuario)
+                        {
+                            msg = ("O livro " + livro.Titulo + " está reservado para outro usuário");
+                            throw new Exception(msg);
+                        }
                     }
 
                     var usuario = bd.Usuarios.Find(usuarioId);
                     if (usuario == null)
                     {
-                        msg = ("Não foi possível encontrar o usuário:" + usuarioId);
+                        msg = ("Não foi possível encontrar o usuário: " + usuarioId);
                         throw new Exception(msg);
                     }
 
@@ -142,13 +175,15 @@ namespace MvcBiblioteca.Controllers
                 }
 
             }
-            catch {
+            catch
+            {
                 ViewBag.Mensagem = msg;
-                return View("Index");
+                return View("Index", new EmprestimoViewModel());
+
             }
             ViewBag.Mensagem = msg;
-            return View("Index");
-            
+            return View("Index", new EmprestimoViewModel() );
+
         }
 
     }

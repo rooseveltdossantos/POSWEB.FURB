@@ -1,14 +1,61 @@
-﻿@{
+﻿@using MvcBiblioteca
+@using Biblioteca.Dominio
+@model MvcBiblioteca.Models.EmprestimoViewModel
+@{
     ViewBag.Title = "Index";
 }
-<h2>Empréstimos</h2>
-
-<p>@ViewBag.Mensagem</p>
-
+<h2>
+    Empréstimos</h2>
+<h4>@ViewBag.Mensagem</h4>
+<br />
 @if (Roles.IsUserInRole("PodeEmprestar"))
 {
     @Html.ActionLink("Novo Empréstimo", "novo")
 }
-else { 
-    <h2>Seu usuário não pode fazer o Empréstimo de Livros</h2>
+else
+{ 
+    <h2> Seu usuário não pode fazer o Empréstimo de Livros</h2>
+}
+
+@{IEnumerable<Emprestimo> emprestimos = Model.ObterEmprestimosAtivos();}
+
+@if (emprestimos.Count() > 0)
+{
+<table>
+    <thead>
+        <tr>
+            <th>
+                Usuário
+            </th>
+            <th>
+                Livro
+            </th>
+            <th>
+                Retirado em
+            </th>
+            <th>
+                Devolver até
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Emprestimo emprestimo in emprestimos)
+        {
+            <tr>
+                <td>@emprestimo.UsuarioEmprestimo.Nome
+                </td>
+                <td>@emprestimo.LivroEmprestimo.Titulo
+                </td>
+                <td>@emprestimo.RetiradoEm
+                </td>
+                <td>@emprestimo.DevolverAte
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+    <h4>Nenhum Empréstimo Ativo</h4>
 }

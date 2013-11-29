@@ -32,7 +32,7 @@ namespace MvcBiblioteca.Models
         {
             using (var bd = new BibliotecaDatabase())
             {
-                var query = (from e in bd.Emprestimos
+                var query = (from e in bd.Emprestimos.Include("UsuarioEmprestimo").Include("LivroEmprestimo")
                              where !e.DevolvidoEm.HasValue
                              select e).Distinct().ToList();
                 return query.ToList();
@@ -49,7 +49,7 @@ namespace MvcBiblioteca.Models
             }
         }
 
-        public IEnumerable<Livro> ObterLivros()
+        private IEnumerable<Livro> ObterLivros()
         {
             using (var bd = new BibliotecaDatabase())
             {
