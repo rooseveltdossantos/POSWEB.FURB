@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Biblioteca.DataAccess;
-using MvcBiblioteca.Models;
 using Biblioteca.Dominio;
+using MvcBiblioteca.Models;
 
 namespace MvcBiblioteca.Infraestrutura
 {
@@ -24,17 +22,21 @@ namespace MvcBiblioteca.Infraestrutura
                 base.SetProperty(controllerContext, bindingContext, propertyDescriptor, value);
         }
 
-        private void ConverterParaTipoUsuario(ModelBindingContext bindingContext, string propertyName, string propertyValue)
+        private static void ConverterParaTipoUsuario(ModelBindingContext bindingContext, string propertyName, string propertyValue)
         {
-            switch(propertyValue) {
-                case "Professor": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Professor; break;
-                case "Funcionario": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Funcionario; break;
-                case "Aluno": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Aluno; break;
-                case "ExAluno": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.ExAluno; break;
-                case "Operador": ((UsuarioViewModel)bindingContext.Model).TipoUsuario = TipoUsuario.Operador; break;
-            }
-        }
+            var tipoUsuario = ((TipoUsuario[]) Enum.GetValues(typeof (TipoUsuario))).FirstOrDefault(i =>
+                {
+                    var visualizacaoAttribute = (VisualizacaoAttribute)Attribute.GetCustomAttribute(i.GetType().GetMember(i.ToString())[0], typeof (VisualizacaoAttribute));
 
+                    if (visualizacaoAttribute == null)
+                        return propertyValue == i.ToString();
+
+                    return (visualizacaoAttribute.ApresentacaoParaFormulario == propertyValue || propertyValue == i.ToString());
+                });
+
+            (bindingContext.Model as UsuarioViewModel).TipoUsuario = tipoUsuario;
+            bindingContext.ModelState[propertyName].Errors.Clear();
+        }
 
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
