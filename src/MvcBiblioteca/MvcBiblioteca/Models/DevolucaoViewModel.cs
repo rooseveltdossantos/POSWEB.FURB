@@ -24,7 +24,7 @@ namespace MvcBiblioteca.Models
             using (var bd = new BibliotecaDatabase())
             {
                 var query = (from p in bd.Emprestimos
-                             //where p.DevolvidoEm == null
+                             where p.DevolvidoEm == null
                              select p.UsuarioEmprestimo).Distinct().ToList();
                 return query.ToList();
             }

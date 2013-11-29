@@ -97,7 +97,8 @@ namespace MvcBiblioteca.Controllers
                 bd.Debitos.Add(debito);
                 bd.SaveChanges();
             }
-            return View("Index", new UsuarioViewModel());
+            //return View("Index", new UsuarioViewModel());
+            return RedirectToAction("Index", new DevolucaoViewModel());
         }
 
 
@@ -109,7 +110,7 @@ namespace MvcBiblioteca.Controllers
             {
 
                 var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
-                             where e.UsuarioEmprestimo.UsuarioId == id
+                             where e.UsuarioEmprestimo.UsuarioId == id && !e.DevolvidoEm.HasValue
                              select e.LivroEmprestimo).ToList();
 
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
