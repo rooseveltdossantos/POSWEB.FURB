@@ -56,6 +56,7 @@ namespace MvcBiblioteca.Controllers
 
 
                         Roles.AddUserToRole(usuario.Login, "PodeComentar");
+                        Roles.AddUserToRole(usuario.Login, "PodeReservar");
                     
                     }
                         
