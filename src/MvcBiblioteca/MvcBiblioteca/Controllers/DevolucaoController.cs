@@ -79,11 +79,7 @@ namespace MvcBiblioteca.Controllers
             using (var bd = new BibliotecaDatabase())
             {
                 Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
-
                 emprestimo.DevolvidoEm = DateTime.Now.Date;
-                //Atualizando o debito para devolvido
-                bd.Entry(emprestimo).State = EntityState.Modified;
-                bd.SaveChanges();
                 //Calculando os dias de atraso
                 TimeSpan ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
                 int diasAtraso = ts.Days;
@@ -92,18 +88,16 @@ namespace MvcBiblioteca.Controllers
                     Debito debito = new Debito();
                     debito.DebitoAtivo = true;
                     debito.Emprestimo = emprestimo;
+                    debito.UsuarioDeb = emprestimo.UsuarioEmprestimo;
                     debito.DiasAtraso = diasAtraso;
                     bd.Debitos.Add(debito);
                     bd.SaveChanges();
                 }
             }
             
-            //return View("Index", new UsuarioViewModel());
             return RedirectToAction("Index", new DevolucaoViewModel());
         }
 
-
-        //[ActionName("ListarLivrosDoUsuario")]
         public ActionResult ListarLivrosDoUsuario(int id)
         {
 
@@ -118,8 +112,6 @@ namespace MvcBiblioteca.Controllers
             }
         }
 
-
-        //[ActionName("CarregarEmprestimo")]
         public ActionResult CarregarEmprestimo(int idUsuario, int idLivro)
         {
             using (var bd = new BibliotecaDatabase())
