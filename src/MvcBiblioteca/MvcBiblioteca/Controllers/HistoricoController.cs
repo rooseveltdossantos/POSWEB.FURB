@@ -29,7 +29,7 @@ namespace MvcBiblioteca.Controllers
 
                 var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
                              where e.UsuarioEmprestimo.UsuarioId == idUsuario
-                             select e.EmprestimoId).ToList();
+                             select e ).ToList();
 
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
@@ -43,7 +43,21 @@ namespace MvcBiblioteca.Controllers
             {
                 var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
                              where e.LivroEmprestimo.LivroId == idLivro
-                             select e.EmprestimoId).ToList();
+                             select e ).ToList();
+
+                return Json(query.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+		*/
+		
+		/*
+		 public ActionResult ListarHistoricoLivroUsuario(int idUsuario, int idLivro)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
+                             where e.LivroEmprestimo.LivroId == idLivro && e.UsuarioEmprestimo.UsuarioId == idUsuario
+                             select e ).ToList();
 
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
