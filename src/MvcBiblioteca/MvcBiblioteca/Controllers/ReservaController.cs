@@ -84,14 +84,15 @@ namespace MvcBiblioteca.Controllers
             {
                 var livro = bd.Livros.Find(livroId);
 
-                //Pega o id do usuário logado
-                int userId = WebSecurity.GetUserId(User.Identity.Name);
-
-                var usuario = bd.Usuarios.Find(userId);
+                //Busca o usuário logado na base
+                var usuario = (from u in bd.Usuarios
+                              where u.Login.Equals(User.Identity.Name) 
+                              select u).FirstOrDefault();
+                
                 if(usuario == null)
                 {
                     ErroReserva erro = new ErroReserva();
-                    erro.mensagem = "Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.";
+                    erro.mensagem = "Não foi possível encontrar o usuário:" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.";
                     return View("Erro", erro);                    
                 }
 
