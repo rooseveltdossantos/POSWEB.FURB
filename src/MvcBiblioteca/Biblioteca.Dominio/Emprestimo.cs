@@ -29,8 +29,8 @@ namespace Biblioteca.Dominio
         //public DateTime horarioTermino { get; set; }
        
         [DisplayName("Data de Retirada")]
-        public DateTime DevolvidoEm { get; set; }
-
+        public DateTime? DevolvidoEm { get; set; }
+        //laheinzen - se não colocar como nullable (sinal de interrogação) dá erro na hora de salvar o Empréstimo
                
     }
 }

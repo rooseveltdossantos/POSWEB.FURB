@@ -41,13 +41,13 @@ namespace MvcBiblioteca.Controllers
                 }
             }
 
-            var hoje = DateTime.Now.Date;
-            var ontem = hoje.AddDays(-1);
-            var anteOntem = hoje.AddDays(-2);
-            var semanaPassada = hoje.AddDays(-7);
-            var amanha = hoje.AddDays(1);
-            var depoisDeAmanha = hoje.AddDays(2);
-            var proximaSemana = hoje.AddDays(7);
+            DateTime hoje = DateTime.Now;
+            DateTime ontem = hoje.AddDays(-1);
+            DateTime anteOntem = hoje.AddDays(-2);
+            DateTime semanaPassada = hoje.AddDays(-7);
+            DateTime amanha = hoje.AddDays(1);
+            DateTime depoisDeAmanha = hoje.AddDays(2);
+            DateTime proximaSemana = hoje.AddDays(7);
 
             using(var bd = new BibliotecaDatabase())
 	        {
@@ -55,12 +55,13 @@ namespace MvcBiblioteca.Controllers
                 bd.Emprestimos.Add(new Emprestimo { LivroEmprestimo = carrie, UsuarioEmprestimo = meuUser, RetiradoEm = semanaPassada, DevolverAte = ontem });
                 bd.Emprestimos.Add(new Emprestimo { LivroEmprestimo = guerraDosTronos, UsuarioEmprestimo = meuUser, RetiradoEm = ontem, DevolverAte = proximaSemana });
                 bd.Emprestimos.Add(new Emprestimo { LivroEmprestimo = arteGuerra, UsuarioEmprestimo = tioBill, RetiradoEm = semanaPassada, DevolverAte = proximaSemana });
+                bd.SaveChanges();
 	        }
 
             //Depois os Emprestimos para testar
 
 
-            return View(new DevolucaoViewModel());
+            return RedirectToAction("Index", new DevolucaoViewModel());
         }
         
         public ActionResult Index()
@@ -84,12 +85,13 @@ namespace MvcBiblioteca.Controllers
             // e calcular a diferença de dias para fazer a gravação correta do débito.
             var bd = new BibliotecaDatabase();
             Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
-            emprestimo.DevolvidoEm = new DateTime();
+            //emprestimo.DevolvidoEm = new DateTime?();
+            emprestimo.DevolvidoEm = DateTime.Now;
             //Atualizando o debito para devolvido
             bd.Entry(emprestimo).State = EntityState.Modified;
             bd.SaveChanges();
             //Calculando os dias de atraso
-            TimeSpan ts = emprestimo.DevolvidoEm - emprestimo.DevolverAte;
+            TimeSpan ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
             int diasAtraso = ts.Days;
             if (diasAtraso > 0)
             {
