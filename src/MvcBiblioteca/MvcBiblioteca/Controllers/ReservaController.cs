@@ -10,15 +10,34 @@ using WebMatrix.WebData;
 
 namespace MvcBiblioteca.Controllers
 {
+    public class ErroReserva 
+    {
+
+        private String FMensagem = "Erro desconhecido.";
+        public String mensagem{
+            get
+            {
+                return FMensagem;
+             }
+            
+            set{
+                FMensagem = value;    
+            }
+        }
+    }
+
     [Authorize]
     public class ReservaController : Controller
     {
         //
         // GET: /Reserva/
 
+        
+
         public static ReservaLivro getReserva(int livroId) 
         {
             ReservaLivro result = null;
+            
 
             using (var bd = new BibliotecaDatabase())
             {
@@ -71,7 +90,10 @@ namespace MvcBiblioteca.Controllers
                 var usuario = bd.Usuarios.Find(userId);
                 if(usuario == null)
                 {
-                    throw new Exception("Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.");
+                    ErroReserva erro = new ErroReserva();
+                    erro.mensagem = "Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.";
+                    return View("Erro", erro);//, "Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.");
+                    //throw new Exception("Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name + ". É possível que a base de usuários e o controle de login estejam desincronizados.");
                 }
 
                 ReservaLivro reserva = new ReservaLivro();
@@ -85,6 +107,11 @@ namespace MvcBiblioteca.Controllers
             }
 
             return View("ReservaEfetuadaComSucesso");
+        }
+
+        public ActionResult Erro(ErroReserva erro) 
+        {
+            return View(erro);
         }
 
         public ActionResult ReservaEfetuadaComSucesso() 
