@@ -16,6 +16,12 @@ namespace MvcBiblioteca.Controllers
             return View();
         }
 
+	public ActionResult ListarHistoricoUsuario()
+	{
+            return null;
+        }
+
+
         public ActionResult ListarHistoricoUsuario(int id)
         {
             using (var bd = new BibliotecaDatabase())
@@ -28,6 +34,7 @@ namespace MvcBiblioteca.Controllers
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
+
 
         public ActionResult ListarHistoricoLivro()
         {
