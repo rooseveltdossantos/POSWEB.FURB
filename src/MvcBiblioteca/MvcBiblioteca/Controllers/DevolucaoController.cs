@@ -61,12 +61,15 @@ namespace MvcBiblioteca.Controllers
             return View(new DevolucaoViewModel());
         }
 
-        public ActionResult Devolver(int idEmprestimo)
-        {
-            // TODO: Verificar se há necessidade de fazer método que poderá ser usado na listagem de emprestimo, passado usuário e id pode-se devolver em apenas 
-            // clique, evitando assim a interface, tentar manter os dois modelos.
-            throw new NotImplementedException();
-        }
+        // Desabilitando 
+        // O enunciado pede claramente "Dado um usuário, dado um livro"
+        // Além disso, estava gerando exceção de ambiguidade
+        //public ActionResult Devolver(int idEmprestimo)
+        //{
+        //    // TODO: Verificar se há necessidade de fazer método que poderá ser usado na listagem de emprestimo, passado usuário e id pode-se devolver em apenas 
+        //    // clique, evitando assim a interface, tentar manter os dois modelos.
+        //    throw new NotImplementedException();
+        //}
 
         public ActionResult Devolver(DevolucaoViewModel u)
         {
@@ -78,7 +81,7 @@ namespace MvcBiblioteca.Controllers
             var bd = new BibliotecaDatabase();
             Emprestimo emprestimo = bd.Emprestimos.Find(u.idEmprestimo);
             //emprestimo.DevolvidoEm = new DateTime?();
-            emprestimo.DevolvidoEm = DateTime.Now;
+            emprestimo.DevolvidoEm = DateTime.Now.Date;
             //Atualizando o debito para devolvido
             bd.Entry(emprestimo).State = EntityState.Modified;
             bd.SaveChanges();
