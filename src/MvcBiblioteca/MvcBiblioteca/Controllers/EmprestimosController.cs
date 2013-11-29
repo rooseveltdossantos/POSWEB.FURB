@@ -96,7 +96,7 @@ namespace MvcBiblioteca.Controllers
                     ReservaLivro reserva = ReservaController.getReserva(livroId);
                     if (reserva != null && reserva.ReservaLivroId > 0 && !reserva.UsuarioDeb.UsuarioId.Equals(usuarioId))
                     {
-                        msg = ("O livro " + livro.Titulo + " está reservado para outro usuário");
+                        msg = ("O livro " + livro.Titulo + " está reservado para outro usuário.");
                         throw new Exception(msg);
                     }                    
 
