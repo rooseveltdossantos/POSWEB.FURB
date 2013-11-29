@@ -21,5 +21,10 @@ namespace MvcBiblioteca.Controllers
             return null;
         }
 
+        public ActionResult ListarHistoricoLivro()
+        {
+            return null;
+        }
+
     }
 }
