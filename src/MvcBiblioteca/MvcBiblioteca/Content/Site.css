@@ -813,3 +813,12 @@ a.linkEfetuarPgto
     height: 16px;
     text-indent: -999999px;
 }
+
+.mensagem 
+{
+    color: white;
+    background-color: red;
+    border: 1px solid black;
+    width: 70%;
+    text-align:center;
+}

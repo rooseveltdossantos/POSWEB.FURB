@@ -84,7 +84,7 @@ namespace MvcBiblioteca.Controllers
                         throw new Exception(msg);
                     }
 
-                    // Verifica se o livro está emprestado
+                    // Verifica se o livro está emprestado                    
                     if (ObterEmprestimoDoLivro(livroId) != null)
                     {
                         msg = ("O livro " + livro.Titulo + ", com código " + livroId +  ", já está emprestado");
@@ -92,25 +92,13 @@ namespace MvcBiblioteca.Controllers
                     }
 
                     // Verifica se o livro está reservado
-                    IEnumerable<ReservaLivro> reservas = ObterReservasDoLivro(livroId);
-                    if (reservas.Count() > 0)
+                    //Márcio Koch: Ajustada a verificação da reserva do livro.
+                    ReservaLivro reserva = ReservaController.getReserva(livroId);
+                    if (reserva != null && reserva.ReservaLivroId > 0 && !reserva.UsuarioDeb.UsuarioId.Equals(usuarioId))
                     {
-                        // Tem Reserva
-                        bool reservaParaOUsuario = false;
-                        foreach (ReservaLivro res in reservas)
-                        {
-                            if (res.UsuarioDeb.UsuarioId.Equals(usuarioId))
-                            {
-                                // A reserva é para o usuário
-                                reservaParaOUsuario = true;
-                            }
-                        }
-                        if (!reservaParaOUsuario)
-                        {
-                            msg = ("O livro " + livro.Titulo + " está reservado para outro usuário");
-                            throw new Exception(msg);
-                        }
-                    }
+                        msg = ("O livro " + livro.Titulo + " está reservado para outro usuário.");
+                        throw new Exception(msg);
+                    }                    
 
                     var usuario = bd.Usuarios.Find(usuarioId);
                     if (usuario == null)

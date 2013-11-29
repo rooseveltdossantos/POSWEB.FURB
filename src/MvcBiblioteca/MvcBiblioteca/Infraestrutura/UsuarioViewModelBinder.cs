@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using Biblioteca.DataAccess;
-using MvcBiblioteca.Models;
 using Biblioteca.Dominio;
+using MvcBiblioteca.Models;
 
 namespace MvcBiblioteca.Infraestrutura
 {
@@ -24,11 +22,21 @@ namespace MvcBiblioteca.Infraestrutura
                 base.SetProperty(controllerContext, bindingContext, propertyDescriptor, value);
         }
 
-        private void ConverterParaTipoUsuario(ModelBindingContext bindingContext, string propertyName, string propertyValue)
+        private static void ConverterParaTipoUsuario(ModelBindingContext bindingContext, string propertyName, string propertyValue)
         {
-            //throw new NotImplementedException();
-        }
+            var tipoUsuario = ((TipoUsuario[]) Enum.GetValues(typeof (TipoUsuario))).FirstOrDefault(i =>
+                {
+                    var visualizacaoAttribute = (VisualizacaoAttribute)Attribute.GetCustomAttribute(i.GetType().GetMember(i.ToString())[0], typeof (VisualizacaoAttribute));
 
+                    if (visualizacaoAttribute == null)
+                        return propertyValue == i.ToString();
+
+                    return (visualizacaoAttribute.ApresentacaoParaFormulario == propertyValue || propertyValue == i.ToString());
+                });
+
+            (bindingContext.Model as UsuarioViewModel).TipoUsuario = tipoUsuario;
+            bindingContext.ModelState[propertyName].Errors.Clear();
+        }
 
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {

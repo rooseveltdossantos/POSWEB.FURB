@@ -10,15 +10,34 @@ using WebMatrix.WebData;
 
 namespace MvcBiblioteca.Controllers
 {
+    public class ErroReserva 
+    {
+
+        private String FMensagem = "Erro desconhecido.";
+        public String mensagem{
+            get
+            {
+                return FMensagem;
+             }
+            
+            set{
+                FMensagem = value;    
+            }
+        }
+    }
+
     [Authorize]
     public class ReservaController : Controller
     {
         //
         // GET: /Reserva/
 
-        private ReservaLivro getReserva(int livroId) 
+        
+
+        public static ReservaLivro getReserva(int livroId) 
         {
             ReservaLivro result = null;
+            
 
             using (var bd = new BibliotecaDatabase())
             {
@@ -31,6 +50,7 @@ namespace MvcBiblioteca.Controllers
                 if (result == null)
                 {
                     result = new ReservaLivro();
+                    result.ReservaLivroId = 0;
                     var livro = bd.Livros.Find(livroId); /*Já engatinha na View o livro sendo reservado*/
                     result.LivroRelacionado = livro;
                 }
@@ -45,6 +65,16 @@ namespace MvcBiblioteca.Controllers
         {
             return View(getReserva(livroId));
         }
+
+        public static void removerReserva(int livroId)
+        {
+            ReservaLivro reserva = ReservaController.getReserva(livroId);
+            if (reserva != null && reserva.ReservaLivroId > 0)
+            {
+                reserva.Situacao = false;//Libera a reserva
+            }
+            
+        }
         
         
         public ActionResult Reservar(int livroId)
@@ -54,13 +84,16 @@ namespace MvcBiblioteca.Controllers
             {
                 var livro = bd.Livros.Find(livroId);
 
-                //Pega o id do usuário logado
-                int userId = WebSecurity.GetUserId(User.Identity.Name);
-
-                var usuario = bd.Usuarios.Find(userId);
+                //Busca o usuário logado na base
+                var usuario = (from u in bd.Usuarios
+                              where u.Login.Equals(User.Identity.Name) 
+                              select u).FirstOrDefault();
+                
                 if(usuario == null)
                 {
-                    throw new Exception("Não foi possível encontrar o usuário:" + userId + "-" + User.Identity.Name);
+                    ErroReserva erro = new ErroReserva();
+                    erro.mensagem = "Não foi possível encontrar o usuário '" + User.Identity.Name + "'. É possível que a base de usuários e o controle de login estejam desincronizados.";
+                    return View("Erro", erro);                    
                 }
 
                 ReservaLivro reserva = new ReservaLivro();
@@ -74,6 +107,11 @@ namespace MvcBiblioteca.Controllers
             }
 
             return View("ReservaEfetuadaComSucesso");
+        }
+
+        public ActionResult Erro(ErroReserva erro) 
+        {
+            return View(erro);
         }
 
         public ActionResult ReservaEfetuadaComSucesso() 
