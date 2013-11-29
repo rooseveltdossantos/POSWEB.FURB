@@ -349,7 +349,7 @@
     <Content Include="Views\Comentarios\AdicionarComentario.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Emprestimos\Index.cshtml" />
+    <Content Include="Views\Emprestimos\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Reserva\Index.cshtml" />
@@ -367,7 +367,7 @@
     <Content Include="Views\Debitos\EfetuarPgto.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Emprestimos\Novo.cshtml" />
+    <Content Include="Views\Emprestimos\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

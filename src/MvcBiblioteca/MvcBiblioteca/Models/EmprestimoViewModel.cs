@@ -10,7 +10,7 @@ namespace MvcBiblioteca.Models
     public class EmprestimoViewModel
     {
         private Emprestimo emprestimo;
-        public int EmprestimoId { get; set; }  
+        public int EmprestimoId { get; set; }
 
         public EmprestimoViewModel() 
         {
@@ -22,7 +22,7 @@ namespace MvcBiblioteca.Models
             using (var bd = new BibliotecaDatabase())
             {
                 var query = (from e in bd.Emprestimos
-                             where e.UsuarioEmprestimo.UsuarioId == usuarioId && e.DevolvidoEm == null
+                             where e.UsuarioEmprestimo.UsuarioId == usuarioId && !e.DevolvidoEm.HasValue
                              select e).Distinct().ToList();
                 return query.ToList();
             }
@@ -33,7 +33,7 @@ namespace MvcBiblioteca.Models
             using (var bd = new BibliotecaDatabase())
             {
                 var query = (from e in bd.Emprestimos
-                             where e.DevolvidoEm == null
+                             where !e.DevolvidoEm.HasValue
                              select e).Distinct().ToList();
                 return query.ToList();
             }
@@ -44,7 +44,6 @@ namespace MvcBiblioteca.Models
             using (var bd = new BibliotecaDatabase())
             {
                 var query = (from u in bd.Usuarios
-                             //where p.DevolvidoEm == null
                              select u).Distinct().ToList();
                 return query.ToList();
             }
@@ -58,6 +57,23 @@ namespace MvcBiblioteca.Models
                              select l).Distinct().ToList();
                 return query.ToList();
             }
+        }
+
+        public IEnumerable<Livro> ObterLivrosEmprestados()
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos.Include("LivroEmprestimo")
+                             where !e.DevolvidoEm.HasValue
+                             select e.LivroEmprestimo).Distinct().ToList();
+                return query.ToList();
+            }
+        }
+
+        // Retorna apenas os livros não emprestados
+        public IEnumerable<Livro> ObterLivrosNaoEmprestados()
+        {
+            return ObterLivros().Except(ObterLivrosEmprestados());
         }
     }
 }

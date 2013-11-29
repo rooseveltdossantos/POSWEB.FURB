@@ -1,8 +1,11 @@
-﻿@model Biblioteca.Dominio.Livro
-
-@{
-    ViewBag.Title = "Empréstimo de livros";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Index";
 }
+<h2>Empréstimos</h2>
 
-<h1>Empréstimos de livros</h1>
+<p>@ViewBag.Mensagem</p>
+
+@if (Roles.IsUserInRole("PodeEmprestar"))
+{
+    @Html.ActionLink("Novo Empréstimo", "novo")
+}
