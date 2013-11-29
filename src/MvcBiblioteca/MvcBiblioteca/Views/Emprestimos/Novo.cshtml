@@ -19,6 +19,7 @@
         @if ( !string.IsNullOrEmpty(Request["livroId"]) )
         {
             // Tem livroId
+            <h4>Livro: @Request["livroId"] </h4>
             <input type="hidden" name="livroId" value="@Request["livroId"]" />
         }
         else

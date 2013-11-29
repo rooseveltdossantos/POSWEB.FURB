@@ -167,13 +167,12 @@ namespace MvcBiblioteca.Controllers
                     }
                     else
                     {
-                        msg = ("O emprestimo não foi efetuado. " + msg);
+                        msg = ("O emprestimo não foi efetuado, foi excedido o número de livros emprestados ao usuário. " + msg);
                         Console.WriteLine(msg);
                         //return View("Erro");
                         // Exibe mensagem de erro.
                     }
                 }
-
             }
             catch
             {
@@ -183,8 +182,6 @@ namespace MvcBiblioteca.Controllers
             }
             ViewBag.Mensagem = msg;
             return View("Index", new EmprestimoViewModel() );
-
         }
-
     }
 }
