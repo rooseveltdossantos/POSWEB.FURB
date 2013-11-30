@@ -6,8 +6,7 @@
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
 }
-<h2>
-    Empréstimo</h2>
+<h2>Empréstimo</h2>
 <br />
 <br />
 @{IEnumerable<Livro> livros = Model.ObterLivrosNaoEmprestados();}
@@ -38,7 +37,7 @@
     }
  }
 else{
-<h4>
+<h4 class="mensagem">
     Não há nenhum livro disponível para empréstimo
 </h4>
     <br />

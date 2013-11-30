@@ -160,7 +160,7 @@ namespace MvcBiblioteca.Controllers
                     else
                     {
                         // Exibe mensagem de erro ao usuário.
-                        msg = ("O emprestimo não foi efetuado, foi excedido o número de livros emprestados ao usuário. " + msg);
+                        msg = ("O empréstimo não foi efetuado, foi excedido o número de livros emprestados ao usuário. " + msg);
                         throw new Exception(msg);
                     }
                 }
