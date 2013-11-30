@@ -49,7 +49,7 @@ namespace MvcBiblioteca.Controllers
                     if (!WebSecurity.UserExists(usuario.Login))
                     {
                         WebSecurity.CreateUserAndAccount(usuario.Login, usuario.Senha);
-                        if (usuario.TipoUsuario == TipoUsuario.Funcionario)
+                        if (usuario.TipoUsuario == TipoUsuario.Operador)
                         {
                             Roles.AddUserToRole(usuario.Login, "PodeAdicionarLivro");
                         }
