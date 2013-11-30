@@ -34,7 +34,29 @@ namespace MvcBiblioteca.Controllers
             }
         }
 		
+		//Novo metodos para retorna lista de Emprestimo por usuario
+		 public IEnumerable<Emprestimo> ListEmprestimosDoUsuario(int usuarioId)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos
+                             where e.UsuarioEmprestimo.UsuarioId == usuarioId && !e.DevolvidoEm.HasValue
+                             select e).Distinct().ToList();
+                return query.ToList();
+            }
+        }
 		
+		//Novo metodos para retorna lista de Emprestimo por livro
+		 public IEnumerable<Emprestimo> ListEmprestimosDoLivro(int livroId)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos
+                             where e.LivroEmprestimo.LivroId == livroId && !e.DevolvidoEm.HasValue
+                             select e).Distinct().ToList();
+                return query.ToList();
+            }
+        }
 		
 		public ActionResult ListarHistoricoLivro(int idLivro)
         {
@@ -61,7 +83,6 @@ namespace MvcBiblioteca.Controllers
                 return Json(query.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-		
 		
 
     }
