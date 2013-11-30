@@ -46,6 +46,7 @@ namespace MvcBiblioteca.Models
         }
 
         [Required(ErrorMessage = "O Login deve ser informado")]
+        [StringLength(15, ErrorMessage = "O login deverá posuir entre {2} até {1} caracteres.", MinimumLength = 6)]
         public string Login
         {
             get { return this.usuario.Login; }
@@ -53,6 +54,7 @@ namespace MvcBiblioteca.Models
         }
 
         [Required(ErrorMessage = "A Senha deve ser informada")]
+        [StringLength(10, ErrorMessage = "A senha deverá posuir entre {2} até {1} caracteres.", MinimumLength = 6)]
         public string Senha
         {
             get { return this.usuario.Senha; }
