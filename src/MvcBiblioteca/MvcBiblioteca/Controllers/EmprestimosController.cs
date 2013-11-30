@@ -14,8 +14,6 @@ namespace MvcBiblioteca.Controllers
     {
         //
         // GET: /Emprestimos/
-
-        // TODO: Listar os empréstimos ativos
         [Authorize]
         public ActionResult Index()
         {
@@ -51,14 +49,64 @@ namespace MvcBiblioteca.Controllers
             }
         }
 
+        private bool PodeEmprestar(Usuario usuario, int quantidadeEmprestada)
+        {
+            TipoUsuario tipo = usuario.TipoUsuario;
+            bool realizaEmprestimo = false;
+            switch (tipo)
+            {
+                case TipoUsuario.Professor:
+                    // 10 livros
+                    realizaEmprestimo = quantidadeEmprestada <= 10 ? true : false;
+                    break;
+                case TipoUsuario.Aluno:
+                    // 5 livros
+                    realizaEmprestimo = quantidadeEmprestada <= 5 ? true : false;
+                    break;
+                case TipoUsuario.Funcionario:
+                    // 3 livros
+                    realizaEmprestimo = quantidadeEmprestada <= 3 ? true : false;
+                    break;
+                case TipoUsuario.ExAluno:
+                    // 1 livro
+                    realizaEmprestimo = quantidadeEmprestada <= 1 ? true : false;
+                    break;
+                default:
+                    realizaEmprestimo = false;
+                    break;
+            }
+            return realizaEmprestimo;
+        }
+
+        private DateTime GetPrazo(TipoUsuario tipo)
+        {
+            DateTime hoje = DateTime.Now;
+            DateTime prazo = DateTime.Now;
+
+            switch (tipo)
+            {
+                case TipoUsuario.Professor:                 
+                    prazo = hoje.AddDays(10);
+                    break;
+                case TipoUsuario.Aluno:
+                    prazo = hoje.AddDays(7);
+                    break;
+                case TipoUsuario.Funcionario:
+                    prazo = hoje.AddDays(7);
+                    break;
+                case TipoUsuario.ExAluno:
+                    prazo = hoje.AddDays(7);
+                    break;
+                default:
+                    prazo = DateTime.Now;
+                    break;
+            }
+            return prazo;
+        }
+
         public ActionResult Emprestar(int livroId, int usuarioId)
         {
             DateTime hoje = DateTime.Now;
-            DateTime prazoProfessor = hoje.AddDays(10);
-            DateTime prazoAluno = hoje.AddDays(7);
-            DateTime prazoFuncionario = hoje.AddDays(7);
-            DateTime prazoExAluno = hoje.AddDays(7);
-
             string msg = ("");
 
             try
@@ -66,7 +114,6 @@ namespace MvcBiblioteca.Controllers
                 // Se ocorrer qualquer erro, exibe a mensagem ao usuário, na tela de empréstimos.
                 using (var bd = new BibliotecaDatabase())
                 {
-
                     var livro = bd.Livros.Find(livroId);
                     if (livro == null)
                     {
@@ -102,52 +149,19 @@ namespace MvcBiblioteca.Controllers
                     IEnumerable<Emprestimo> emprestimosAtivos = ObterEmprestimosDoUsuario(usuarioId);
                     int quantidadeEmprestada = emprestimosAtivos.Count();
 
-                    TipoUsuario tipo = usuario.TipoUsuario;
-
-                    bool realizaEmprestimo = false;
-                    DateTime prazo = DateTime.Now;
-
-                    // Verifica se pode emprestar e qual é o prazo.
-                    switch (tipo)
+                    if (PodeEmprestar(usuario, quantidadeEmprestada))
                     {
-                        case TipoUsuario.Professor:
-                            // 10 livros
-                            realizaEmprestimo = quantidadeEmprestada <= 10 ? true : false;
-                            prazo = prazoProfessor;
-                            break;
-                        case TipoUsuario.Aluno:
-                            // 5 livros
-                            realizaEmprestimo = quantidadeEmprestada <= 5 ? true : false;
-                            prazo = prazoAluno;
-                            break;
-                        case TipoUsuario.Funcionario:
-                            // 3 livros
-                            realizaEmprestimo = quantidadeEmprestada <= 3 ? true : false;
-                            prazo = prazoFuncionario;
-                            break;
-                        case TipoUsuario.ExAluno:
-                            // 1 livro
-                            realizaEmprestimo = quantidadeEmprestada <= 1 ? true : false;
-                            prazo = prazoExAluno;
-                            break;
-                        default:
-                            realizaEmprestimo = false;
-                            prazo = DateTime.Now;
-                            msg = ("Nenhum tipo de usuário foi específicado");
-                            break;
-                    }
-
-                    if (realizaEmprestimo)
-                    {
+                        DateTime prazo = GetPrazo(usuario.TipoUsuario);
                         Emprestimo emprestimo = new Emprestimo { LivroEmprestimo = livro, UsuarioEmprestimo = usuario, RetiradoEm = hoje, DevolverAte = prazo };
                         bd.Emprestimos.Add(emprestimo);
                         bd.SaveChanges();
-                        msg = ("Livro emprestado com sucesso " + msg);
+                        msg = ("Livro emprestado com sucesso, com prazo até " + prazo + " " + msg);
                     }
                     else
                     {
                         // Exibe mensagem de erro ao usuário.
                         msg = ("O emprestimo não foi efetuado, foi excedido o número de livros emprestados ao usuário. " + msg);
+                        throw new Exception(msg);
                     }
                 }
             }
@@ -155,7 +169,6 @@ namespace MvcBiblioteca.Controllers
             {
                 ViewBag.Mensagem = msg;
                 return View("Index", new EmprestimoViewModel());
-
             }
             ViewBag.Mensagem = msg;
             return View("Index", new EmprestimoViewModel() );
