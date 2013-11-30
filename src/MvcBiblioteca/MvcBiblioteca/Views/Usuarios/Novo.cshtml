@@ -30,7 +30,7 @@
         <div>
             @Html.LabelFor(x => x.Login)   
             @if (Model != null ) {
-                @Html.TextBoxFor(x => x.Login, new { @disabled = "disabled" })
+                @Html.TextBoxFor(x => x.Login, new { @readonly = "readonly" })
             }
             else
             {
