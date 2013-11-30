@@ -38,19 +38,21 @@ namespace MvcBiblioteca.Models
             set { this.usuario.Cpf = value; }
         }
 
+        [Required(ErrorMessage = "O Nome deve ser informado")]
         public string Nome
         {
             get { return this.usuario.Nome; }
             set { this.usuario.Nome = value; }
         }
 
-
+        [Required(ErrorMessage = "O Login deve ser informado")]
         public string Login
         {
             get { return this.usuario.Login; }
             set { this.usuario.Login = value; }
         }
 
+        [Required(ErrorMessage = "A Senha deve ser informada")]
         public string Senha
         {
             get { return this.usuario.Senha; }
@@ -74,6 +76,7 @@ namespace MvcBiblioteca.Models
         }
 
         [DisplayName("Tipo do Usuário")]
+        [Required(ErrorMessage = "O Tipo de Usuário deve ser informado")]
         public TipoUsuario TipoUsuario
         {
             get { return this.usuario.TipoUsuario; }
