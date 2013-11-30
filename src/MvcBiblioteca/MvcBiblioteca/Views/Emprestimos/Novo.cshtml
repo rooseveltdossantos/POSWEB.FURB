@@ -1,35 +1,45 @@
-﻿@model MvcBiblioteca.Models.EmprestimoViewModel
+﻿@using Biblioteca.Dominio
+@model MvcBiblioteca.Models.EmprestimoViewModel
 @{
     ViewBag.Title = "Empréstimo";
 }
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
 }
-<h2>
-    Empréstimo</h2>
+<h2>Empréstimo</h2>
 <br />
 <br />
-@using (Html.BeginForm("emprestar", "emprestimos"))
-{
-    <div>
-        @Html.Label("Usuario")
-        @Html.DropDownList("usuarioId", new SelectList(Model.ObterUsuarios(), "usuarioId", "Nome"), new { @class = "Usuario" })
-    </div>
-    <div>
-        @if ( !string.IsNullOrEmpty(Request["livroId"]) )
-        {
-            // Tem livroId
-            <h4>Livro: @Request["livroId"] </h4>
-            <input type="hidden" name="livroId" value="@Request["livroId"]" />
-        }
-        else
-        {
-            @Html.Label("Livro")
-            @Html.DropDownList("livroId", new SelectList(Model.ObterLivrosNaoEmprestados(), "livroId", "Titulo"), new { @class = "Livro" })
-        }
-    </div>
+@{IEnumerable<Livro> livros = Model.ObterLivrosNaoEmprestados();}
+@if (livros.Count() > 0){
+    using (Html.BeginForm("emprestar", "emprestimos"))
+    {
+        <div>
+            @Html.Label("Usuario")
+            @Html.DropDownList("usuarioId", new SelectList(Model.ObterUsuarios(), "usuarioId", "Nome"), new { @class = "Usuario" })
+        </div>
+        <div>
+            @if ( !string.IsNullOrEmpty(Request["livroId"]) ) { // Tem livroId
+                <h4>
+                    Livro: @Request["livroId"]
+                </h4>
+                <input type="hidden" name="livroId" value="@Request["livroId"]" />
+            } 
+            else 
+            {
+                @Html.Label("Livro")
+                @Html.DropDownList("livroId", new SelectList(Model.ObterLivrosNaoEmprestados(), "livroId", "Titulo"), new { @class = "Livro" })
+            } 
+        </div>
     
-    <br />
+        <br />
 
-    <input type="submit" value="Emprestar" />
-}
+        <input type="submit" value="Emprestar" />
+    }
+ }
+else{
+<h4 class="mensagem">
+    Não há nenhum livro disponível para empréstimo
+</h4>
+    <br />
+    @Html.ActionLink("Lista de Empréstimos", "index")
+} 

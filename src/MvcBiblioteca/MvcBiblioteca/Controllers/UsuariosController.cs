@@ -39,29 +39,35 @@ namespace MvcBiblioteca.Controllers
             {
                 using (var bd = new BibliotecaDatabase())
                 {
-                    if (usuario.UsuarioId <= 0)
+
+                    if (usuario.UsuarioId > 0)
                     {
-                        bd.Usuarios.Add(usuario.ParaEntidade());
+                        bd.Entry(usuario.ParaEntidade()).State = EntityState.Modified;
                     }
                     else
-                        bd.Entry(usuario.ParaEntidade()).State = EntityState.Modified;
-
-                    if (!WebSecurity.UserExists(usuario.Login))
                     {
-                        WebSecurity.CreateUserAndAccount(usuario.Login, usuario.Senha);
-                        if (usuario.TipoUsuario == TipoUsuario.Funcionario)
+
+                        if (!WebSecurity.UserExists(usuario.Login))
                         {
-                            Roles.AddUserToRole(usuario.Login, "PodeAdicionarLivro");
+                            bd.Usuarios.Add(usuario.ParaEntidade());
+                            WebSecurity.CreateUserAndAccount(usuario.Login, usuario.Senha);
+                            if (usuario.TipoUsuario == TipoUsuario.Operador)
+                            {
+                                Roles.AddUserToRole(usuario.Login, "PodeAdicionarLivro");
+                            }
+
+
+                            Roles.AddUserToRole(usuario.Login, "PodeComentar");
+                            Roles.AddUserToRole(usuario.Login, "PodeReservar");
+
                         }
-
-
-                        Roles.AddUserToRole(usuario.Login, "PodeComentar");
-                        Roles.AddUserToRole(usuario.Login, "PodeReservar");
-                    
-                    }
+                        else
+                        {
+                            return View("Erro");
+                        }
                         
-
-                    
+                    }
+                       
                     bd.SaveChanges();
                     
                     return RedirectToAction("index");

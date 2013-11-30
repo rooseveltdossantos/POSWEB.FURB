@@ -28,8 +28,14 @@
             @Html.TextBoxFor(x => x.Nome)
         </div>
         <div>
-            @Html.LabelFor(x => x.Login)
-            @Html.TextBoxFor(x => x.Login)
+            @Html.LabelFor(x => x.Login)   
+            @if (Model != null ) {
+                @Html.TextBoxFor(x => x.Login, new { @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(x => x.Login)
+            }
         </div>
         <div>
             @Html.LabelFor(x => x.Senha)
@@ -42,7 +48,7 @@
         </div>
         <div>
             @Html.LabelFor(x => x.TipoUsuario)
-            @Html.DropDownListFor(x => x.TipoUsuario,   mostrar => mostrar.ApresentacaoParaFormulario)
+            @Html.DropDownListFor(x => x.TipoUsuario, mostrar => mostrar.ApresentacaoParaFormulario)
 
         </div>
         
