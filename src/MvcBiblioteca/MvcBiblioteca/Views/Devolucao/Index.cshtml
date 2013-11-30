@@ -4,11 +4,25 @@
     ViewBag.Title = "#2 - Devolução";
 }
 
+
+@section head
+{
+    <style type="text/css">
+        
+        table { width: 99%; font-size: 11px }
+        table tr * { padding: 3px }
+        table tr th { background-color: #999;color: #fff }
+        table tr td { border:1px solid #ccc }
+
+    </style>
+}
+
+
 <h2>Listagem de Devolução</h2>
 <br />
 <br />
 @Html.ActionLink("Nova Devolução", "Novo")
-
+<br/><br/>
 <table>
     <thead>
         <tr>
