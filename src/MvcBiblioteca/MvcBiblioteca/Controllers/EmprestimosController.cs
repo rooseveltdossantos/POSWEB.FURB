@@ -74,6 +74,7 @@ namespace MvcBiblioteca.Controllers
 
             try
             {
+                // Se ocorrer qualquer erro, exibe a mensagem ao usuário, na tela de empréstimos.
                 using (var bd = new BibliotecaDatabase())
                 {
 
@@ -100,6 +101,7 @@ namespace MvcBiblioteca.Controllers
                         throw new Exception(msg);
                     }                    
 
+                    // Verifica se o usuário existe
                     var usuario = bd.Usuarios.Find(usuarioId);
                     if (usuario == null)
                     {
@@ -116,6 +118,7 @@ namespace MvcBiblioteca.Controllers
                     bool realizaEmprestimo = false;
                     DateTime prazo = DateTime.Now;
 
+                    // Verifica se pode emprestar e qual é o prazo.
                     switch (tipo)
                     {
                         case TipoUsuario.Professor:
@@ -141,7 +144,7 @@ namespace MvcBiblioteca.Controllers
                         default:
                             realizaEmprestimo = false;
                             prazo = DateTime.Now;
-                            Console.WriteLine("Nenhum tipo de usuário foi específicado");
+                            msg = ("Nenhum tipo de usuário foi específicado");
                             break;
                     }
 
@@ -151,14 +154,11 @@ namespace MvcBiblioteca.Controllers
                         bd.Emprestimos.Add(emprestimo);
                         bd.SaveChanges();
                         msg = ("Livro emprestado com sucesso " + msg);
-                        Console.WriteLine(msg);
                     }
                     else
                     {
+                        // Exibe mensagem de erro ao usuário.
                         msg = ("O emprestimo não foi efetuado, foi excedido o número de livros emprestados ao usuário. " + msg);
-                        Console.WriteLine(msg);
-                        //return View("Erro");
-                        // Exibe mensagem de erro.
                     }
                 }
             }
