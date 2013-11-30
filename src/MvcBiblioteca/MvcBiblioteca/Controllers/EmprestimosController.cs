@@ -40,17 +40,6 @@ namespace MvcBiblioteca.Controllers
             }
         }
 
-        private IEnumerable<ReservaLivro> ObterReservasDoLivro(int livroId)
-        {
-            using (var bd = new BibliotecaDatabase())
-            {
-                var query = (from r in bd.Reservas
-                             where r.LivroRelacionado.LivroId == livroId
-                             select r).ToList();
-                return query;
-            }
-        }
-
         private IEnumerable<Emprestimo> ObterEmprestimosDoUsuario(int usuarioId)
         {
             using (var bd = new BibliotecaDatabase())
