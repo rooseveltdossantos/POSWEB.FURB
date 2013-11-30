@@ -45,7 +45,7 @@ namespace MvcBiblioteca.Controllers
                         bd.Entry(usuario.ParaEntidade()).State = EntityState.Modified;
                     }
                     else
-                    {                       
+                    {
 
                         if (!WebSecurity.UserExists(usuario.Login))
                         {
@@ -60,6 +60,10 @@ namespace MvcBiblioteca.Controllers
                             Roles.AddUserToRole(usuario.Login, "PodeComentar");
                             Roles.AddUserToRole(usuario.Login, "PodeReservar");
 
+                        }
+                        else
+                        {
+                            return View("Erro");
                         }
                         
                     }
