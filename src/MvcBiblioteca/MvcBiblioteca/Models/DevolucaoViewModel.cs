@@ -1,33 +1,40 @@
-﻿using Biblioteca.DataAccess;
-using Biblioteca.Dominio;
-using System;
+﻿using Biblioteca.Dominio;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using MvcBiblioteca.Negocio;
 
 namespace MvcBiblioteca.Models
 {
     public class DevolucaoViewModel
     {
-
-        private Emprestimo emprestimo;
+        private Devolucao devolucao;
 
         public DevolucaoViewModel()
         {
-            this.emprestimo = new Emprestimo();
+            devolucao = new Devolucao();
         }
 
-        public int idEmprestimo { get; set; }  
+        public int idEmprestimo { get; set; }
 
+
+        /// <summary>
+        /// Obetem usuários com emprestimos em aberto
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Usuario> ObterUsuariosComEmprestimo()
         {
-            using (var bd = new BibliotecaDatabase())
-            {
-                var query = (from p in bd.Emprestimos
-                             where p.DevolvidoEm == null
-                             select p.UsuarioEmprestimo).Distinct().ToList();
-                return query.ToList();
-            }
+            return devolucao.ObterUsuariosComEmprestimo();
+            #region ---- Código antigo ----
+            //using (var bd = new BibliotecaDatabase())
+            //{
+            //    var query = (from p in bd.Emprestimos
+            //                 where p.DevolvidoEm == null
+            //                 select p.UsuarioEmprestimo).Distinct().ToList();
+            //    return query.ToList();
+            //}
+            #endregion
         }
+
+
+
     }
 }

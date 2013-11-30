@@ -1,35 +1,74 @@
 ﻿$(document).ready(function () {
 
-    //Método que invoca o método que retorna os livros de um determinado usuário.
     $(".Usuario").change(function () {
+
+        if ($(this).val() != '') {
+            BuscarLivros($(this).val());
+            $("#selectLivro").removeAttr("disabled");
+        } else {
+            $('#selectLivro').empty();
+            $("#selectLivro").attr("disabled", "disabled");
+            $("#btnDevolver").css("visibility", "hidden");
+            
+        }
+    });
+
+    $("#selectLivro").change(function () {
+
+        if ($(this).val() != '0') {
+            LocalizarEmprestimo($(".Usuario").val(), $(this).val());
+            $("#idLivro").val($(this).val());
+            $("#btnDevolver").removeAttr("disabled");
+            $("#btnDevolver").css("visibility", "visible");
+        }
+        else {
+            $("#btnDevolver").attr("disabled", "disabled");
+            $("#btnDevolver").css("visibility", "hidden");
+        }
+    });
+
+    function BuscarLivros(valor) {
+
+        
         $.ajax({
-            url: "Devolucao/ListarLivrosDoUsuario",
+            url: "../Devolucao/ListarLivrosDoUsuario",
             type: 'POST',
-            data: "{ id: " + $(this).val() + " }",
             contentType: "application/json; charset=utf-8",
+            data: "{ idUsuario: " + valor + " }",
             dataType: "json",
             beforeSend: function () {
+                $("#loading").show();
             },
             success: function (json) {
                 var ddl = $('#selectLivro');
                 ddl.empty();
-                $(json).each(function () {
+
+                if (json != null) {
+
                     $(document.createElement('option'))
-                        .attr('value', this.LivroId)
-                        .text(this.Titulo)
+                        .attr('value', "0")
+                        .text("Selecione um Livro")
                         .appendTo(ddl);
-                });
-                $("#selectLivro").val($(json)[0].LivroId).change();
-                $("#selectLivro").removeAttr("disabled");
+
+                    $(json).each(function() {
+                        $(document.createElement('option'))
+                            .attr('value', this.LivroId)
+                            .text(this.Titulo)
+                            .appendTo(ddl);
+                    });
+                    
+                    $("#loading").hide();
+
+                }
             }
         });
-    });
+    }
 
-    $("#selectLivro").change(function () {
+    function LocalizarEmprestimo(Usuario, Livro) {
         $.ajax({
-            url: "Devolucao/CarregarEmprestimo",
+            url: "../Devolucao/CarregarEmprestimo",
             type: 'POST',
-            data: "{ idLivro: " + $(this).val() + ", idUsuario:" + $(".Usuario").val() + " }",
+            data: "{ idLivro: " + Livro + ", idUsuario:" + Usuario + " }",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
@@ -38,10 +77,9 @@
                 $("#idEmprestimo").val(json.idEmprestimo);
             }
         });
+    }
 
 
-        $("#idLivro").val($(this).val());
-    });
 
     $(".descricaoLink").click(function (event) {
 

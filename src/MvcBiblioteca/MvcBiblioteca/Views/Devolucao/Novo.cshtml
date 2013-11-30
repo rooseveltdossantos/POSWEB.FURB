@@ -1,0 +1,35 @@
+﻿@model MvcBiblioteca.Models.DevolucaoViewModel
+
+@{
+    ViewBag.Title = "#2 - Devolução";
+}
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
+}
+
+<h2>Devolução</h2>
+<br />
+<br />
+
+@using (Html.BeginForm("devolver", "devolucao"))
+{
+    
+    <div>
+        @Html.Label("Usuario")
+        @Html.DropDownList("Usuario", new SelectList(Model.ObterUsuariosComEmprestimo(), "UsuarioId", "Nome"), "Selecione um Usuário", new { @class = "Usuario" })
+    </div>
+    
+    <div>
+        @Html.Label("Livro")
+        <select id="selectLivro" name="selectLivro" disabled="disabled"></select>
+        <img src="~/Images/loading.gif" id="loading" alt="loading..." style="display: none" />
+
+        @Html.HiddenFor(x=>x.idEmprestimo)
+    </div>
+    
+    <br />
+    
+    <input type="submit" value="Devolver Livro" id="btnDevolver" disabled="disabled" style="visibility: hidden; font-size:10px" />
+}
+

@@ -1,33 +1,33 @@
-﻿@model MvcBiblioteca.Models.DevolucaoViewModel
+﻿@model IEnumerable<Biblioteca.Dominio.Emprestimo>
 
 @{
     ViewBag.Title = "#2 - Devolução";
 }
 
-@section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/biblioteca.js")"></script>
-}
-
-<h2>Devolução</h2>
+<h2>Listagem de Devolução</h2>
 <br />
 <br />
+@Html.ActionLink("Nova Devolução", "Novo")
 
-@using (Html.BeginForm("devolver", "devolucao"))
-{
-    
-    <div>
-        @Html.Label("Usuario")
-        @Html.DropDownList("Usuario", new SelectList(Model.ObterUsuariosComEmprestimo(), "UsuarioId", "Nome"), new { @class = "Usuario" })
-    </div>
-    
-    <div>
-        @Html.Label("Livro")
-        <select id="selectLivro" name="selectLivro" disabled="disabled"></select>
-        @Html.HiddenFor(x=>x.idEmprestimo)
-    </div>
-    
-    <br />
-
-    <input type="submit" value="Devolver" />
-}
+<table>
+    <thead>
+        <tr>
+            <th>Livro
+            </th>
+            <th>Data da Devolução
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emprestimoDevolvido in Model)
+        {
+            <tr>
+                <td>@emprestimoDevolvido.LivroEmprestimo.Titulo
+                </td>
+                <td>@emprestimoDevolvido.DevolvidoEm
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
