@@ -76,7 +76,7 @@ namespace MvcBiblioteca.Models
         }
 
         [DisplayName("Tipo do Usuário")]
-        [Required(ErrorMessage = "O Tipoa de Usuário deve ser informado")]
+        [Required(ErrorMessage = "O Tipoas de Usuário deve ser informado")]
         public TipoUsuario TipoUsuario
         {
             get { return this.usuario.TipoUsuario; }
