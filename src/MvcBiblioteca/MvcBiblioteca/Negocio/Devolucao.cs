@@ -76,7 +76,7 @@ namespace MvcBiblioteca.Negocio
                     try
                     {
                         var emprestimo = bd.Emprestimos.Find(idEmprestimo);
-                        emprestimo.DevolvidoEm = DateTime.Now.Date;
+                        emprestimo.DevolvidoEm = DateTime.Now;
                         bd.Entry(emprestimo).State = EntityState.Modified;
 
                         var ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
