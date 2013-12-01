@@ -26,12 +26,6 @@ namespace MvcBiblioteca.Controllers
             return View(new DevolucaoViewModel());
         }
 
-        public ActionResult Devolver(int idEmprestimo)
-        {
-            devolucao.Devolver(idEmprestimo);
-            throw new NotImplementedException();
-        }
-
         [HttpPost]
         public ActionResult Devolver(DevolucaoViewModel u)
         {
