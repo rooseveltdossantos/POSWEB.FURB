@@ -104,6 +104,38 @@ namespace MvcBiblioteca.Controllers
             return prazo;
         }
 
+        //laheinzen - Sugestão de correção
+        //Minha opnião, o prazo correto deveria ser calculado assim
+        //Mas como não há tempo hábil para conversar com todas as equipes, deixo aqui a sugestão apenas
+        //O enunciado fala em dias, não em horas. 
+        //Sugestão: trocar as chamadas
+        private DateTime GetPrazoEmDias(TipoUsuario tipo)
+        {
+            DateTime hoje = DateTime.Now;
+            DateTime prazo;
+            DateTime hoje2359 = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
+
+            switch (tipo)
+            {
+                case TipoUsuario.Professor:
+                    prazo = hoje2359.AddDays(10);
+                    break;
+                case TipoUsuario.Aluno:
+                    prazo = hoje2359.AddDays(7);
+                    break;
+                case TipoUsuario.Funcionario:
+                    prazo = hoje2359.AddDays(7);
+                    break;
+                case TipoUsuario.ExAluno:
+                    prazo = hoje2359.AddDays(7);
+                    break;
+                default:
+                    prazo = hoje2359;
+                    break;
+            }
+            return prazo;
+        }
+
         public ActionResult Emprestar(int livroId, int usuarioId)
         {
             DateTime hoje = DateTime.Now;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using MvcBiblioteca.Controllers;
 
 namespace MvcBiblioteca.Negocio
 {
@@ -74,12 +75,11 @@ namespace MvcBiblioteca.Negocio
                 {
                     var emprestimo = CarregarEmprestimo(idEmprestimo);
 
-
                     emprestimo.DevolvidoEm = DateTime.Now;
                     bd.Entry(emprestimo).State = EntityState.Modified;
 
-                    var ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
-                    var diasAtraso = ts.Days;
+                    var diasAtraso = CalcularDiasAtraso(emprestimo.DevolverAte, emprestimo.DevolvidoEm.Value);
+                    //var diasAtraso = CalcularDiasAtrasoAlternativo(emprestimo.DevolverAte, emprestimo.DevolvidoEm);
 
                     if (diasAtraso > 0)
                     {
@@ -96,6 +96,11 @@ namespace MvcBiblioteca.Negocio
                         //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
                         //TODO: Isso precisa ser testado ainda, devido a devolução ainda não estar pronta.
                         //ReservaController.removerReserva(bd, emprestimo.LivroEmprestimo.LivroId);
+                        
+                        //laheinzen
+                        //Comentário feito pois o método estava causando erros na Rotina.
+                        //Opnião pessoal: essa chamada não deveria estar aqui.
+                        //A reserva deve ser removida na hora em que o empréstimo é feito.
                     }
                     bd.SaveChanges();
                 }
@@ -106,6 +111,26 @@ namespace MvcBiblioteca.Negocio
                 }
             }
         }
+
+        private int CalcularDiasAtraso(DateTime devolverAte, DateTime devolvidoEm)
+        {
+            //O sistema só gera atraso, caso tenha se passado mais de 24 horas.
+            //Ocorre porque o prazo do empréstimo é feito com base na hora de empréstimo
+            //Com isso, resolvemos condiserar atraso apenas quando passa de 24 horas.
+            //Ex: era pra devolver até 21:00 de 01/12
+            //Se devolver 02/12 as 08hs não conta como atraso. 
+            var ts = devolvidoEm - devolverAte;
+            return ts.Days;
+        }
+
+        //Sugestão de correção. Para corrigir, basta trocar os calculos.
+        //Agora, basta devolver em um dia difrente que considera atraso, não precisa ter passado 24 horas.
+        private int CalcularDiasAtrasoAlternativo(DateTime devolverAte, DateTime devolvidoEm)
+        {
+            var ts = devolvidoEm.Date - devolverAte.Date;
+            return ts.Days;
+        }
+
 
         public IEnumerable<Emprestimo> ObterLivrosDevolvidos()
         {
