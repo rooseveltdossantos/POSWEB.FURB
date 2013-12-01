@@ -1,6 +1,5 @@
 ﻿using Biblioteca.DataAccess;
 using Biblioteca.Dominio;
-using MvcBiblioteca.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +72,9 @@ namespace MvcBiblioteca.Negocio
             {
                 try
                 {
-                    var emprestimo = bd.Emprestimos.Find(idEmprestimo);
+                    var emprestimo = CarregarEmprestimo(idEmprestimo);
+
+
                     emprestimo.DevolvidoEm = DateTime.Now;
                     bd.Entry(emprestimo).State = EntityState.Modified;
 
@@ -140,6 +141,19 @@ namespace MvcBiblioteca.Negocio
                              select e.EmprestimoId).FirstOrDefault();
 
                 return (int)query;
+            }
+        }
+
+
+        private Emprestimo CarregarEmprestimo(int idEmprestimo)
+        {
+            using (var bd = new BibliotecaDatabase())
+            {
+                var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo).Include(j => j.UsuarioEmprestimo)
+                             where e.EmprestimoId == idEmprestimo
+                             select e).FirstOrDefault();
+
+                return query;
             }
         }
 
