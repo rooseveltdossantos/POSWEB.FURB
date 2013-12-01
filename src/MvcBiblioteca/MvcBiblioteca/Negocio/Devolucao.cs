@@ -71,42 +71,37 @@ namespace MvcBiblioteca.Negocio
         {
             using (var bd = new BibliotecaDatabase())
             {
-                using (var transacao = bd.Database.BeginTransaction())
+                try
                 {
-                    try
+                    var emprestimo = bd.Emprestimos.Find(idEmprestimo);
+                    emprestimo.DevolvidoEm = DateTime.Now;
+                    bd.Entry(emprestimo).State = EntityState.Modified;
+
+                    var ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
+                    var diasAtraso = ts.Days;
+
+                    if (diasAtraso > 0)
                     {
-                        var emprestimo = bd.Emprestimos.Find(idEmprestimo);
-                        emprestimo.DevolvidoEm = DateTime.Now;
-                        bd.Entry(emprestimo).State = EntityState.Modified;
+                        var debito = new Debito
+                                            {
+                                                DebitoAtivo = true,
+                                                Emprestimo = emprestimo,
+                                                UsuarioDeb = emprestimo.UsuarioEmprestimo,
+                                                DiasAtraso = diasAtraso
+                                            };
 
-                        var ts = emprestimo.DevolvidoEm.Value - emprestimo.DevolverAte;
-                        var diasAtraso = ts.Days;
+                        bd.Debitos.Add(debito);
 
-                        if (diasAtraso > 0)
-                        {
-                            var debito = new Debito
-                                                {
-                                                    DebitoAtivo = true,
-                                                    Emprestimo = emprestimo,
-                                                    UsuarioDeb = emprestimo.UsuarioEmprestimo,
-                                                    DiasAtraso = diasAtraso
-                                                };
-
-                            bd.Debitos.Add(debito);
-
-                            //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
-                            //TODO: Isso precisa ser testado ainda, devido a devolução ainda não estar pronta.
-                            ReservaController.removerReserva(bd, emprestimo.LivroEmprestimo.LivroId);
-                        }
-
-                        transacao.Commit();
-                        bd.SaveChanges();
+                        //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
+                        //TODO: Isso precisa ser testado ainda, devido a devolução ainda não estar pronta.
+                        //ReservaController.removerReserva(bd, emprestimo.LivroEmprestimo.LivroId);
                     }
-                    catch (Exception ex)
-                    {
-                        transacao.Rollback();
-                        throw ex;
-                    }
+                    bd.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
                 }
             }
         }
@@ -141,6 +136,7 @@ namespace MvcBiblioteca.Negocio
             {
                 var query = (from e in bd.Emprestimos.Include(j => j.LivroEmprestimo)
                              where e.LivroEmprestimo.LivroId == idLivro && e.UsuarioEmprestimo.UsuarioId == idUsuario
+                             && !e.DevolvidoEm.HasValue
                              select e.EmprestimoId).FirstOrDefault();
 
                 return (int)query;
