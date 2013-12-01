@@ -65,18 +65,7 @@ namespace MvcBiblioteca.Controllers
         public ActionResult Index(int livroId)
         {
             return View(getReserva(livroId));
-        }
-
-        public static void removerReserva(BibliotecaDatabase bd, int livroId)
-        {
-            ReservaLivro reserva = ReservaController.getReserva(livroId);
-            if (reserva != null && reserva.ReservaLivroId > 0)
-            {
-                reserva.Situacao = false;//Libera a reserva
-                bd.Entry(reserva).State = EntityState.Modified; //Sinaliza que foi alterado.
-            }
-            
-        }
+        }       
         
         
         public ActionResult Reservar(int livroId)
