@@ -140,6 +140,7 @@ namespace MvcBiblioteca.Controllers
         {
             DateTime hoje = DateTime.Now;
             string msg = ("");
+            bool reservado = false;
 
             try
             {
@@ -163,7 +164,8 @@ namespace MvcBiblioteca.Controllers
                     // Verifica se o livro está reservado
                     //Márcio Koch: Ajustada a verificação da reserva do livro.
                     ReservaLivro reserva = ReservaController.getReserva(livroId);
-                    if (reserva != null && reserva.ReservaLivroId > 0 && !reserva.UsuarioDeb.UsuarioId.Equals(usuarioId))
+                    reservado = reserva != null && reserva.ReservaLivroId > 0;
+                    if (reservado && !reserva.UsuarioDeb.UsuarioId.Equals(usuarioId))
                     {
                         msg = ("O livro " + livro.Titulo + " está reservado para outro usuário.");
                         throw new Exception(msg);
@@ -186,6 +188,14 @@ namespace MvcBiblioteca.Controllers
                         DateTime prazo = GetPrazo(usuario.TipoUsuario);
                         Emprestimo emprestimo = new Emprestimo { LivroEmprestimo = livro, UsuarioEmprestimo = usuario, RetiradoEm = hoje, DevolverAte = prazo };
                         bd.Emprestimos.Add(emprestimo);
+
+                        //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
+                        if (reservado)
+                        {                            
+                            reserva = bd.Reservas.Find(reserva.ReservaLivroId);
+                            reserva.Situacao = false;//Libera a reserva                            
+                        }
+
                         bd.SaveChanges();
                         msg = ("Livro emprestado com sucesso, com prazo até " + prazo + " " + msg);
                     }

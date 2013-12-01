@@ -92,15 +92,6 @@ namespace MvcBiblioteca.Negocio
                                             };
 
                         bd.Debitos.Add(debito);
-
-                        //Márcio Koch - Libera a reserva do livro, caso ele esteja reservado.
-                        //TODO: Isso precisa ser testado ainda, devido a devolução ainda não estar pronta.
-                        //ReservaController.removerReserva(bd, emprestimo.LivroEmprestimo.LivroId);
-                        
-                        //laheinzen
-                        //Comentário feito pois o método estava causando erros na Rotina.
-                        //Opnião pessoal: essa chamada não deveria estar aqui.
-                        //A reserva deve ser removida na hora em que o empréstimo é feito.
                     }
                     bd.SaveChanges();
                 }
