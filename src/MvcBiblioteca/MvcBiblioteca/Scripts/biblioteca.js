@@ -120,4 +120,10 @@
         source: "/Debitos/Procurar",
         minLength: 2
     });
+
+    // Angel Vitor Lopes :: Inserir Titles para alguns botões
+    $(".linkComentarios").attr('title', 'Visualizar/Inserir comentários');
+    $(".linkEmprestimo").attr('title', 'Realizar empréstimo do Livro');
+    $(".linkReserva").attr('title', 'Realizar reserva do Livro');
+
 });

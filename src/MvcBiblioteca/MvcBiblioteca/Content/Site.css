@@ -784,7 +784,11 @@ a.linkComentarios
 
 a.linkReserva
 {
-    color:red;   
+    background: url(../images/reservar.png) no-repeat top left;
+    display: block;
+    width: 16px;
+    height: 16px;
+    text-indent: -999999px;  
 }
 
 a.linkEmprestimo
