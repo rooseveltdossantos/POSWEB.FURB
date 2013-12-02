@@ -110,14 +110,15 @@ namespace MvcBiblioteca.Controllers
             return View();
         }
 
-        public void CancelaReserva(ReservaLivro livroReservado)
-        {
-            using (var bd = new BibliotecaDatabase())
-            {
-                bd.Reservas.Remove(livroReservado);
-                bd.SaveChanges();
-            }
-        }
+        // Angel Vitor Lopes :: Cancelar Reserva não é mais necessário
+        //public void CancelaReserva(ReservaLivro livroReservado)
+        //{
+        //    using (var bd = new BibliotecaDatabase())
+        //    {
+        //        bd.Reservas.Remove(livroReservado);
+        //        bd.SaveChanges();
+        //    }
+        //}
     
 
     }
