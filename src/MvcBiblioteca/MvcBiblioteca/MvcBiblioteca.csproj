@@ -194,10 +194,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\banco.mdf" />
-    <Content Include="App_Data\banco_log.ldf">
-      <DependentUpon>banco.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -258,7 +254,6 @@
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\emprestar.png" />
-    <Content Include="Images\loading.gif" />
     <Content Include="Images\pagamento.png" />
     <Content Include="POSWEB.Trabalho-Final.txt" />
     <Content Include="Scripts\biblioteca.js" />
@@ -372,10 +367,11 @@
     <Content Include="Views\Emprestimos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Reserva\Erro.cshtml" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Devolucao\Novo.cshtml" />
+    <Content Include="Views\Reserva\Erro.cshtml" />
+    <Content Include="Views\Reserva\ReservaEfetuadaComSucesso.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

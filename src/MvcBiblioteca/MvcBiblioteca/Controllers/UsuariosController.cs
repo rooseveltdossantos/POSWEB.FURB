@@ -54,6 +54,7 @@ namespace MvcBiblioteca.Controllers
                             if (usuario.TipoUsuario == TipoUsuario.Operador)
                             {
                                 Roles.AddUserToRole(usuario.Login, "PodeAdicionarLivro");
+                                Roles.AddUserToRole(usuario.Login, "PodeEmprestar");
                             }
 
 

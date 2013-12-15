@@ -7,6 +7,10 @@
 	#1:	dflenzi , saddambea, alebae 
 		- Ao cadastrar um usuário, no atual cadastro de usuários, inserir também na tabela de usuários da aplicação
 		- Deve ser permitido a essa pessoa fazer login no sistema, com o privilégio (Role) definida pelo Tipo de Usuário
+		## OBSERVAÇÃO: 
+				++ Deveria ter criado uma estratégia de um usuário poder emprestar o livro. Da forma que ficou só o usuário Admin pode emprestar livros.
+				++ A atual implementação funciona, porém fica sem função dentro da aplicação
+		################################################################################################################################################
 		
 	#2:	felipechrist, rodrigomuller
 		- Desenvolver uma funcionalidade de empréstimo onde
@@ -20,6 +24,11 @@
 					+ Para funcionários o prazo do empréstimo é de 7 dias e a quantidade de livros emprestados é no máximo 3
 					+ Para ex-alunos o prazo do empréstimo é de 7 dias e a quantidade de livros emprestados é no máximo 1
 				* Registrar o empréstimo do livro
+		## OBSERVAÇÃO: 
+				++ Penso que a questão de apresentar com Select's (combobox) a lista de usuários e de livros não é uma abordagem interessante. Imagine se existisse milhares de livros e usuários.
+				++ Essa abordagem, também "induz" que o usuário não saiba que existe um determinado livro, porque o Select (combobox) só apresenta os livros que estão disponíveis.
+		###########################################################################################################################################################################################
+
 				
 	#3:	laheinzen, michaelgeekbnu, sandrobugmann
 		- Desenvolver a funcionalidade de devolução onde
@@ -27,7 +36,12 @@
 			-> Dado um livro 
 			-> Executar a devolução
 				-> Caso a devolução ocorra com atraso, deve ser gerado um registro de débito para a pessoa
-				
+	## OBSERVAÇÃO: 
+		++ A questão dos Select's (combobox) que comentei no aprimoramento #2 vale pra este aprimoramento também.
+		++ sandrobugmann Não teve commit's?
+	###########################################################################################################################################################################################
+
+	
 	#4: ARJBnu, JCZingel
 		- Desenvolver a funcionalidade de manutenção financeira
 			-> Listar os registros de débito do mais atual para o mais velho, contendo o valor devido sendo que será cobrado R$ 2,00 por dia de atraso
@@ -40,6 +54,10 @@
 			-> Listar os empréstimos realizados por uma pessoa, com as seguintes opções
 				- Opção 01: Livro, Data do Empréstimo, Data da Devolução, Usuário (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o livro
 				- Opção 02: Usuário, Data do Empréstimo, Data da Devolução, Livro (Ordenado por Data da Devolução, da mais recente para a mais antiga): Indicar o usuário
+	## OBSERVAÇÃO: 
+		++ Aprimoramento não funciona! O controller possui alguns métodos, mas não há View que apresente o resultado das Actions
+	###########################################################################################################################################################################################
+
 				
 	#6: vitorbq, locokoch, thiagomariann
 		- Reserva
@@ -49,6 +67,9 @@
 			-> Permitir verificar a disponibilidade do livro
 			-> Permitir fazer a reserva do livro
 			-> Dado que um livro foi reservado, o empréstimo desse livro só deve ser realizado ao usuário que fez a reserva
+	## OBSERVAÇÃO: 
+		++ Creio que não precisava daquele link extra para reservar o livro, logo após clicar no link de reserva na lista de livros.
+	###########################################################################################################################################################################################
 			
 	
 				
@@ -61,3 +82,66 @@
 - O prazo de entrega para estes aprimoramentos será para 01/12/2013 as 17:00. Qualquer commit após essa data, não será considerado.
 
 Dica: Cada pequena implementação (criação da classe, criação de um controller, action ou view) dê um commit! Isso permitirá acompanhar o andamento da aplicação e servirá de avaliação do trabalho realizado pela equipe e pelo indivíduo.
+
+ +-----------------------+------------+------------+------------+
+ |                       | COMMIT 01  | COMMIT 02  | COMMIT 03  |
+ +-----------------------+------------+------------+------------+
+ | dflenzi               |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | saddambea             |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | alebae                |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | felipechrist          |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | rodrigomuller         |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | laheinzen             |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | michaelgeekbnu        |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | sandrobugmann         |    OK      |    OK      |     OK     |
+ +-----------------------|------------|------------|------------|
+ | ARJBnu                |   OK       |   OK       |    OK      |
+ +-----------------------|------------|------------|------------|
+ | JCZingel              |   OK       |   OK       |    OK      |
+ +-----------------------|------------|------------|------------|
+ | andreos-trainotti     |   OK       |   OK       |    OK      |
+ +-----------------------|------------|------------|------------|
+ | apokalypsi            |   OK       |   OK       |    OK      |
+ +-----------------------|------------|------------|------------|
+ | joaoluizSK            |   OK       |   OK       |    OK      |
+ +-----------------------|------------|------------|------------|
+ | vitorbq               |   OK       |   OK       |    NAO     |
+ +-----------------------|------------|------------|------------|
+ | locokoch              |   OK       |   OK       |    OK      |
+ +-----------------------|------------|------------|------------|
+ | thiagomariann         |   OK       |   OK       |    OK      |
+ +-----------------------+------------+------------+------------+
+ 
+ 
+
+ Roteiro de Avaliação:
+ 01 - Fazer o login com o usuário "admin"
+ 02 - Cadastrar o "usuario 01" com o tipo de pessoa Professor
+ 03 - Cadastrar o "usuario 02" com o tipo de pessoa Aluno
+ 04 - Cadastrar o "usuario 03" com o tipo de pessoa Ex aluno
+ 05 - Cadastrar o "usuario 04" com o tipo de pessoa Funcionário
+ 06 - Cadastrar o "usuario 05" com o tipo de pessoa Operador
+ 07 - Cadastrar o "Livro 01"
+ 08 - Cadastrar o "Livro 02"
+ 09 - Cadastrar o "Livro 03"
+ 10 - Cadastrar o "Livro 04"
+ 11 - Realizar o Login com o "Usuario 05"
+ 12 - Emprestar o "Livro 01" para o "usuario 01"
+ 13 - Emprestar o "Livro 02" para o "usuario 02"
+ 14 - Emprestar o "Livro 03" para o "usuario 03"
+ 15 - Emprestar o "Livro 04" para o "usuario 04"
+ 16 - Devolver o "Livro 03" em atraso
+ 17 - Devolver o "Livro 02" em atraso
+ 18 - Permitir fazer o pagamento dos débitos do "usuario 03"
+ 19 - Tentar realizar o empréstimo do "Livro 02"
+ 20 - Reservar o "Livro 01" para o "usuario 03"
+ 21 - Verificar o histórico dos livros e dos usuários.
+
+
